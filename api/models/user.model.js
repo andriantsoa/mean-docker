@@ -1,5 +1,5 @@
 // user.model.js
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 require('mongoose-type-email');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;

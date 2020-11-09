@@ -33,8 +33,8 @@ exports.new = function (req, res) {
         message: req.body.firstname + " is already exist"
       });
     } else {
-      var contact = new Contact();
-      var contactObj = req.body;
+      const contact = new Contact();
+      const contactObj = req.body;
       Object.keys(contactObj).forEach((key, index) => {
         contact[key] = contactObj[key];
       });

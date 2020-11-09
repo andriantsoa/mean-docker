@@ -1,8 +1,8 @@
 // userController.js
 // Import user model
 User = require("../models/user.model");
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 // Handle index actions
 
 const environment = require("../config/environment");
@@ -22,6 +22,7 @@ exports.index = function (req, res) {
     });
   });
 };
+
 // Handle create user actions
 exports.new = function (req, res) {
   User.find({ username: req.body.username.trim() }, function (err, users) {
@@ -37,7 +38,7 @@ exports.new = function (req, res) {
         message: req.body.username + " is already taken"
       });
     } else {
-      var user = new User();
+      const user = new User();
       user.username = req.body.username;
       user.email = req.body.username;
       if (req.body.password) {
@@ -61,6 +62,7 @@ exports.new = function (req, res) {
     }
   });
 };
+
 // Handle view user info
 exports.view = function (req, res) {
   User.findById(req.params.user_id, function (err, user) {
@@ -76,6 +78,7 @@ exports.view = function (req, res) {
     });
   });
 };
+
 // Handle update user info
 exports.update = function (req, res) {
   User.findByIdAndUpdate(req.params.user_id, req.body, { new: true }, function (
@@ -95,6 +98,7 @@ exports.update = function (req, res) {
     });
   });
 };
+
 // Handle delete user
 exports.delete = function (req, res) {
   User.remove(
@@ -117,7 +121,7 @@ exports.delete = function (req, res) {
 };
 
 exports.authenticate = function (req, res) {
-  User.findOne({ username: req.body.username }, function (err, user) {
+  User.findOne({ email: req.body.email }, function (err, user) {
     if (err) {
       res.status(400).json({
         status: "error",
