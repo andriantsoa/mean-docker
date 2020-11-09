@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./feature/user/user.module').then((module) => module.UserModule)
+    loadChildren: () => import('./asako-public/asako-public.module').then((module) => module.AsakoPublicModule)
   },
   {
-    path: 'contacts',
-    // canActivate: [AuthGuard],
-    loadChildren: () => import('./feature/contact/contact.module').then((module) => module.ContactModule)
-  }
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then((module) => module.DashboardModule)
+  },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -20,6 +20,8 @@ const routes: Routes = [
       initialNavigation: 'enabled'
     })
   ],
-  exports: [RouterModule]
+  exports: [
+    RouterModule
+  ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
