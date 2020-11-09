@@ -1,0 +1,21 @@
+.menu-bar-spacer {
+  flex: 1 1 auto;
+}
+
+.menu-bar-spacer-2 {
+  flex: 1 5 auto;
+}
+
+.menu-bar-button {
+  margin:0px 5px;
+}
+
+@media (max-width: 380px) and (min-width: 296px) {
+  .menu-navigator-selector {
+    display: none;
+  }
+
+  .menu-bar-button {
+    display: none;
+  }
+}

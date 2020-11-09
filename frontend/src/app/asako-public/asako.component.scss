@@ -1,0 +1,16 @@
+.asako-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  &-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.asako-container > div {
+  width: 100%;
+}

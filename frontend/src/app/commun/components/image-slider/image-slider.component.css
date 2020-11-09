@@ -1,0 +1,15 @@
+.slider-container {
+  width: 60%;
+  /* height: 100%; */
+  text-align:center;
+  margin: auto;
+  padding: 15px;
+  /* flex: 1; */
+}
+
+
+@media (max-width: 380px) and (min-width: 296px) {
+  /* .ng-image-slider {
+    height: 50%;
+  } */
+}
