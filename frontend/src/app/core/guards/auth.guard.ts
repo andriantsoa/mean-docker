@@ -10,7 +10,7 @@ import {
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (typeof window !== 'undefined') {
       if (localStorage.getItem('currentUser')) {
         // logged in so return true

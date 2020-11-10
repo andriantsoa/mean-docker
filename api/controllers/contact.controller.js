@@ -30,11 +30,11 @@ exports.new = function (req, res) {
     if (contacts && contacts.length > 0) {
       res.status(400).send({
         status: "error",
-        message: req.body.firstName + " is already exist"
+        message: req.body.firstname + " is already exist"
       });
     } else {
-      var contact = new Contact();
-      var contactObj = req.body;
+      const contact = new Contact();
+      const contactObj = req.body;
       Object.keys(contactObj).forEach((key, index) => {
         contact[key] = contactObj[key];
       });

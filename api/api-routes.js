@@ -2,7 +2,7 @@
 // Initialize express router
 let router = require("express").Router();
 // Set default API response
-router.get("/", function(req, res) {
+router.get("/", function (req, res) {
   res.json({
     status: "API Its Working",
     message: "Welcome to RESTHub crafted with love!"
@@ -10,7 +10,7 @@ router.get("/", function(req, res) {
 });
 
 // Import user controller
-var userController = require("./controllers/users.controller");
+const userController = require("./controllers/users.controller");
 // user routes
 router
   .route("/users")
@@ -28,7 +28,7 @@ router
   .put(userController.changePassword);
 
 // Import Contact controller
-var contactController = require("./controllers/contact.controller");
+const contactController = require("./controllers/contact.controller");
 // Contact routes
 router
   .route("/contacts")

@@ -1,0 +1,44 @@
+div {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+
+.content-card {
+  margin: 10px;
+  padding: 5%;
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.content-form-full {
+  width: 100%;
+  margin: 10px;
+}
+
+.form-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.form-radio-button {
+  margin: 5px;
+}
+
+.form-text-sm {
+  color: darkgrey;
+  font-size: 10px;
+}
+
+mat-card-actions {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-flow: column-reverse;
+}

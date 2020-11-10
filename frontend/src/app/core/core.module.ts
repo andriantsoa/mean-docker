@@ -1,24 +1,30 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 import { AlertComponent, AlertService, ValidationMessagesComponent, ValidationService } from './components/index';
 import { AuthGuard } from './guards/index';
 import { JwtInterceptorProvider, ErrorInterceptorProvider } from './helpers/index';
 import { LayoutModule } from './layout/layout.module';
-import { UserService } from './services';
+import { CryptoService, UserService } from './services';
 
 @NgModule({
-  imports: [CommonModule, HttpClientModule, ToastrModule.forRoot(), LayoutModule],
-  declarations: [AlertComponent, ValidationMessagesComponent],
-  exports: [AlertComponent, ValidationMessagesComponent, ToastrModule, LayoutModule]
+  imports: [
+    CommonModule, HttpClientModule, LayoutModule
+  ],
+  declarations: [
+    AlertComponent, ValidationMessagesComponent
+  ],
+  exports: [
+    AlertComponent, ValidationMessagesComponent, LayoutModule
+  ],
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders<CoreModule> {
     return {
       ngModule: CoreModule,
-      providers: [AuthGuard, UserService, AlertService, ValidationService, JwtInterceptorProvider, ErrorInterceptorProvider, ToastrService]
+      providers: [
+        AuthGuard, UserService, CryptoService, AlertService, ValidationService, JwtInterceptorProvider, ErrorInterceptorProvider],
     };
   }
 }

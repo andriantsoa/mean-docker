@@ -1,0 +1,9 @@
+<div class="container">
+	<div class="sliders">
+		<ng-container *ngFor="let img of imgList; let i = index">
+			<div class="slider" *ngIf="current == i" @fade>
+				<img class="img" [src]="img">
+			</div>
+		</ng-container>
+	</div>
+</div>

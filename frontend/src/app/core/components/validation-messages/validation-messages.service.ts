@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 export class ValidationService {
   constructor() {}
 
-  getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
+  getValidatorErrorMessage(validatorName: string, validatorValue?: any): any {
     const config: any = {
       required: 'Required',
       invalidCreditCard: 'Is invalid credit card number',
@@ -19,7 +19,7 @@ export class ValidationService {
     return config[validatorName];
   }
 
-  emailValidator(control: any) {
+  emailValidator(control: any): any {
     // RFC 2822 compliant regex
     // tslint:disable-next-line:max-line-length
     if (
@@ -33,7 +33,7 @@ export class ValidationService {
     }
   }
 
-  mobileValidator(control: any) {
+  mobileValidator(control: any): any {
     // RFC 2822 compliant regex
     if (control.value.match(/^(\+\d{1,3}[- ]?)?\d{10}$/)) {
       return null;
@@ -41,7 +41,8 @@ export class ValidationService {
       return { invalidMobile: true };
     }
   }
-  MustMatch(controlName: string, matchingControlName: string) {
+
+  MustMatch(controlName: string, matchingControlName: string): any {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];

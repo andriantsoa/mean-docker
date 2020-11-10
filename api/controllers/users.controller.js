@@ -1,8 +1,8 @@
 // userController.js
 // Import user model
-User = require("../models/user.model");
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+const User = require("../models/user.model");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 // Handle index actions
 
 const environment = require("../config/environment");
@@ -22,6 +22,7 @@ exports.index = function (req, res) {
     });
   });
 };
+
 // Handle create user actions
 exports.new = function (req, res) {
   User.find({ username: req.body.username.trim() }, function (err, users) {
@@ -37,14 +38,11 @@ exports.new = function (req, res) {
         message: req.body.username + " is already taken"
       });
     } else {
-      var user = new User();
-      user.username = req.body.username;
-      user.email = req.body.username;
+      const user = new User(req.body)
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 10);
       }
-      user.firstName = req.body.firstName;
-      user.lastName = req.body.lastName;
+
       // save the user and check for errors
       user.save(function (err) {
         if (err) {
@@ -61,6 +59,7 @@ exports.new = function (req, res) {
     }
   });
 };
+
 // Handle view user info
 exports.view = function (req, res) {
   User.findById(req.params.user_id, function (err, user) {
@@ -76,6 +75,7 @@ exports.view = function (req, res) {
     });
   });
 };
+
 // Handle update user info
 exports.update = function (req, res) {
   User.findByIdAndUpdate(req.params.user_id, req.body, { new: true }, function (
@@ -95,6 +95,7 @@ exports.update = function (req, res) {
     });
   });
 };
+
 // Handle delete user
 exports.delete = function (req, res) {
   User.remove(
@@ -117,7 +118,7 @@ exports.delete = function (req, res) {
 };
 
 exports.authenticate = function (req, res) {
-  User.findOne({ username: req.body.username }, function (err, user) {
+  User.findOne({ email: req.body.username }, function (err, user) {
     if (err) {
       res.status(400).json({
         status: "error",
@@ -131,10 +132,18 @@ exports.authenticate = function (req, res) {
         algorithm: "HS256"
       });
       delete user.password;
+      const data = {
+        city: user.city,
+        notifications: user.notifications,
+        role: user.role,
+        token: user.token,
+        username: user.username,
+        _id: user._id
+      };
       res.json({
         status: "success",
         message: "Users retrieved successfully",
-        data: user
+        data
       });
     } else {
       // authentication failed

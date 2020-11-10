@@ -1,0 +1,46 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="form-container">
+
+    <mat-form-field appearance="outline" class="form-container-section">
+      <mat-label>Metier ou mot-clés</mat-label>
+      <input matInput formControlName="keyword" [matAutocomplete]="auto">
+      <mat-icon matSuffix>search</mat-icon>
+      <mat-hint>Quoi ?</mat-hint>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let state of filteredMetiers | async" [value]="state.name">
+          <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
+          <span>{{state.name}}</span> |
+          <small> {{state.population}}</small>
+        </mat-option>
+      </mat-autocomplete>
+      <div *ngIf="f.keyword.touched && f.keyword.invalid" class="alert alert-danger">
+        <div *ngIf="f.keyword.errors.required">keyword is required.</div>
+        <div *ngIf="f.keyword.errors.minlength">keyword should be 3 character.</div>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-container-section">
+      <mat-label>Ville ou code postale</mat-label>
+      <input matInput formControlName="city" id="city" type="text" class="example-right-align">
+      <mat-icon matSuffix>location_on</mat-icon>
+      <mat-hint>Ou ?</mat-hint>
+
+      <div *ngIf="f.city.touched && f.city.invalid" class="alert alert-danger">
+        <div *ngIf="f.city.errors.required">city is required.</div>
+        <div *ngIf="f.city.errors.city">Please, enter valid city address.</div>
+      </div>
+    </mat-form-field>
+
+    <div class="form-actions form-container-section">
+      <button mat-raised-button color="primary" type="submit">
+        Rechercher
+      </button>
+      <!-- <button mat-stroked-button color="accent" (click)="resetForm()" *ngIf="f.city || f.keyword">
+        <mat-icon matSuffix>refresh</mat-icon>
+      </button>
+      <button mat-stroked-button color="warn" (click)="initForm()" *ngIf="f.city || f.keyword">
+        <mat-icon matSuffix>refresh</mat-icon>
+      </button> -->
+    </div>
+  </div>
+</form>

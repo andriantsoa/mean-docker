@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -6,12 +6,23 @@ import { LayoutComponent } from './layout.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { SharedModule } from '../../shared/shared.module';
+import { CommunModule } from './../../commun/commun.module';
+
+const components = [
+  LayoutComponent, HeaderComponent, FooterComponent, SidebarComponent
+];
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, SidebarComponent],
-  imports: [RouterModule, CommonModule, SharedModule],
-  exports: [LayoutComponent, HeaderComponent, FooterComponent, SidebarComponent],
+  declarations: [
+    ...components
+  ],
+  imports: [
+    RouterModule, CommonModule,
+    CommunModule
+  ],
+  exports: [
+    ...components
+  ],
   providers: []
 })
 export class LayoutModule {

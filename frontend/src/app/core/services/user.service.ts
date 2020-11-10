@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { User } from '../models/user.interface';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  getAll() {
+  public getAll(): Observable<User[]> {
     return this.http.get<User[]>(environment.apiEndpoint + '/users').pipe(
       map((users: any) => {
         return users.data;
@@ -16,37 +17,38 @@ export class UserService {
     );
   }
 
-  getById(_id: string) {
-    return this.http.get<User>(environment.apiEndpoint + '/user/' + _id).pipe(
+  public getById(userId: string): Observable<User> {
+    return this.http.get<User>(environment.apiEndpoint + '/user/' + userId).pipe(
       map((user: any) => {
         return user.data;
       })
     );
   }
-  getCurrentUser(): User {
+
+  public getCurrentUser(): User {
     if (localStorage.getItem('currentUser')) {
       const user = JSON.parse(localStorage.getItem('currentUser'));
       return user;
     }
   }
 
-  create(user: User) {
+  public create(user: User): Observable<any>{
     return this.http.post(environment.apiEndpoint + '/users', user);
   }
 
-  update(user: User) {
+  public update(user: User): Observable<User> {
     return this.http.put<User>(environment.apiEndpoint + '/user/' + user._id, user).pipe(
-      map((user: any) => {
-        return user.data;
+      map((u: any) => {
+        return u.data;
       })
     );
   }
 
-  changePassword(id: string, password: any) {
-    return this.http.put(environment.apiEndpoint + '/user/changepassword/' + id, { password: password }).pipe(map((res: any) => res.data));
+  public changePassword(id: string, password: any): Observable<any> {
+    return this.http.put(environment.apiEndpoint + '/user/changepassword/' + id, { password }).pipe(map((res: any) => res.data));
   }
 
-  delete(_id: string) {
-    return this.http.delete(environment.apiEndpoint + '/user/' + _id);
+  public delete(userId: string): Observable<any> {
+    return this.http.delete(environment.apiEndpoint + '/user/' + userId);
   }
 }

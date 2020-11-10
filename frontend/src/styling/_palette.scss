@@ -1,0 +1,144 @@
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+/* For use in src/lib/core/theming/_palette.scss */
+$md-primary: (
+  50: #e1e5e8,
+  100: #b3bdc6,
+  200: #8192a1,
+  300: #4f667b,
+  400: #29455e,
+  500: #032442,
+  600: #03203c,
+  700: #021b33,
+  800: #02162b,
+  900: #010d1d,
+  A100: #5b8bff,
+  A200: #2867ff,
+  A400: #0048f4,
+  A700: #0040da,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff
+  )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-accent: (
+  50: #faeee2,
+  100: #f2d5b6,
+  200: #eab985,
+  300: #e19c54,
+  400: #da8730,
+  500: #d4720b,
+  600: #cf6a0a,
+  700: #c95f08,
+  800: #c35506,
+  900: #b94203,
+  A100: #ffeae2,
+  A200: #ffc6af,
+  A400: #ffa17c,
+  A700: #ff8f63,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-warn: (
+  50: #f6e4e4,
+  100: #e8bcbc,
+  200: #d99090,
+  300: #c96363,
+  400: #be4141,
+  500: #b22020,
+  600: #ab1c1c,
+  700: #a21818,
+  800: #991313,
+  900: #8a0b0b,
+  A100: #ffb9b9,
+  A200: #ff8686,
+  A400: #ff5353,
+  A700: #ff3a3a,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #ffffff
+  )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-success: (
+  50: #e6efe2,
+  100: #c1d6b6,
+  200: #97bb85,
+  300: #6d9f54,
+  400: #4e8b30,
+  500: #2f760b,
+  600: #2a6e0a,
+  700: #236308,
+  800: #1d5906,
+  900: #124603,
+  A100: #8eff7a,
+  A200: #63ff47,
+  A400: #37ff14,
+  A700: #25fa00,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
