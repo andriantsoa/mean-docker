@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ValidationService } from 'src/app/core/components';
 import { CryptoService, UserService } from 'src/app/core/services';
+import { Role } from './../../enum/role.enum';
 
 @Component({
   selector: 'app-asako-registration',
@@ -11,7 +12,13 @@ import { CryptoService, UserService } from 'src/app/core/services';
 })
 export class AsakoRegistrationComponent implements OnInit {
 
-  public Roles: any = ['Admin', 'Entreprise', 'Candidat'];
+  // public rolesKey = Object.keys(Role);
+  public Roles = Object.keys(Role)
+    .filter(value => isNaN(Number(value)) === true)
+    .map(key => ({ value: Role[key], label: key }));
+  // public Roles = this.rolesKey.map(element => {
+  //   return { label: element, value: Role[element] };
+  // });
   public titles: any = ['Mr', 'Mme'];
 
   public formRegister: FormGroup;
@@ -37,8 +44,8 @@ export class AsakoRegistrationComponent implements OnInit {
       password: new FormControl('', [Validators.required, Validators.minLength(3)]),
       confirmPassword: new FormControl('', [Validators.required]),
       city: new FormControl(''),
-      role: new FormControl(this.Roles[3], [Validators.required]),
-      acceptTerms:  new FormControl(false, [Validators.requiredTrue]),
+      role: new FormControl(Role, [Validators.required]),
+      acceptTerms: new FormControl(false, [Validators.requiredTrue]),
     }, {
       validator: this.validationService.MustMatch('password', 'confirmPassword')
     });
@@ -47,7 +54,7 @@ export class AsakoRegistrationComponent implements OnInit {
   public ngOnInit(): void {
   }
 
-  public onSubmit(): void{
+  public onSubmit(): void {
     this.submitted = true;
 
     if (this.formRegister.invalid) {

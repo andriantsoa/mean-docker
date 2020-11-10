@@ -25,6 +25,7 @@ exports.index = function (req, res) {
 
 // Handle create user actions
 exports.new = function (req, res) {
+  console.log(req);
   User.find({ username: req.body.username.trim() }, function (err, users) {
     if (err) {
       res.status(400).json({

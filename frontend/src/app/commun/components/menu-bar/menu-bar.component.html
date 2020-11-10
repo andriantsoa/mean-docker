@@ -13,7 +13,7 @@
     <span class="menu-bar-spacer"></span>
 
     <button mat-stroked-button [routerLink]="['/login']" class="menu-bar-button">Se connecter</button>
-    <button mat-raised-button [routerLink]="['/register']" >S'inscrire</button>
+    <button mat-raised-button [routerLink]="['/register']">S'inscrire</button>
     <button mat-icon-button class="menu-bar-icon" [matMenuTriggerFor]="menu" aria-label="Menu">
       <mat-icon>menu</mat-icon>
     </button>
@@ -38,9 +38,8 @@
   </mat-toolbar-row>
 
   <mat-toolbar-row class="menu-navigator-selector">
-
     <span class="menu-bar-spacer-2"></span>
-    <img src="assets/images/logo-asako.png" width="10%" alt="entete">
+    <img src="assets/images/logo-asako.png" width="10%" alt="entete" />
 
     <span class="menu-bar-spacer-2"></span>
     <!-- <mat-tab-group>
@@ -50,18 +49,15 @@
       <mat-tab-link label="INFOS"></mat-tab>
     </mat-tab-group> -->
     <nav mat-tab-nav-bar>
-      <a mat-tab-link *ngFor="let nav of navigations"
-         (click)="updateNav(nav)"
-         [active]="nav.active">
-         {{ nav.label | uppercase }}
+      <a mat-tab-link *ngFor="let nav of navigations" (click)="updateNav(nav)" [active]="nav.active">
+        {{ nav.label | uppercase }}
       </a>
     </nav>
-    
+
     <span class="menu-bar-spacer-2"></span>
     <span class="menu-bar-spacer-2"></span>
     <!-- <button mat-icon-button class="menu-bar-icon" aria-label="Example icon-button with share icon">
       <mat-icon>share</mat-icon>
     </button> -->
-
   </mat-toolbar-row>
 </mat-toolbar>

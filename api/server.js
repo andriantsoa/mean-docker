@@ -80,7 +80,7 @@ app.use(
 // Use Api routes in the App
 app.use("/api", apiRoutes);
 
-const HOST = "0.0.0.0";
+const HOST = "127.0.0.1";
 // start server
 // Launch app to listen to specified port
 const server = app.listen(process.env.EXPRESS_PORT || 3000, HOST, () => {
