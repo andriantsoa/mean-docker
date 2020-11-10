@@ -12,17 +12,22 @@
     </button>
     <span class="menu-bar-spacer"></span>
 
-    <button mat-stroked-button [routerLink]="['/login']" class="menu-bar-button">Se connecter</button>
-    <button mat-raised-button [routerLink]="['/register']">S'inscrire</button>
+    <button mat-stroked-button [routerLink]="['/profil']" class="menu-bar-button" *ngIf="connectedUser">
+      {{ connectedUser.username | titlecase }}
+    </button>
+    <button mat-stroked-button [routerLink]="['/login']" (click)="onLoggedout()" class="menu-bar-button" *ngIf="!connectedUser">
+      Se connecter
+    </button>
+    <button mat-raised-button [routerLink]="['/register']" *ngIf="!connectedUser">S'inscrire</button>
     <button mat-icon-button class="menu-bar-icon" [matMenuTriggerFor]="menu" aria-label="Menu">
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['/dashboard/candidat']">
+      <button mat-menu-item [routerLink]="['/dashboard/candidat']" (click)="updateNav(navigations[1])">
         <mat-icon>dialpad</mat-icon>
         <span>Candidat</span>
       </button>
-      <button mat-menu-item [routerLink]="['/dashboard/entreprise']">
+      <button mat-menu-item [routerLink]="['/dashboard/entreprise']" (click)="updateNav(navigations[2])">
         <mat-icon>voicemail</mat-icon>
         <span>Entreprise</span>
       </button>
@@ -33,6 +38,10 @@
       <button mat-menu-item>
         <mat-icon>notifications_off</mat-icon>
         <span>Mon compte</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/login']" (click)="onLoggedout()">
+        <mat-icon>notifications_off</mat-icon>
+        <span>Se déconnecter</span>
       </button>
     </mat-menu>
   </mat-toolbar-row>
@@ -48,7 +57,7 @@
       <mat-tab-link label="ENTREPRISE"></mat-tab>
       <mat-tab-link label="INFOS"></mat-tab>
     </mat-tab-group> -->
-    <nav mat-tab-nav-bar>
+    <nav mat-tab-nav-bar color="accent">
       <a mat-tab-link *ngFor="let nav of navigations" (click)="updateNav(nav)" [active]="nav.active">
         {{ nav.label | uppercase }}
       </a>

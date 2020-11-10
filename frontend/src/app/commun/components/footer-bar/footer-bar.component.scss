@@ -4,10 +4,14 @@
 .example-spacer {
   flex: 5 1 auto;
 }
+.footer-link {
+  &-text {
+    font-size: 12px;
+  }
+}
 
 @media (max-width: 380px) and (min-width: 296px) {
   .mat-toolbar {
     display: none;
   }
-
 }

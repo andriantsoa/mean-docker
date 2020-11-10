@@ -1,5 +1,5 @@
 export interface User {
-  _id: string;
+  _id?: string;
   title: string;
   username: string;
   password: string;
@@ -7,7 +7,7 @@ export interface User {
   lastname: string;
   birthdate: string;
   city?: string;
-  token: string;
+  token?: string;
   email: string;
   role: number;
   mobile?: string;

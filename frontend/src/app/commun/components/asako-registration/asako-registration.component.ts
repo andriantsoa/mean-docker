@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidationService } from 'src/app/core/components';
+import { User } from 'src/app/core/models/user.interface';
 import { CryptoService, UserService } from 'src/app/core/services';
 import { Role } from './../../enum/role.enum';
 
@@ -72,11 +73,40 @@ export class AsakoRegistrationComponent implements OnInit {
     this.formRegister.reset();
   }
 
+  private toUser(formValue: any): User {
+    const user = {
+      title: formValue.title,
+      firstname: formValue.firstname,
+      lastname: formValue.lastname,
+      username: formValue.username,
+      email: formValue.email,
+      password: formValue.password,
+      role: formValue.role,
+      notifications: {
+        email: true,
+        notifyByEmailOnTransfer: true
+      },
+      profils: [],
+      active: true,
+      birthdate: formValue.birthdate.toISOString(),
+      nationality: 'MG',
+      pays: 'MG',
+      city: 'tana',
+      adresse: 'atana'
+    } as User;
+
+    // const user = formValue as User;
+    console.log(user);
+
+    return user;
+  }
+
   public register(): void {
     this.loading = true;
     // this.formRegister.controls.password.setValue(this.cryptService.encrypt(this.formRegister.controls.password.value));
     // this.formRegister.controls.confirmPassword.setValue(this.cryptService.encrypt(this.formRegister.controls.confirmPassword.value));
-    this.userService.create(this.formRegister.value).subscribe(
+    const user = this.toUser(this.formRegister.value);
+    this.userService.create(user).subscribe(
       (data) => {
         // this.toastrService.success('Registration successful');
         this.router.navigate(['/login']);

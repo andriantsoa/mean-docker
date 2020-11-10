@@ -1,6 +1,6 @@
 // userController.js
 // Import user model
-User = require("../models/user.model");
+const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 // Handle index actions
@@ -25,7 +25,6 @@ exports.index = function (req, res) {
 
 // Handle create user actions
 exports.new = function (req, res) {
-  console.log(req);
   User.find({ username: req.body.username.trim() }, function (err, users) {
     if (err) {
       res.status(400).json({
@@ -39,14 +38,11 @@ exports.new = function (req, res) {
         message: req.body.username + " is already taken"
       });
     } else {
-      const user = new User();
-      user.username = req.body.username;
-      user.email = req.body.username;
+      const user = new User(req.body)
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 10);
       }
-      user.firstname = req.body.firstname;
-      user.lastname = req.body.lastname;
+
       // save the user and check for errors
       user.save(function (err) {
         if (err) {
@@ -122,7 +118,7 @@ exports.delete = function (req, res) {
 };
 
 exports.authenticate = function (req, res) {
-  User.findOne({ email: req.body.email }, function (err, user) {
+  User.findOne({ email: req.body.username }, function (err, user) {
     if (err) {
       res.status(400).json({
         status: "error",
@@ -136,10 +132,18 @@ exports.authenticate = function (req, res) {
         algorithm: "HS256"
       });
       delete user.password;
+      const data = {
+        city: user.city,
+        notifications: user.notifications,
+        role: user.role,
+        token: user.token,
+        username: user.username,
+        _id: user._id
+      };
       res.json({
         status: "success",
         message: "Users retrieved successfully",
-        data: user
+        data
       });
     } else {
       // authentication failed
