@@ -44,5 +44,17 @@ router
   .put(contactController.update)
   .delete(contactController.delete);
 
+// Import Profil controller
+const profilController = require('./controllers/profils.controller');
+// profil routes
+router
+  .route('/profils')
+  .get(profilController.index)
+router
+  .route('/profil/:profil_id')
+  .get(profilController.view)
+  .patch(profilController.update)
+  .put(profilController.update);
+
 // Export API routes
 module.exports = router;

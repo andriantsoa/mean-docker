@@ -2,42 +2,47 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { User } from '../models/user.interface';
+import { IUser } from '../interfaces/user.interface';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
+
   constructor(private http: HttpClient) { }
 
-  public getAll(): Observable<User[]> {
-    return this.http.get<User[]>(environment.apiEndpoint + '/users').pipe(
+  public getAll(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(environment.apiEndpoint + '/users').pipe(
       map((users: any) => {
         return users.data;
       })
     );
   }
 
-  public getById(userId: string): Observable<User> {
-    return this.http.get<User>(environment.apiEndpoint + '/user/' + userId).pipe(
+  public getById(userId: string): Observable<IUser> {
+    return this.http.get<IUser>(environment.apiEndpoint + '/user/' + userId).pipe(
       map((user: any) => {
         return user.data;
       })
     );
   }
 
-  public getCurrentUser(): User {
+  public getCurrentUser(): IUser {
     if (localStorage.getItem('currentUser')) {
       const user = JSON.parse(localStorage.getItem('currentUser'));
       return user;
     }
   }
 
-  public create(user: User): Observable<any> {
+  public setCurrentUser(user: IUser): void {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+
+  public create(user: IUser): Observable<any> {
     return this.http.post(environment.apiEndpoint + '/users', user);
   }
 
-  public update(user: User): Observable<User> {
-    return this.http.put<User>(environment.apiEndpoint + '/user/' + user._id, user).pipe(
+  public update(user: IUser): Observable<IUser> {
+    return this.http.put<IUser>(environment.apiEndpoint + '/user/' + user._id, user).pipe(
       map((u: any) => {
         return u.data;
       })

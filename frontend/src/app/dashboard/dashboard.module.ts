@@ -10,16 +10,18 @@ import { UserValidationComponent } from './user-validation/user-validation.compo
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ProfilFormComponent } from './profil-form/profil-form.component';
 
 const components = [
   AsakoCandidatComponent,
   AsakoEnterpriseComponent,
   UserValidationComponent,
+  ProfilFormComponent,
 ];
 
 @NgModule({
   declarations: [
-    ...components
+    ...components,
   ],
   imports: [
     CommonModule,

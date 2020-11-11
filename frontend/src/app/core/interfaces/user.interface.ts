@@ -1,14 +1,16 @@
-export interface User {
-  _id?: string;
+export interface IUser {
   title: string;
   username: string;
   password: string;
   firstname: string;
   lastname: string;
   birthdate: string;
-  city?: string;
-  token?: string;
   email: string;
   role: number;
   mobile?: string;
+  city?: string;
+  token?: string;
+  _id?: string;
+  active?: boolean;
+  profils?: any[];
 }

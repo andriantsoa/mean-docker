@@ -1,0 +1,56 @@
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-step [stepControl]="step1">
+    <form [formGroup]="step1">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>votre titre</mat-label>
+        <input matInput placeholder="Last name, First name" formControlName="label" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Type de compte</mat-label>
+        <mat-select formControlName="role">
+          <mat-option [value]="role.value" *ngFor="let role of roles">{{ role.label }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Votre Statut</mat-label>
+        <mat-select formControlName="status">
+          <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="step2" optional>
+    <form [formGroup]="step2">
+      <ng-template matStepLabel>Fill out your address</ng-template>
+      <mat-form-field appearance="outline">
+        <mat-label>Groupe</mat-label>
+        <mat-select formControlName="groupe" multiple>
+          <mat-option [value]="role.value" *ngFor="let role of roles">{{ role.label }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Secteur</mat-label>
+        <mat-select formControlName="secteur" multiple>
+          <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Enregistrement</ng-template>
+    <p>ça a été utile pour la suite.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button (click)="stepper.reset()">Enregistrer</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

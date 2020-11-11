@@ -5,10 +5,17 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const profilService = require('../services/profil.service');
 const userService = require('../services/user.service');
+// const responder = require('../middle/response.middle');
 // Handle index actions
 
+/**
+ * 
+ * ATTENTION : ENLEVER LES ACCESS BASES DE DONNEES DANS LE CONTROLLER
+ * LES FAIRE DANS SERVICE
+ * 
+ * 
+ */
 const environment = require('../config/environment');
-const { async } = require('q');
 
 exports.index = function (req, res) {
   User.get(function (err, users) {
@@ -41,7 +48,8 @@ exports.new = function (req, res) {
         message: req.body.username + ' is already taken'
       });
     } else {
-      const user = new User(req.body)
+      const user = new User(req.body);
+      user.active = false;
       user.codeActivation = userService.generateActivationCode();
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 10);
@@ -192,18 +200,19 @@ exports.changePassword = function (req, res) {
   });
 };
 
-exports.validate = async function (req, res) {
+exports.validate = function (req, res) {
   if (req.body && req.body.validationKey && req.body.username) {
     const key = req.body.validationKey;
     const username = req.body.username;
-    await User.findOne({ username, codeActivation: key }, async (err, user) => {
-      if (err) {
+    User.findOne({ username, codeActivation: key }, async (err, user) => {
+      if (err || !user) {
         res.status(400).json({
           status: 'ne peut pas être validé',
           error: err
         });
       } else {
-        await profilService.createProfil(user);
+        const test = await profilService.createProfil(user);
+        console.log('testssssssssssssssssttttt', test);
         res.status(202).send({
           status: 'success',
           message: 'Compte utilisateur activé'

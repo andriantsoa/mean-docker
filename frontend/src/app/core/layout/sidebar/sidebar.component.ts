@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { User } from '../../models/user.interface';
+import { IUser } from '../../interfaces/user.interface';
 import { UserService } from '../../services';
 
 @Component({
@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
   showMenu: string;
   pushRightClass: string;
 
-  user: User;
+  user: IUser;
 
   @Output() collapsedEvent = new EventEmitter<boolean>();
 

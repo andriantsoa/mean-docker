@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { User } from 'src/app/core/models/user.interface';
+import { IUser } from 'src/app/core/interfaces/user.interface';
 import { UserService } from 'src/app/core/services';
 import { LoginService } from '../asako-login/login.service';
 
@@ -14,7 +14,9 @@ import { LoginService } from '../asako-login/login.service';
 })
 export class MenuBarComponent implements OnInit {
   public pushRightClass: string;
-  public connectedUser: User;
+  public connectedUser: IUser;
+  public isActivatedUser: boolean;
+  public profilId: string;
 
   public navigations = [
     {
@@ -61,6 +63,8 @@ export class MenuBarComponent implements OnInit {
 
   public ngOnInit(): void {
     this.connectedUser = this.userService.getCurrentUser();
+    this.profilId = this.connectedUser.profils[0];
+    this.isActivatedUser = this.connectedUser.active;
     this.updateLabelByUrl(this.router.url);
   }
 

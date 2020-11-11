@@ -35,8 +35,8 @@
         <mat-icon>voicemail</mat-icon>
         <span>Infos</span>
       </button>
-      <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
+      <button mat-menu-item [routerLink]="['/dashboard/profil', profilId]">
+        <mat-icon>account</mat-icon>
         <span>Mon compte</span>
       </button>
       <button mat-menu-item [routerLink]="['/login']" (click)="onLoggedout()">
@@ -46,7 +46,7 @@
     </mat-menu>
   </mat-toolbar-row>
 
-  <mat-toolbar-row class="menu-navigator-selector">
+  <mat-toolbar-row class="menu-navigator-selector" *ngIf="isActivatedUser">
     <span class="menu-bar-spacer-2"></span>
     <img src="assets/images/logo-asako.png" width="10%" alt="entete" />
 

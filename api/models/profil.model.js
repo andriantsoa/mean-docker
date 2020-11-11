@@ -33,13 +33,11 @@ const profilSchema = new Schema({
   }],
   candidat: {
     type: ObjectId,
-    ref: 'candidat',
-    unique: true
+    ref: 'candidat'
   },
   entreprise: {
     type: ObjectId,
-    ref: 'entreprise',
-    unique: true
+    ref: 'entreprise'
   },
   // contact: {
   //   type: ObjectId,

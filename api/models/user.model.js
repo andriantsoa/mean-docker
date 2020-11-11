@@ -7,6 +7,10 @@ const ROLE = require('./constants/role');
 
 // Setup schema
 const userSchema = new Schema({
+  active: {
+    type: Boolean,
+    default: false
+  },
   title: {
     type: String,
     required: true
@@ -45,10 +49,6 @@ const userSchema = new Schema({
     type: ObjectId,
     ref: 'profil'
   }],
-  active: {
-    type: Boolean,
-    default: false
-  },
   token: String,
   codeActivation: String,
   mobile: String,

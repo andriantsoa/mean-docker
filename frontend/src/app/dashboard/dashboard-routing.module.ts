@@ -5,6 +5,7 @@ import { AuthGuard } from '../core/guards';
 import { LayoutComponent } from '../core/layout/layout.component';
 import { AsakoCandidatComponent } from './asako-candidat/asako-candidat.component';
 import { AsakoEnterpriseComponent } from './asako-enterprise/asako-enterprise.component';
+import { ProfilFormComponent } from './profil-form/profil-form.component';
 import { UserValidationComponent } from './user-validation/user-validation.component';
 
 const publicRoutes: Routes = [
@@ -21,6 +22,11 @@ const publicRoutes: Routes = [
         path: 'validation',
         canActivate: [AuthGuard],
         component: UserValidationComponent
+      },
+      {
+        path: 'profil/:id',
+        canActivate: [AuthGuard],
+        component: ProfilFormComponent
       },
       {
         path: 'candidat',

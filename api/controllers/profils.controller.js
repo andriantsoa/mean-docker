@@ -1,9 +1,6 @@
 // userController.js
 // Import profil model
 const Profil = require('../models/profil.model');
-const User = require('../models/user.model');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 // Handle index actions
 
 const environment = require('../config/environment');
@@ -25,48 +22,47 @@ exports.index = function (req, res) {
 };
 
 // Handle create profil actions
-exports.new = function (req, res, userId) {
-  User.findById(userId, (err, users) => {
-    if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: 'Bad Request.'
-      });
-    } else if (users && users.length > 0) {
-      const role = users[0].role;
-      const profil = new Profil();
-      profil.role = role;
+// exports.new = function (req, res, userId) {
+//   User.findById(userId, (err, users) => {
+//     if (err) {
+//       res.status(400).json({
+//         status: 'error',
+//         error: 'Bad Request.'
+//       });
+//     } else if (users && users.length > 0) {
+//       const role = users[0].role;
+//       const profil = new Profil();
+//       profil.role = role;
 
-      // save the profil and check for errors
-      profil.save(function (err, profilNew) {
-        if (err) {
-          res.status(400).json({
-            status: 'error',
-            error: err
-          });
-        }
-        user.profils = [profil._id];
-        user.save(function (err) {
-          if (err) {
-            res.status(400).json({
-              status: 'error',
-              error: err
-            });
-          }
-        });
-        res.json({
-          message: 'New profil created!',
-          data: profilNew
-        });
-      });
-    }
-  });
-
-};
+//       // save the profil and check for errors
+//       profil.save(function (err, profilNew) {
+//         if (err) {
+//           res.status(400).json({
+//             status: 'error',
+//             error: err
+//           });
+//         }
+//         user.profils = [profil._id];
+//         user.save(function (err) {
+//           if (err) {
+//             res.status(400).json({
+//               status: 'error',
+//               error: err
+//             });
+//           }
+//         });
+//         res.json({
+//           message: 'New profil created!',
+//           data: profilNew
+//         });
+//       });
+//     }
+//   });
+// };
 
 // Handle view profil info
 exports.view = function (req, res) {
-  Profil.findById(req.params.user_id, function (err, profil) {
+  Profil.findById(req.params.profil_id, function (err, profil) {
     if (err) {
       res.status(400).json({
         status: 'error',
@@ -82,7 +78,7 @@ exports.view = function (req, res) {
 
 // Handle update profil info
 exports.update = function (req, res) {
-  Profil.findByIdAndUpdate(req.params.user_id, req.body, { new: true }, function (
+  Profil.findByIdAndUpdate(req.params.profil_id, req.body, { new: true }, function (
     err,
     profil
   ) {
@@ -104,7 +100,7 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
   Profil.remove(
     {
-      _id: req.params.user_id
+      _id: req.params.profil_id
     },
     function (err, profil) {
       if (err) {

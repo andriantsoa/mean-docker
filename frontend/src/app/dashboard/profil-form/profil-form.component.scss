@@ -1,0 +1,13 @@
+.mat-horizontal-content-container {
+  display: flex;
+  flex: 1 1 0;
+  justify-content: center;
+  justify-items: center;
+  /* flex-grow: 1; */
+  overflow: hidden;
+  padding: 0 24px 24px 24px;
+}
+
+mat-form-field {
+  width: 100%;
+}

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 import { ValidationService } from 'src/app/core/components';
-import { User } from 'src/app/core/models/user.interface';
-import { CryptoService, UserService } from 'src/app/core/services';
+import { IUser } from 'src/app/core/interfaces/user.interface';
+import { UserService } from 'src/app/core/services';
 import { Role } from './../../enum/role.enum';
 
 @Component({
@@ -17,9 +18,7 @@ export class AsakoRegistrationComponent implements OnInit {
   public Roles = Object.keys(Role)
     .filter(value => isNaN(Number(value)) === true)
     .map(key => ({ value: Role[key], label: key }));
-  // public Roles = this.rolesKey.map(element => {
-  //   return { label: element, value: Role[element] };
-  // });
+
   public titles: any = ['Mr', 'Mme'];
 
   public formRegister: FormGroup;
@@ -33,7 +32,6 @@ export class AsakoRegistrationComponent implements OnInit {
     private router: Router,
     private validationService: ValidationService,
     private userService: UserService,
-    private cryptService: CryptoService,
   ) {
     this.formRegister = this.formBuilder.group({
       title: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -73,7 +71,7 @@ export class AsakoRegistrationComponent implements OnInit {
     this.formRegister.reset();
   }
 
-  private toUser(formValue: any): User {
+  private toUser(formValue: any): IUser {
     const user = {
       title: formValue.title,
       firstname: formValue.firstname,
@@ -93,7 +91,7 @@ export class AsakoRegistrationComponent implements OnInit {
       pays: 'MG',
       city: 'tana',
       adresse: 'atana'
-    } as User;
+    } as IUser;
 
     // const user = formValue as User;
     console.log(user);
@@ -103,20 +101,13 @@ export class AsakoRegistrationComponent implements OnInit {
 
   public register(): void {
     this.loading = true;
-    // this.formRegister.controls.password.setValue(this.cryptService.encrypt(this.formRegister.controls.password.value));
-    // this.formRegister.controls.confirmPassword.setValue(this.cryptService.encrypt(this.formRegister.controls.confirmPassword.value));
     const user = this.toUser(this.formRegister.value);
-    this.userService.create(user).subscribe(
-      (data) => {
+    this.userService.create(user)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe((data) => {
         // this.toastrService.success('Registration successful');
         this.router.navigate(['/login']);
-        console.log(data);
-      },
-      (error) => {
-        // this.toastrService.error(error);
-        this.loading = false;
-      }
-    );
+      });
   }
 
 }

@@ -43,8 +43,11 @@ export class UserValidationComponent implements OnInit {
         username: this.validationForm.controls.username.value
       }).subscribe(response => {
         this.validated = true;
+        const currentUser = this.userService.getCurrentUser();
+        currentUser.active = true;
+        this.userService.setCurrentUser(currentUser);
         if (this.validationForm.controls.setProfil.value === true) {
-          this.router.navigate(['/dashboard/candidat', { profil: response.data }]);
+          this.router.navigate(['/dashboard/profil/', response.data._id]);
         }
       },
         err => {

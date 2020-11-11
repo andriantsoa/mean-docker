@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { User } from '../../models/user.interface';
+import { IUser } from '../../interfaces/user.interface';
 import { UserService } from '../../services';
 
 @Component({
@@ -10,7 +10,7 @@ import { UserService } from '../../services';
 })
 export class HeaderComponent implements OnInit {
   public pushRightClass: string;
-  user: User;
+  user: IUser;
 
   constructor(public router: Router, private userService: UserService) {
     this.router.events.subscribe((val) => {
