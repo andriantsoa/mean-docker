@@ -42,7 +42,7 @@ export class AsakoLoginComponent implements OnInit {
 
   public login(): void {
     if (this.loginForm.valid) {
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value, null, 4));
+      // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value, null, 4));
 
       this.loading = true;
       this.loginService

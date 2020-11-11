@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public getAll(): Observable<User[]> {
     return this.http.get<User[]>(environment.apiEndpoint + '/users').pipe(
@@ -32,7 +32,7 @@ export class UserService {
     }
   }
 
-  public create(user: User): Observable<any>{
+  public create(user: User): Observable<any> {
     return this.http.post(environment.apiEndpoint + '/users', user);
   }
 
@@ -50,5 +50,11 @@ export class UserService {
 
   public delete(userId: string): Observable<any> {
     return this.http.delete(environment.apiEndpoint + '/user/' + userId);
+  }
+
+  public validate(param: any): Observable<any> {
+    console.log(param);
+
+    return this.http.post(environment.apiEndpoint + `/user/validation`, param);
   }
 }

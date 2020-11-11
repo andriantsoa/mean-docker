@@ -1,0 +1,30 @@
+<div class="user-validation-container">
+  <!-- <mat-card class="content-card"> -->
+  <form [formGroup]="validationForm">
+    <!-- <mat-card-content> -->
+    <button class="content-form-full" mat-raised-button color="primary" *ngIf="validated">
+      <mat-icon>success</mat-icon>
+      <span>Votre compte a été validé !!</span>
+    </button>
+    <button class="content-form-full" mat-raised-button color="warn" *ngIf="!validated && attemptTry < 3">
+      <mat-icon>warn</mat-icon>
+      <span>Veuillez recommencer svp :( </span>
+    </button>
+
+    <mat-form-field class="content-form-full" appearance="outline">
+      <mat-label>Votre username</mat-label>
+      <input matInput placeholder="username" formControlName="username" class="full-input" />
+    </mat-form-field>
+
+    <p class="content-form-full">
+      <mat-slide-toggle formControlName="setProfil">Voulez-vous créer votre profil directement ?</mat-slide-toggle>
+    </p>
+    <!-- </mat-card-content> -->
+
+    <!-- <mat-card-actions class="content-form-full"> -->
+    <button mat-button [routerLink]="['/register']" routerLinkActive="router-link-active">Je m'inscris</button>
+    <button mat-raised-button color="accent" (click)="validate()">Valider</button>
+    <!-- </mat-card-actions> -->
+  </form>
+  <!-- </mat-card> -->
+</div>

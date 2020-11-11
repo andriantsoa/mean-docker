@@ -1,0 +1,28 @@
+form {
+  padding: 5rem;
+  // width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+}
+
+.user-validation-container {
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+}
+
+.content-form-full {
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex: 1 1 0;
+}
+
+.mat-form-field-wrapper {
+  width: 100% !important;
+}

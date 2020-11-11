@@ -5,6 +5,7 @@ import { AuthGuard } from '../core/guards';
 import { LayoutComponent } from '../core/layout/layout.component';
 import { AsakoCandidatComponent } from './asako-candidat/asako-candidat.component';
 import { AsakoEnterpriseComponent } from './asako-enterprise/asako-enterprise.component';
+import { UserValidationComponent } from './user-validation/user-validation.component';
 
 const publicRoutes: Routes = [
   {
@@ -15,6 +16,11 @@ const publicRoutes: Routes = [
         path: '',
         canActivate: [AuthGuard],
         component: AsakoComponent
+      },
+      {
+        path: 'validation',
+        canActivate: [AuthGuard],
+        component: UserValidationComponent
       },
       {
         path: 'candidat',
@@ -34,4 +40,4 @@ const publicRoutes: Routes = [
   imports: [RouterModule.forChild(publicRoutes)],
   exports: [RouterModule]
 })
-export class DashboardRoutingModule {}
+export class DashboardRoutingModule { }

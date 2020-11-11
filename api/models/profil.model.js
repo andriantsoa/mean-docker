@@ -11,6 +11,7 @@ const profilSchema = new Schema({
 
   label: {
     type: String,
+    default: 'new profil',
     required: true
   },
   status: {
@@ -52,8 +53,7 @@ const profilSchema = new Schema({
   secteur: [String],
   groupe: [String],
   aspirations: [String],
-  group: String,
-
+  group: String
 
 }, {
   timestamps: true

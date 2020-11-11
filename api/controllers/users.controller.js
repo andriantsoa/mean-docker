@@ -3,9 +3,12 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const profilService = require("../services/profil.service");
+const userService = require("../services/user.service");
 // Handle index actions
 
 const environment = require("../config/environment");
+const { async } = require("q");
 
 exports.index = function (req, res) {
   User.get(function (err, users) {
@@ -39,6 +42,7 @@ exports.new = function (req, res) {
       });
     } else {
       const user = new User(req.body)
+      user.codeActivation = userService.generateActivationCode();
       if (req.body.password) {
         user.password = bcrypt.hashSync(req.body.password, 10);
       }
@@ -138,6 +142,8 @@ exports.authenticate = function (req, res) {
         role: user.role,
         token: user.token,
         username: user.username,
+        profils: user.profils,
+        active: user.active,
         _id: user._id
       };
       res.json({
@@ -184,4 +190,30 @@ exports.changePassword = function (req, res) {
       });
     }
   });
+};
+
+exports.validate = async function (req, res) {
+  if (req.body && req.body.validationKey && req.body.username) {
+    const key = req.body.validationKey;
+    const username = req.body.username;
+    await User.findOne({ username, codeActivation: key }, async (err, user) => {
+      if (err) {
+        res.status(400).json({
+          status: "ne peut pas être validé",
+          error: err
+        });
+      } else {
+        await profilService.createProfil(user);
+        res.status(202).send({
+          status: "success",
+          message: "Compte utilisateur activé"
+        });
+      }
+    });
+  } else {
+    res.status(403).send({
+      status: "error",
+      message: "activation non autorisé"
+    });
+  }
 };

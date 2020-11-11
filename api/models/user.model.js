@@ -47,9 +47,10 @@ const userSchema = new Schema({
   }],
   active: {
     type: Boolean,
-    default: true
+    default: false
   },
   token: String,
+  codeActivation: String,
   mobile: String,
   birthdate: String,
   nationality: String,

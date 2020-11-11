@@ -26,6 +26,9 @@ router.route("/user/authenticate").post(userController.authenticate);
 router
   .route("/user/changepassword/:user_id")
   .put(userController.changePassword);
+router
+  .route("/user/validation")
+  .post(userController.validate);
 
 // Import Contact controller
 const contactController = require("./controllers/contact.controller");
