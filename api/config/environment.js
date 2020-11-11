@@ -10,16 +10,16 @@ const MONGO_DB_DATABASE = 'asako-db';
 module.exports = {
   mongodb: {
     uri:
-      "mongodb://127.0.0.1:27017/asako-db"
+      'mongodb://127.0.0.1:27017/asako-db'
     //  +
     // MONGO_DB_USERNAME +
-    // ":" +
+    // ':' +
     // MONGO_DB_PASSWORD +
-    // "@" +
+    // '@' +
     // MONGO_DB_HOST +
     // (MONGO_DB_PORT
-    //   ? ":" + MONGO_DB_PORT + "/"
-    //   : "/") +
+    //   ? ':' + MONGO_DB_PORT + '/'
+    //   : '/') +
     // MONGO_DB_DATABASE +
     // MONGO_DB_PARAMETERS,
   },

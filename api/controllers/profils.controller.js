@@ -1,24 +1,24 @@
 // userController.js
 // Import profil model
-const Profil = require("../models/profil.model");
-const User = require("../models/user.model");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+const Profil = require('../models/profil.model');
+const User = require('../models/user.model');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 // Handle index actions
 
-const environment = require("../config/environment");
+const environment = require('../config/environment');
 
 exports.index = function (req, res) {
   Profil.get(function (err, profils) {
     if (err) {
       res.status(400).json({
-        status: "error",
-        error: "Bad Request."
+        status: 'error',
+        error: 'Bad Request.'
       });
     }
     res.json({
-      status: "success",
-      message: "profils retrieved successfully",
+      status: 'success',
+      message: 'profils retrieved successfully',
       data: profils
     });
   });
@@ -29,8 +29,8 @@ exports.new = function (req, res, userId) {
   User.findById(userId, (err, users) => {
     if (err) {
       res.status(400).json({
-        status: "error",
-        error: "Bad Request."
+        status: 'error',
+        error: 'Bad Request.'
       });
     } else if (users && users.length > 0) {
       const role = users[0].role;
@@ -41,7 +41,7 @@ exports.new = function (req, res, userId) {
       profil.save(function (err, profilNew) {
         if (err) {
           res.status(400).json({
-            status: "error",
+            status: 'error',
             error: err
           });
         }
@@ -49,13 +49,13 @@ exports.new = function (req, res, userId) {
         user.save(function (err) {
           if (err) {
             res.status(400).json({
-              status: "error",
+              status: 'error',
               error: err
             });
           }
         });
         res.json({
-          message: "New profil created!",
+          message: 'New profil created!',
           data: profilNew
         });
       });
@@ -69,12 +69,12 @@ exports.view = function (req, res) {
   Profil.findById(req.params.user_id, function (err, profil) {
     if (err) {
       res.status(400).json({
-        status: "error",
+        status: 'error',
         error: err
       });
     }
     res.json({
-      message: "Profil details loading..",
+      message: 'Profil details loading..',
       data: profil
     });
   });
@@ -88,13 +88,13 @@ exports.update = function (req, res) {
   ) {
     if (err) {
       res.status(400).json({
-        status: "error",
+        status: 'error',
         error: err
       });
     }
 
     res.json({
-      message: "Profil Info updated",
+      message: 'Profil Info updated',
       data: profil
     });
   });
@@ -109,13 +109,13 @@ exports.delete = function (req, res) {
     function (err, profil) {
       if (err) {
         res.status(400).json({
-          status: "error",
+          status: 'error',
           error: err
         });
       }
       res.json({
-        status: "success",
-        message: "Profil deleted"
+        status: 'success',
+        message: 'Profil deleted'
       });
     }
   );
@@ -127,7 +127,7 @@ exports.validate = function (req, res) {
     Profil.findOne({ token: key }, (err, profil) => {
       if (err) {
         res.status(400).json({
-          status: "ne peut pas être validé",
+          status: 'ne peut pas être validé',
           error: err
         });
       } else {
@@ -138,16 +138,16 @@ exports.validate = function (req, res) {
         profil.save(function (err) {
           if (err) res.json(err);
           res.status(202).send({
-            status: "success",
-            message: "Compte utilisateur activé"
+            status: 'success',
+            message: 'Compte utilisateur activé'
           });
         });
       }
     });
   } else {
     res.status(403).send({
-      status: "error",
-      message: "activation non autorisé"
+      status: 'error',
+      message: 'activation non autorisé'
     });
   }
 };

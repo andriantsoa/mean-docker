@@ -1,18 +1,18 @@
 // contactController.js
 // Import contact model
-Contact = require("../models/contact.model");
+Contact = require('../models/contact.model');
 
 exports.index = function (req, res) {
   Contact.get(function (err, contacts) {
     if (err) {
       res.json({
-        status: "error",
+        status: 'error',
         message: err
       });
     }
     res.json({
-      status: "success",
-      message: "Contacts retrieved successfully",
+      status: 'success',
+      message: 'Contacts retrieved successfully',
       data: contacts
     });
   });
@@ -23,14 +23,14 @@ exports.new = function (req, res) {
   Contact.find({ mobile: req.body.mobile.trim() }, function (err, contacts) {
     if (err) {
       res.json({
-        status: "error",
+        status: 'error',
         message: err
       });
     }
     if (contacts && contacts.length > 0) {
       res.status(400).send({
-        status: "error",
-        message: req.body.firstname + " is already exist"
+        status: 'error',
+        message: req.body.firstname + ' is already exist'
       });
     } else {
       const contact = new Contact();
@@ -43,12 +43,12 @@ exports.new = function (req, res) {
       contact.save(function (err) {
         if (err) {
           res.status(400).json({
-            status: "error",
+            status: 'error',
             error: err
           });
         }
         res.json({
-          message: "New contact created!",
+          message: 'New contact created!',
           data: contact
         });
       });
@@ -60,12 +60,12 @@ exports.new = function (req, res) {
     Contact.findById(req.params.contact_id, function (err, contact) {
       if (err) {
         res.status(400).json({
-          status: "error",
+          status: 'error',
           error: err
         });
       }
       res.json({
-        message: "Contact details loading..",
+        message: 'Contact details loading..',
         data: contact
       });
     });
@@ -79,7 +79,7 @@ exports.new = function (req, res) {
       function (err, contact) {
         if (err) {
           res.status(400).json({
-            status: "error",
+            status: 'error',
             error: err
           });
         }
@@ -88,7 +88,7 @@ exports.new = function (req, res) {
         contact.save(function (err) {
           if (err) res.json(err);
           res.json({
-            message: "Contact Info updated",
+            message: 'Contact Info updated',
             data: contact
           });
         });
@@ -104,13 +104,13 @@ exports.new = function (req, res) {
       function (err, state) {
         if (err) {
           res.status(400).json({
-            status: "error",
+            status: 'error',
             error: err
           });
         }
         res.json({
-          status: "success",
-          message: "Contact deleted"
+          status: 'success',
+          message: 'Contact deleted'
         });
       }
     );
@@ -121,12 +121,12 @@ exports.view = function (req, res) {
   Contact.findById(req.params.contact_id, function (err, contact) {
     if (err) {
       res.status(400).json({
-        status: "error",
+        status: 'error',
         error: err
       });
     }
     res.json({
-      message: "contact details loading..",
+      message: 'contact details loading..',
       data: contact
     });
   });
@@ -140,7 +140,7 @@ exports.update = function (req, res) {
     function (err, contact) {
       if (err) {
         res.status(400).json({
-          status: "error",
+          status: 'error',
           error: err
         });
       }
@@ -149,7 +149,7 @@ exports.update = function (req, res) {
       contact.save(function (err) {
         if (err) res.json(err);
         res.json({
-          message: "contact Info updated",
+          message: 'contact Info updated',
           data: contact
         });
       });
@@ -165,13 +165,13 @@ exports.delete = function (req, res) {
     function (err, contact) {
       if (err) {
         res.status(400).json({
-          status: "error",
+          status: 'error',
           error: err
         });
       }
       res.json({
-        status: "success",
-        message: "contact deleted"
+        status: 'success',
+        message: 'contact deleted'
       });
     }
   );

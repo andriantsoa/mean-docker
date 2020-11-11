@@ -1,5 +1,5 @@
 // user.model.js
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 require('mongoose-type-email');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
@@ -70,7 +70,7 @@ const candidatSchema = new Schema({
 });
 
 // Export Profil model
-const Candidat = (module.exports = mongoose.model("candidat", candidatSchema));
+const Candidat = (module.exports = mongoose.model('candidat', candidatSchema));
 
 module.exports.get = function (callback, limit) {
   Candidat.find(callback).limit(limit);

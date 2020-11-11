@@ -1,26 +1,26 @@
 // userController.js
 // Import user model
-const User = require("../models/user.model");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const profilService = require("../services/profil.service");
-const userService = require("../services/user.service");
+const User = require('../models/user.model');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const profilService = require('../services/profil.service');
+const userService = require('../services/user.service');
 // Handle index actions
 
-const environment = require("../config/environment");
-const { async } = require("q");
+const environment = require('../config/environment');
+const { async } = require('q');
 
 exports.index = function (req, res) {
   User.get(function (err, users) {
     if (err) {
       res.status(400).json({
-        status: "error",
-        error: "Bad Request."
+        status: 'error',
+        error: 'Bad Request.'
       });
     }
     res.json({
-      status: "success",
-      message: "Users retrieved successfully",
+      status: 'success',
+      message: 'Users retrieved successfully',
       data: users
     });
   });
@@ -31,14 +31,14 @@ exports.new = function (req, res) {
   User.find({ username: req.body.username.trim() }, function (err, users) {
     if (err) {
       res.status(400).json({
-        status: "error",
+        status: 'error',
         message: err
       });
     }
     if (users && users.length > 0) {
       res.status(400).send({
-        status: "error",
-        message: req.body.username + " is already taken"
+        status: 'error',
+        message: req.body.username + ' is already taken'
       });
     } else {
       const user = new User(req.body)
@@ -51,12 +51,12 @@ exports.new = function (req, res) {
       user.save(function (err) {
         if (err) {
           res.status(400).json({
-            status: "error",
+            status: 'error',
             error: err
           });
         }
         res.json({
-          message: "New user created!",
+          message: 'New user created!',
           data: user
         });
       });
@@ -69,12 +69,12 @@ exports.view = function (req, res) {
   User.findById(req.params.user_id, function (err, user) {
     if (err) {
       res.status(400).json({
-        status: "error",
+        status: 'error',
         error: err
       });
     }
     res.json({
-      message: "User details loading..",
+      message: 'User details loading..',
       data: user
     });
   });
@@ -88,13 +88,13 @@ exports.update = function (req, res) {
   ) {
     if (err) {
       res.status(400).json({
-        status: "error",
+        status: 'error',
         error: err
       });
     }
 
     res.json({
-      message: "User Info updated",
+      message: 'User Info updated',
       data: user
     });
   });
@@ -109,13 +109,13 @@ exports.delete = function (req, res) {
     function (err, user) {
       if (err) {
         res.status(400).json({
-          status: "error",
+          status: 'error',
           error: err
         });
       }
       res.json({
-        status: "success",
-        message: "User deleted"
+        status: 'success',
+        message: 'User deleted'
       });
     }
   );
@@ -125,7 +125,7 @@ exports.authenticate = function (req, res) {
   User.findOne({ email: req.body.username }, function (err, user) {
     if (err) {
       res.status(400).json({
-        status: "error",
+        status: 'error',
         error: err
       });
     }
@@ -133,7 +133,7 @@ exports.authenticate = function (req, res) {
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       // authentication successful
       user.token = jwt.sign({ sub: user._id }, environment.secret, {
-        algorithm: "HS256"
+        algorithm: 'HS256'
       });
       delete user.password;
       const data = {
@@ -147,15 +147,15 @@ exports.authenticate = function (req, res) {
         _id: user._id
       };
       res.json({
-        status: "success",
-        message: "Users retrieved successfully",
+        status: 'success',
+        message: 'Users retrieved successfully',
         data
       });
     } else {
       // authentication failed
       res.status(401).send({
-        status: "error",
-        message: "User name or password is invalid."
+        status: 'error',
+        message: 'User name or password is invalid.'
       });
     }
   });
@@ -165,7 +165,7 @@ exports.changePassword = function (req, res) {
   User.findById(req.params.user_id, function (err, user) {
     if (err) {
       res.status(400).json({
-        status: "error",
+        status: 'error',
         error: err
       });
     }
@@ -178,15 +178,15 @@ exports.changePassword = function (req, res) {
       user.save(function (err) {
         if (err) res.json(err);
         res.status(202).send({
-          status: "success",
-          message: "Password Updated successfully"
+          status: 'success',
+          message: 'Password Updated successfully'
         });
       });
     } else {
       // authentication failed
       res.status(401).send({
-        status: "error",
-        message: "Old password is wrong."
+        status: 'error',
+        message: 'Old password is wrong.'
       });
     }
   });
@@ -199,21 +199,21 @@ exports.validate = async function (req, res) {
     await User.findOne({ username, codeActivation: key }, async (err, user) => {
       if (err) {
         res.status(400).json({
-          status: "ne peut pas être validé",
+          status: 'ne peut pas être validé',
           error: err
         });
       } else {
         await profilService.createProfil(user);
         res.status(202).send({
-          status: "success",
-          message: "Compte utilisateur activé"
+          status: 'success',
+          message: 'Compte utilisateur activé'
         });
       }
     });
   } else {
     res.status(403).send({
-      status: "error",
-      message: "activation non autorisé"
+      status: 'error',
+      message: 'activation non autorisé'
     });
   }
 };

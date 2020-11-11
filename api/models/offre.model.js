@@ -1,5 +1,5 @@
 // user.model.js
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 require('mongoose-type-email');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
@@ -58,7 +58,7 @@ const offreSchema = new Schema({
 });
 
 // Export Profil model
-const Offre = (module.exports = mongoose.model("offre", offreSchema));
+const Offre = (module.exports = mongoose.model('offre', offreSchema));
 
 module.exports.get = function (callback, limit) {
   Offre.find(callback).limit(limit);

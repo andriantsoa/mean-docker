@@ -1,7 +1,7 @@
 // 
-const { async } = require("q");
-const Profil = require("../models/profil.model");
-const User = require("../models/user.model");
+const { async } = require('q');
+const Profil = require('../models/profil.model');
+const User = require('../models/user.model');
 
 // Handle index actions
 
