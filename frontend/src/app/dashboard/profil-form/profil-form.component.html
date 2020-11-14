@@ -26,16 +26,16 @@
   <mat-step [stepControl]="step2" optional>
     <form [formGroup]="step2">
       <ng-template matStepLabel>Fill out your address</ng-template>
-      <mat-form-field appearance="outline">
+      <!-- <mat-form-field appearance="outline">
         <mat-label>Groupe</mat-label>
         <mat-select formControlName="groupe" multiple>
-          <mat-option [value]="role.value" *ngFor="let role of roles">{{ role.label }} </mat-option>
+          <mat-option [value]="groupe.value" *ngFor="let groupe of roles">{{ groupe.label }} </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field appearance="outline">
         <mat-label>Secteur</mat-label>
         <mat-select formControlName="secteur" multiple>
-          <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
+          <mat-option [value]="secteur.name" *ngFor="let secteur of secteurs">{{ secteur.name }} </mat-option>
         </mat-select>
       </mat-form-field>
       <div>
@@ -50,7 +50,7 @@
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
-      <button mat-button (click)="stepper.reset()">Enregistrer</button>
+      <button mat-button (click)="">Enregistrer</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
