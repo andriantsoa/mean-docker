@@ -4,19 +4,18 @@ require('mongoose-type-email');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 const STATUS = require('./constants/status');
-// const niveau = require('./constants/niveau');
 
 const competence = new Schema({
-  titre: { type: String, required: true },
-  niveau: { type: Double, required: true },
+  titre: { type: String },
+  niveau: { type: Number },
   version: { type: String },
   _id: false
 });
 
 const experience = new Schema({
-  entreprise: { type: String, required: true },
+  entreprise: { type: String },
   competence: [competence],
-  duree: { type: Double },
+  duree: { type: Number },
   debut: { type: String },
   fin: { type: String },
   secteur: [String],
@@ -48,10 +47,6 @@ const candidatSchema = new Schema({
     type: STATUS,
     default: STATUS.ETUDIANT,
     required: true
-  },
-  user: {
-    type: ObjectId,
-    ref: 'user'
   },
   experiences: [experience],
   competences: [competence],

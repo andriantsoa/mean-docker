@@ -211,8 +211,7 @@ exports.validate = function (req, res) {
           error: err
         });
       } else {
-        const test = await profilService.createProfil(user);
-        console.log('testssssssssssssssssttttt', test);
+        await profilService.createProfil(user);
         res.status(202).send({
           status: 'success',
           message: 'Compte utilisateur activé'
