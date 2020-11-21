@@ -1,5 +1,6 @@
 const Candidat = require('../models/candidat.model');
 const Profil = require('../models/profil.model');
+const mailService = require('../services/private/mail.service');
 // Handle index actions
 
 exports.createCandidat = async (profil, newProfil) => {
@@ -23,6 +24,7 @@ exports.createCandidat = async (profil, newProfil) => {
       if (err) {
         console.log('error', err);
       }
+      mailService.sendMailSimple('andryrandriadev@gmail.com', '[ASAKO] Compte validé', 'Votre compte a été validé');
       return {
         candidat
       };
