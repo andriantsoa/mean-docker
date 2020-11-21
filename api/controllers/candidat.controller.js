@@ -1,21 +1,16 @@
 // userController.js
 // Import profil model
 const Candidat = require('../models/candidat.model');
+const User = require('../models/user.model');
+const responseHandler = require('./response-handler');
 // Handle index actions
 
 exports.index = function (req, res) {
   Candidat.get(function (err, profils) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: 'Bad Request.'
-      });
+      responseHandler.handleError(res, err, 400);
     }
-    res.json({
-      status: 'success',
-      message: 'profils retrieved successfully',
-      data: profils
-    });
+    responseHandler.handleDataAndMessage(res, profils, 'liste des candidats');
   });
 };
 
@@ -23,15 +18,9 @@ exports.index = function (req, res) {
 exports.view = function (req, res) {
   Candidat.findById(req.params.profil_id, function (err, profil) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: err
-      });
+      responseHandler.handleError(res, err, 400);
     }
-    res.json({
-      message: 'Candidat details loading..',
-      data: profil
-    });
+    responseHandler.handleDataAndMessage(res, profil, 'detail sur le candidat');
   });
 };
 
@@ -42,17 +31,9 @@ exports.update = function (req, res) {
     profil
   ) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: err
-      });
+      responseHandler.handleError(res, err, 400);
     }
-
-
-    res.json({
-      message: 'Candidat Info updated',
-      data: profil
-    });
+    responseHandler.handleDataAndMessage(res, profil, 'mis a jour effectué sur le candidat');
   });
 };
 
@@ -64,15 +45,9 @@ exports.delete = function (req, res) {
     },
     function (err, profil) {
       if (err) {
-        res.status(400).json({
-          status: 'error',
-          error: err
-        });
+        responseHandler.handleError(res, err, 400);
       }
-      res.json({
-        status: 'success',
-        message: 'Candidat deleted'
-      });
+      responseHandler.handleMessage(res, 'Candidat supprimé');
     }
   );
 };

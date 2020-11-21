@@ -2,6 +2,7 @@
 // Import profil model
 const Profil = require('../models/profil.model');
 const candidatService = require('../services/candidat.service');
+const responseHandler = require('./response-handler');
 // Handle index actions
 
 const environment = require('../config/environment');
@@ -9,16 +10,9 @@ const environment = require('../config/environment');
 exports.index = function (req, res) {
   Profil.get(function (err, profils) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: 'Bad Request.'
-      });
+      responseHandler.handleError(res, err, 400);
     }
-    res.json({
-      status: 'success',
-      message: 'profils retrieved successfully',
-      data: profils
-    });
+    responseHandler.handleDataAndMessage(res, profils, 'liste des profils');
   });
 };
 
@@ -26,15 +20,9 @@ exports.index = function (req, res) {
 exports.view = function (req, res) {
   Profil.findById(req.params.profil_id, function (err, profil) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: err
-      });
+      responseHandler.handleError(res, err, 400);
     }
-    res.json({
-      message: 'Profil details loading..',
-      data: profil
-    });
+    responseHandler.handleDataAndMessage(res, profil, 'details du profil');
   });
 };
 
@@ -43,16 +31,10 @@ exports.update = function (req, res) {
   console.log('BODY', req.body);
   Profil.findById(req.params.profil_id, async function (err, profil) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: err
-      });
+      responseHandler.handleError(res, err, 400);
     }
     await candidatService.createCandidat(profil, req.body);
-    res.json({
-      message: 'Profil Info updated',
-      data: profil
-    });
+    responseHandler.handleDataAndMessage(res, profil, 'Profil mis à jour');
   });
 };
 
@@ -62,17 +44,11 @@ exports.delete = function (req, res) {
     {
       _id: req.params.profil_id
     },
-    function (err, profil) {
+    function (err) {
       if (err) {
-        res.status(400).json({
-          status: 'error',
-          error: err
-        });
+        responseHandler.handleError(res, err, 400);
       }
-      res.json({
-        status: 'success',
-        message: 'Profil deleted'
-      });
+      responseHandler.handleMessage(res, 'Profil supprimé');
     }
   );
 };
@@ -82,28 +58,18 @@ exports.validate = function (req, res) {
     const key = req.query.validationKey;
     Profil.findOne({ token: key }, (err, profil) => {
       if (err) {
-        res.status(400).json({
-          status: 'ne peut pas être validé',
-          error: err
-        });
+        responseHandler.handleError(res, err, 500, 'ne peut pas être validé');
       } else {
         profil.active = true;
-        // create profil Profil
-        // creation profil controller
-        // add profil to profil
         profil.save(function (err) {
-          if (err) res.json(err);
-          res.status(202).send({
-            status: 'success',
-            message: 'Compte utilisateur activé'
-          });
+          if (err) {
+            responseHandler.handleError(res, err);
+          }
+          responseHandler.handleMessage(res, 'Profil supprimé');
         });
       }
     });
   } else {
-    res.status(403).send({
-      status: 'error',
-      message: 'activation non autorisé'
-    });
+    responseHandler.handleError(res, '', 403, 'activation non autorisé');
   }
 };

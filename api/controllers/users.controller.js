@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const profilService = require('../services/profil.service');
 const userService = require('../services/user.service');
+const responseHandler = require('./response-handler');
 // const responder = require('../middle/response.middle');
 // Handle index actions
 
@@ -20,16 +21,9 @@ const environment = require('../config/environment');
 exports.index = function (req, res) {
   User.get(function (err, users) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: 'Bad Request.'
-      });
+      responseHandler.handleError(res, err, 400);
     }
-    res.json({
-      status: 'success',
-      message: 'Users retrieved successfully',
-      data: users
-    });
+    responseHandler.handleDataAndMessage(res, users, 'liste des utilisateurs');
   });
 };
 
@@ -37,16 +31,10 @@ exports.index = function (req, res) {
 exports.new = function (req, res) {
   User.find({ username: req.body.username.trim() }, function (err, users) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        message: err
-      });
+      responseHandler.handleError(res, err, 400);
     }
     if (users && users.length > 0) {
-      res.status(400).send({
-        status: 'error',
-        message: req.body.username + ' is already taken'
-      });
+      responseHandler.handleError(res, err, 400, 'utilisateur n\'est plus disponible');
     } else {
       const user = new User(req.body);
       user.active = false;
@@ -58,15 +46,9 @@ exports.new = function (req, res) {
       // save the user and check for errors
       user.save(function (err) {
         if (err) {
-          res.status(400).json({
-            status: 'error',
-            error: err
-          });
+          responseHandler.handleError(res, err, 400);
         }
-        res.json({
-          message: 'New user created!',
-          data: user
-        });
+        responseHandler.handleDataAndMessage(res, user, 'Utilisateur créé');
       });
     }
   });
@@ -76,15 +58,9 @@ exports.new = function (req, res) {
 exports.view = function (req, res) {
   User.findById(req.params.user_id, function (err, user) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: err
-      });
+      responseHandler.handleError(res, err, 400);
     }
-    res.json({
-      message: 'User details loading..',
-      data: user
-    });
+    responseHandler.handleDataAndMessage(res, user, 'Detail sur l\'utilisateur');
   });
 };
 
@@ -95,16 +71,9 @@ exports.update = function (req, res) {
     user
   ) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: err
-      });
+      responseHandler.handleError(res, err, 400);
     }
-
-    res.json({
-      message: 'User Info updated',
-      data: user
-    });
+    responseHandler.handleDataAndMessage(res, user, 'Utilisateur mis a jour');
   });
 };
 
@@ -116,15 +85,9 @@ exports.delete = function (req, res) {
     },
     function (err, user) {
       if (err) {
-        res.status(400).json({
-          status: 'error',
-          error: err
-        });
+        responseHandler.handleError(res, err, 400);
       }
-      res.json({
-        status: 'success',
-        message: 'User deleted'
-      });
+      responseHandler.handleMessage(res, 'Utilisateur mis a jour');
     }
   );
 };
@@ -132,10 +95,7 @@ exports.delete = function (req, res) {
 exports.authenticate = function (req, res) {
   User.findOne({ email: req.body.username }, function (err, user) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: err
-      });
+      responseHandler.handleError(res, err, 400);
     }
 
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
@@ -154,17 +114,10 @@ exports.authenticate = function (req, res) {
         active: user.active,
         _id: user._id
       };
-      res.json({
-        status: 'success',
-        message: 'Users retrieved successfully',
-        data
-      });
+      responseHandler.handleDataAndMessage(res, data, 'Connexion avec succes');
     } else {
       // authentication failed
-      res.status(401).send({
-        status: 'error',
-        message: 'User name or password is invalid.'
-      });
+      responseHandler.handleError(res, err, 401, 'Erreur sur la connexion');
     }
   });
 };
@@ -172,10 +125,7 @@ exports.authenticate = function (req, res) {
 exports.changePassword = function (req, res) {
   User.findById(req.params.user_id, function (err, user) {
     if (err) {
-      res.status(400).json({
-        status: 'error',
-        error: err
-      });
+      responseHandler.handleError(res, err, 400);
     }
 
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
@@ -184,18 +134,12 @@ exports.changePassword = function (req, res) {
         user.password = bcrypt.hashSync(req.body.password, 10);
       }
       user.save(function (err) {
-        if (err) res.json(err);
-        res.status(202).send({
-          status: 'success',
-          message: 'Password Updated successfully'
-        });
+        if (err) responseHandler.handleError(res, err, 400);
+        responseHandler.handleMessage(res, 'Mot de passe mis a jour');
       });
     } else {
       // authentication failed
-      res.status(401).send({
-        status: 'error',
-        message: 'Old password is wrong.'
-      });
+      responseHandler.handleError(res, err, 401, 'ancien mot de pass ne correspond pas');
     }
   });
 };
@@ -206,22 +150,13 @@ exports.validate = function (req, res) {
     const username = req.body.username;
     User.findOne({ username, codeActivation: key }, async (err, user) => {
       if (err || !user) {
-        res.status(400).json({
-          status: 'ne peut pas être validé',
-          error: err
-        });
+        responseHandler.handleError(res, err, 400);
       } else {
         await profilService.createProfil(user);
-        res.status(202).send({
-          status: 'success',
-          message: 'Compte utilisateur activé'
-        });
+        responseHandler.handleMessage(res, 'Compte utilisateur activé');
       }
     });
   } else {
-    res.status(403).send({
-      status: 'error',
-      message: 'activation non autorisé'
-    });
+    responseHandler.handleError(res, err, 403, 'activation non autorisé');
   }
 };
