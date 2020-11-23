@@ -8,6 +8,7 @@ let bodyParser = require('body-parser');
 let expressJwt = require('express-jwt');
 // Import Mongoose
 let mongoose = require('mongoose');
+const logger = require('./services/private/logger.service');
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,12 +26,12 @@ mongoose.Promise = global.Promise;
 
 // On connection error
 mongoose.connection.on('error', (error) => {
-  console.log('Database error: ', error);
+  logger.error('Database error: ', error);
 });
 
 // On successful connection
 mongoose.connection.on('connected', () => {
-  console.log('Connected to database');
+  logger.info('Connected to database');
 });
 
 // addtional configuration when serving Angular SPA (static reource and Anugalr routing)
@@ -83,7 +84,7 @@ app.use('/api', apiRoutes);
 const HOST = '127.0.0.1';
 // start server
 // Launch app to listen to specified port
-const server = app.listen(process.env.EXPRESS_PORT || 3000, HOST, () => {
+const server = app.listen(process.env.EXPRESS_PORT_ARTI || 3000, HOST, () => {
   const PORT = server.address().port;
-  console.log(`Running  on http://${HOST}:${PORT}`);
+  logger.info(`Running  on http://${HOST}:${PORT}`);
 });
