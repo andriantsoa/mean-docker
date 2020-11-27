@@ -1,7 +1,10 @@
 // Import Profil controller
 const profilController = require('../controllers/profils.controller');
+const logger = require('../services/private/logger.service');
 
 exports.addRoute = (router) => {
+  logger.info('Initialisation des profil');
+
   router
     .route('/profils')
     .get(profilController.index)

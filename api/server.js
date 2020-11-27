@@ -16,8 +16,6 @@ app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
 // MongoDB connection
-console.log('connection string', environment.mongodb.uri);
-console.log('secret', environment.secret);
 mongoose.connect(environment.mongodb.uri, {
   useUnifiedTopology: true,
   useNewUrlParser: true
@@ -31,7 +29,7 @@ mongoose.connection.on('error', (error) => {
 
 // On successful connection
 mongoose.connection.on('connected', () => {
-  logger.info('Connected to database');
+  logger.info('Connecté sur la base de données ' + environment.mongodb.uri);
 });
 
 // addtional configuration when serving Angular SPA (static reource and Anugalr routing)
@@ -84,7 +82,7 @@ app.use('/api', apiRoutes);
 const HOST = '127.0.0.1';
 // start server
 // Launch app to listen to specified port
-const server = app.listen(process.env.EXPRESS_PORT_ARTI || 3000, HOST, () => {
+const server = app.listen(process.env.EXPRESS_PORT_ARTI, HOST, () => {
   const PORT = server.address().port;
-  logger.info(`Running  on http://${HOST}:${PORT}`);
+  logger.info(`Serveur lancé sur http://${HOST}:${PORT}`);
 });

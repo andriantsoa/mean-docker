@@ -1,5 +1,7 @@
 const winston = require("winston");
 const winstonDailyRotateFile = require('winston-daily-rotate-file');
+winston.addColors({ debug: 'green', info: 'cyan', silly: 'magenta', warn: 'yellow', error: 'red' });
+
 //define custom log format
 const logFormat = winston.format.combine(
   winston.format.colorize({
@@ -10,8 +12,9 @@ const logFormat = winston.format.combine(
   }),
   winston.format.timestamp(),
   winston.format.align(),
+
   winston.format.printf(
-    info => `${info.timestamp} ${info.level}: ${info.message}`,
+    info => `[${info.level}] ${info.timestamp}: ${info.message}`,
   ),
 );
 
@@ -25,7 +28,6 @@ const logger = winston.loggers.add('customLogger', {
       level: 'info',
     }),
     new winston.transports.Console({
-      level: 'info',
       format: winston.format.combine(winston.format.colorize(), logFormat)
     }),
   ],

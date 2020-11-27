@@ -1,7 +1,10 @@
 // Import user controller
 const userController = require('../controllers/users.controller');
+const logger = require('../services/private/logger.service');
 
 exports.addRoute = (router) => {
+  logger.info('Initialisation des user');
+
   router
     .route('/users')
     .get(userController.index)

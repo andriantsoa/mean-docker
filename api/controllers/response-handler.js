@@ -1,3 +1,5 @@
+const logger = require('../services/private/logger.service');
+
 const getResponseParam = (code) => {
   switch (code) {
     case 500:
@@ -50,7 +52,7 @@ exports.handleWithParam = (res, param) => {
   const message = param.message;
   const data = param.data;
   const error = param.error;
-  if (error) console.error(error);
+  if (error) logger.error(status + ' erreur: ' + error + ' ' + message);
   return res.status(code).json({
     status,
     message,
@@ -69,7 +71,7 @@ exports.handleError = (res, errors = 'Server Error', code = 500, messages = null
     message,
     error,
   };
-  console.error(error);
+  logger.error(status + ' erreur: ' + error + ' ' + message);
   return res.status(code).json(response);
 };
 
