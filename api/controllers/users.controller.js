@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const profilService = require('../services/profil.service');
 const userService = require('../services/user.service');
+const mailService = require('../services/private/mail.service');
+
 const responseHandler = require('./response-handler');
 // const responder = require('../middle/response.middle');
 // Handle index actions
@@ -144,19 +146,15 @@ exports.changePassword = function (req, res) {
   });
 };
 
-exports.validate = function (req, res) {
-  if (req.body && req.body.validationKey && req.body.username) {
-    const key = req.body.validationKey;
-    const username = req.body.username;
-    User.findOne({ username, codeActivation: key }, async (err, user) => {
-      if (err || !user) {
-        responseHandler.handleError(res, err, 400);
-      } else {
-        await profilService.createProfil(user);
-        responseHandler.handleMessage(res, 'Compte utilisateur activé');
-      }
-    });
+exports.validate = async (req, res) => {
+  const result = await userService.validate(req);
+  console.log('validation controller', validation);
+  if (result.validated == true) {
+    responseHandler.handleMessage(res, 'Compte utilisateur activé pour ' + result.user.username);
+    await mailService.sendMailSimple('andryrandriadev@gmail.com', '[ASAKO] Compte validé ' + result.user.username, 'Votre compte a été validé');
+  } else if (validated == false) {
+    responseHandler.handleError(res, 'Mail non envoyé : Probleme de données', 400);
   } else {
-    responseHandler.handleError(res, err, 403, 'activation non autorisé');
+    responseHandler.handleError(res, 'Mail non envoyé : activation non autorisé', 403);
   }
 };

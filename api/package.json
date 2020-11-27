@@ -22,7 +22,9 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "q": "^1.4.1",
     "request": "^2.88.2",
-    "rootpath": "^0.1.2"
+    "rootpath": "^0.1.2",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
   },
   "license": "MIT",
   "devDependencies": {

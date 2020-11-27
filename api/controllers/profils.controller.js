@@ -28,7 +28,6 @@ exports.view = function (req, res) {
 
 // Handle update profil info
 exports.update = function (req, res) {
-  console.log('BODY', req.body);
   Profil.findById(req.params.profil_id, async function (err, profil) {
     if (err) {
       responseHandler.handleError(res, err, 400);
