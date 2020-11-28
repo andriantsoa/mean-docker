@@ -3,7 +3,6 @@
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const profilService = require('../services/profil.service');
 const userService = require('../services/user.service');
 const mailService = require('../services/private/mail.service');
 
@@ -94,56 +93,22 @@ exports.delete = function (req, res) {
   );
 };
 
-exports.authenticate = function (req, res) {
-  User.findOne({ email: req.body.username }, function (err, user) {
-    if (err) {
-      responseHandler.handleError(res, err, 400);
-    }
-
-    if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      // authentication successful
-      user.token = jwt.sign({ sub: user._id }, environment.secret, {
-        algorithm: 'HS256'
-      });
-      delete user.password;
-      const data = {
-        city: user.city,
-        notifications: user.notifications,
-        role: user.role,
-        token: user.token,
-        username: user.username,
-        profils: user.profils,
-        active: user.active,
-        _id: user._id
-      };
-      responseHandler.handleDataAndMessage(res, data, 'Connexion avec succes');
-    } else {
-      // authentication failed
-      responseHandler.handleError(res, err, 401, 'Erreur sur la connexion');
-    }
-  });
+exports.authenticate = (req, res) => {
+  const result = userService.authenticate(req.body);
+  if (result && result.data) {
+    responseHandler.handleDataAndMessage(res, result.data, result.message);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
 };
 
-exports.changePassword = function (req, res) {
-  User.findById(req.params.user_id, function (err, user) {
-    if (err) {
-      responseHandler.handleError(res, err, 400);
-    }
-
-    if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      // authentication successful
-      if (req.body.password) {
-        user.password = bcrypt.hashSync(req.body.password, 10);
-      }
-      user.save(function (err) {
-        if (err) responseHandler.handleError(res, err, 400);
-        responseHandler.handleMessage(res, 'Mot de passe mis a jour');
-      });
-    } else {
-      // authentication failed
-      responseHandler.handleError(res, err, 401, 'ancien mot de pass ne correspond pas');
-    }
-  });
+exports.changePassword = (req, res) => {
+  const result = userService.changePassword(req);
+  if (result && result.data) {
+    responseHandler.handleDataAndMessage(res, result.data, result.message);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
 };
 
 exports.validate = async (req, res) => {
