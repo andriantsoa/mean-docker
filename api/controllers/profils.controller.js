@@ -2,6 +2,8 @@
 // Import profil model
 const Profil = require('../models/profil.model');
 const candidatService = require('../services/candidat.service');
+const profilService = require('../services/profil.service');
+
 const responseHandler = require('./response-handler');
 // Handle index actions
 
@@ -17,18 +19,18 @@ exports.index = function (req, res) {
 };
 
 // Handle view profil info
-exports.view = function (req, res) {
-  Profil.findById(req.params.profil_id, function (err, profil) {
-    if (err) {
-      responseHandler.handleError(res, err, 400);
-    }
+exports.view = (req, res) => {
+  const profil = profilService.getProfilById(req.params.profil_id);
+  if (profil && profil._id) {
     responseHandler.handleDataAndMessage(res, profil, 'details du profil');
-  });
+  } else {
+    responseHandler.handleError(res, err, 400);
+  }
 };
 
 // Handle update profil info
-exports.update = function (req, res) {
-  Profil.findById(req.params.profil_id, async function (err, profil) {
+exports.update = (req, res) => {
+  Profil.findById(req.params.profil_id, async (err, profil) => {
     if (err) {
       responseHandler.handleError(res, err, 400);
     }

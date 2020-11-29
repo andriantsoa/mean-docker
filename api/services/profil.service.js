@@ -20,3 +20,20 @@ exports.createProfilforUser = async (user) => {
   }
   return newProfil;
 };
+
+exports.getProfilById = (profil_id) => {
+  Profil.findById(profil_id, (error, profil) => {
+    if (error) return null;
+    return profil;
+  });
+};
+
+// exports.updateProfil = async (req) => {
+//   const profil = Profil.findById(req.params.profil_id, async (err, profil) => {
+//     if (err) {
+//       responseHandler.handleError(res, err, 400);
+//     }
+//     await candidatService.createCandidat(profil, req.body);
+//     responseHandler.handleDataAndMessage(res, profil, 'Profil mis à jour');
+//   });
+// };
