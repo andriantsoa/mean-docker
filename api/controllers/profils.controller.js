@@ -29,14 +29,17 @@ exports.view = (req, res) => {
 };
 
 // Handle update profil info
-exports.update = (req, res) => {
-  Profil.findById(req.params.profil_id, async (err, profil) => {
-    if (err) {
-      responseHandler.handleError(res, err, 400);
-    }
-    await candidatService.createCandidat(profil, req.body);
+exports.update = async (req, res) => {
+  const profil = await profilService.updateProfil(req);
+  if (profil && profil._id) {
     responseHandler.handleDataAndMessage(res, profil, 'Profil mis à jour');
-  });
+    const email = 'andryrandriadev@gmail.com';
+    const subject = '[ASAKO] Compte validé';
+    const text = 'Votre compte a été validé';
+    mailService.sendMailSimple(email, subject, text);
+  } else {
+    responseHandler.handleError(res, err, 400);
+  }
 };
 
 // Handle delete profil

@@ -83,3 +83,28 @@ exports.changePassword = (req) => {
     }
   });
 };
+
+exports.createUser = async (param) => {
+  const result = await UserModel.find({ username: param.username.trim() }, (error, users) => {
+    if (error) return { status: 400, message: 'Compte introuvable', error };
+    if (users && users.length > 0) {
+      return { status: 400, message: 'L\'utilisateur n\'est plus disponible', error };
+    } else {
+      return null
+    }
+  });
+  if (result === null) {
+    const user = new User(param);
+    user.active = false;
+    user.codeActivation = userService.generateActivationCode();
+    if (param.password) {
+      user.password = bcrypt.hashSync(param.password, 10);
+    }
+
+    // save the user and check for errors
+    return await user.save((error, user) => {
+      if (error) return { status: 400, message: 'Utilisateur non enregistré', error };
+      return { data: user, message: 'Mot de passe mis a jour' };
+    });
+  }
+};

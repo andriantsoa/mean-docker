@@ -1,8 +1,6 @@
 // userController.js
 // Import user model
 const User = require('../models/user.model');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const userService = require('../services/user.service');
 const mailService = require('../services/private/mail.service');
 
@@ -30,29 +28,16 @@ exports.index = function (req, res) {
 
 // Handle create user actions
 exports.new = function (req, res) {
-  User.find({ username: req.body.username.trim() }, function (err, users) {
-    if (err) {
-      responseHandler.handleError(res, err, 400);
-    }
-    if (users && users.length > 0) {
-      responseHandler.handleError(res, err, 400, 'utilisateur n\'est plus disponible');
-    } else {
-      const user = new User(req.body);
-      user.active = false;
-      user.codeActivation = userService.generateActivationCode();
-      if (req.body.password) {
-        user.password = bcrypt.hashSync(req.body.password, 10);
-      }
-
-      // save the user and check for errors
-      user.save(function (err) {
-        if (err) {
-          responseHandler.handleError(res, err, 400);
-        }
-        responseHandler.handleDataAndMessage(res, user, 'Utilisateur créé');
-      });
-    }
-  });
+  const result = userService.createUser(req.body);
+  if (result && result.data) {
+    responseHandler.handleDataAndMessage(res, result.data, result.message);
+    const email = 'andryrandriadev@gmail.com';
+    const subject = '[ASAKO] Votre compte a été créé';
+    const text = `Bonjour ${result.user.username}, Votre compte a été validé. Il vous reste à confirmer son activation sur l'url suivant: http://localhost:4200/dashboard/validation?validationKey=${result.user.codeActivation}`, ;
+    await mailService.sendMailSimple(email, subject, text);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
 };
 
 // Handle view user info
@@ -116,7 +101,10 @@ exports.validate = async (req, res) => {
   console.log('validation controller', validation);
   if (result.validated == true) {
     responseHandler.handleMessage(res, 'Compte utilisateur activé pour ' + result.user.username);
-    await mailService.sendMailSimple('andryrandriadev@gmail.com', '[ASAKO] Compte validé ' + result.user.username, 'Votre compte a été validé');
+    const email = 'andryrandriadev@gmail.com';
+    const subject = '[ASAKO] Compte validé ' + result.user.username;
+    const text = 'Votre compte a été validé';
+    await mailService.sendMailSimple(email, subject, text);
   } else if (validated == false) {
     responseHandler.handleError(res, 'Mail non envoyé : Probleme de données', 400);
   } else {

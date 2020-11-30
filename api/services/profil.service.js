@@ -28,12 +28,11 @@ exports.getProfilById = (profil_id) => {
   });
 };
 
-// exports.updateProfil = async (req) => {
-//   const profil = Profil.findById(req.params.profil_id, async (err, profil) => {
-//     if (err) {
-//       responseHandler.handleError(res, err, 400);
-//     }
-//     await candidatService.createCandidat(profil, req.body);
-//     responseHandler.handleDataAndMessage(res, profil, 'Profil mis à jour');
-//   });
-// };
+exports.updateProfil = async (req) => {
+  const profil = await Profil.findById(req.params.profil_id, async (error, profil) => {
+    if (error) error;
+    return profil;
+  });
+  const updatedProfil = await candidatService.createCandidat(profil, req.body);
+  return updatedProfil;
+};
