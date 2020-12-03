@@ -25,7 +25,7 @@ exports.view = async (req, res) => {
 };
 
 // Handle update candidat info
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const result = await candidatService.updateCandidat(req.params.candidat_id, body);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
@@ -34,19 +34,14 @@ exports.update = (req, res) => {
   }
 };
 
-// // Handle delete candidat
-// exports.delete = (req, res) => {
-//   CandidatModel.remove(
-//     {
-//       _id: req.params.candidat_id
-//     },
-//     (err, candidat) => {
-//       if (err) {
-//         responseHandler.handleError(res, err, 400);
-//       }
-//       responseHandler.handleMessage(res, 'Candidat supprimé');
-//     }
-//   );
-// };
+// Handle delete candidat
+exports.delete = async (req, res) => {
+  const result = await candidatService.deleteCandidat(req.params.candidat_id);
+  if (result && result.data) {
+    responseHandler.handleMessage(res, result.message);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
+};
 
 

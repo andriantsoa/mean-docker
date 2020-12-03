@@ -34,3 +34,13 @@ exports.updateCandidat = async (candidat_id, body) => {
     return { data: candidat, message: 'Candidat mis à jour' };
   });
 };
+
+exports.deleteCandidat = async (candidat_id) => {
+  return await CandidatModel.remove({
+    _id: candidat_id
+  }, (error, candidat) => {
+    if (error) return { status: 400, message: 'Candidat introuvable', error };
+    return { data: true, message: 'Candidat supprimé' };
+  }
+  );
+};
