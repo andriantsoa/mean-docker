@@ -5,38 +5,6 @@ const logger = require('../services/private/logger.service');
 
 // Handle index actions
 
-// exports.createProfil = async (user) => {
-//   const profil = new Profil();
-//   profil.role = user.role;
-//   profil.label = user.username;
-
-//   // save the profil and check for errors
-//   return await profil.save((err) => {
-//     if (err) {
-//       logger.error('sur enregistrement nouveau profil');
-//       return {
-//         error: err
-//       };
-//     }
-//     user.active = true;
-//     user.profils = [profil._id];
-//     logger.info('enregistrement nouveau profil ' + profil._id);
-
-//     user.save(function (err) {
-//       if (err) {
-//         logger.error('sur mis a jour utilisateur');
-//         return {
-//           error: err
-//         };
-//       }
-//       logger.info('mis a jour utilisateur');
-//     });
-//     return {
-//       profil
-//     };
-//   });
-// };
-
 exports.createProfilforUser = async (user) => {
   const profil = new Profil();
   profil.role = user.role;
@@ -51,4 +19,20 @@ exports.createProfilforUser = async (user) => {
     logger.info('mis a jour utilisateur' + updatedUser.profils);
   }
   return newProfil;
+};
+
+exports.getProfilById = (profil_id) => {
+  Profil.findById(profil_id, (error, profil) => {
+    if (error) return null;
+    return profil;
+  });
+};
+
+exports.updateProfil = async (req) => {
+  const profil = await Profil.findById(req.params.profil_id, async (error, profil) => {
+    if (error) error;
+    return profil;
+  });
+  const updatedProfil = await candidatService.createCandidat(profil, req.body);
+  return updatedProfil;
 };
