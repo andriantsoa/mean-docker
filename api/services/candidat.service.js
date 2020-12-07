@@ -6,9 +6,9 @@ exports.createCandidat = async (profil, newProfil) => {
   const candidat = new Candidat();
   candidat.metier = newProfil.label;
   candidat.status = newProfil.status;
-  const candidat = await candidat.save();
+  const candidatCreated = await candidat.save();
   if (candidat._id) {
-    profil.candidat = candidat._id;
+    profil.candidat = candidatCreated._id;
     profil.secteur = newProfil.secteur;
     profil.label = newProfil.label;
     profil.status = newProfil.status;

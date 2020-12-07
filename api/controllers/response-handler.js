@@ -53,6 +53,7 @@ exports.handleWithParam = (res, param) => {
   const data = param.data;
   const error = param.error;
   if (error) logger.error(status + ' erreur: ' + error + ' ' + message);
+  logger.info(`${code} (${status}): ${message}`);
   return res.status(code).json({
     status,
     message,
@@ -71,7 +72,7 @@ exports.handleError = (res, errors = 'Server Error', code = 500, messages = null
     message,
     error,
   };
-  logger.error(status + ' erreur: ' + error + ' ' + message);
+  logger.error(`Erreur ${code} (${status}): ${message}: ${error}`);
   return res.status(code).json(response);
 };
 
@@ -86,6 +87,7 @@ exports.handleData = (res, data, metadata = {}) => {
     data,
     metadata
   };
+  logger.info(`${code} (${status}): ${message}`);
   return res.status(code).json(response);
 };
 
@@ -98,6 +100,7 @@ exports.handleMessage = (res, messages = 'resultat obtenu') => {
     status,
     message,
   };
+  logger.info(`${code} (${status}): ${message}`);
   return res.status(code).json(response);
 };
 
@@ -111,5 +114,6 @@ exports.handleDataAndMessage = (res, data, messages = 'resultat obtenu') => {
     message,
     data,
   };
+  logger.info(`${code} (${status}): ${message}`);
   return res.status(code).json(response);
 };

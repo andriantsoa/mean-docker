@@ -15,9 +15,6 @@ import { CandidatService } from 'src/app/core/services';
 })
 export class AsakoCandidatComponent implements OnInit {
   public candidat: ICandidat;
-  // public step1: FormGroup;
-  // public step2: FormGroup;
-  // public step3: FormGroup;
   public profil: IProfil;
   public roles: any[];
   public status: any[];
@@ -33,15 +30,6 @@ export class AsakoCandidatComponent implements OnInit {
     private candidatService: CandidatService,
     private validationService: ValidationService,
   ) {
-    // this.step1 = this.formBuilder.group({
-    //   label: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    //   role: new FormControl('', [Validators.required]),
-    //   status: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    // });
-    // this.step2 = this.formBuilder.group({
-    //   groupe: new FormControl([''], [Validators.minLength(1)]),
-    //   secteur: new FormControl([''], [Validators.minLength(1)]),
-    // });
     this.roles = this.toArray(Role);
     this.status = this.toArray(Statut);
   }
@@ -52,8 +40,8 @@ export class AsakoCandidatComponent implements OnInit {
 
   public getCandidat(id: string): void {
     this.candidatService.getById(id)
-      .subscribe(p => {
-        this.candidat = p;
+      .subscribe(candidat => {
+        this.candidat = candidat;
         console.log(this.candidat);
       },
         err => console.log(err),
@@ -66,15 +54,15 @@ export class AsakoCandidatComponent implements OnInit {
   }
 
   private updateCandidat(candidat: ICandidat): void {
-    this.candidatService.update(candidat)
-      .subscribe(p => {
-        console.log(p);
-        if (candidat.role === Role.CANDIDAT) {
-          this.router.navigate(['/dashboard/candidat']);
-        } else if (candidat.role === Role.ENTREPRISE) {
-          this.router.navigate(['/dashboard/entreprise']);
-        }
-      });
+    // this.candidatService.update(candidat)
+    //   .subscribe(p => {
+    //     console.log(p);
+    //     if (candidat.role === Role.CANDIDAT) {
+    //       this.router.navigate(['/dashboard/candidat']);
+    //     } else if (candidat.role === Role.ENTREPRISE) {
+    //       this.router.navigate(['/dashboard/entreprise']);
+    //     }
+    //   });
   }
 
   public sendUpdate(): void {

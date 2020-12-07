@@ -57,7 +57,6 @@ const userSchema = new Schema({
   pays: String,
   city: String,
   adresse: String
-
 }, {
   timestamps: true
 });

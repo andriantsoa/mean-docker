@@ -1,4 +1,5 @@
 export interface ICandidat {
+  _id?: string;
   posteActuel: string;
   presentation: string;
   disponible: boolean;
@@ -9,7 +10,7 @@ export interface ICandidat {
   aspirations: [string];
   formations: [IFormation];
   demandes: [IDemande];
-  offres: [IOffre]
+  offres: [IOffre];
 }
 
 export interface IExperience {

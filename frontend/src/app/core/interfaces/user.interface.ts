@@ -14,3 +14,9 @@ export interface IUser {
   active?: boolean;
   profils?: any[];
 }
+
+export interface IUserProfile {
+  _id?: string;
+  profil?: string;
+  candidat?: string;
+}
