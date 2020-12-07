@@ -12,11 +12,15 @@ export interface IUser {
   token?: string;
   _id?: string;
   active?: boolean;
-  profils?: any[];
+  profils?: IUserProfile[];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IUserProfile {
   _id?: string;
-  profil?: string;
   candidat?: string;
+  label?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }

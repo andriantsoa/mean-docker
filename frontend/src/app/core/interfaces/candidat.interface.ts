@@ -11,6 +11,8 @@ export interface ICandidat {
   formations: [IFormation];
   demandes: [IDemande];
   offres: [IOffre];
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IExperience {
@@ -47,7 +49,8 @@ export interface IDemande {
   secteur: [string];
   salaire: number;
   publish: boolean;
-
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface IOffre {
@@ -63,6 +66,8 @@ export interface IOffre {
   avantages: [string];
   salaire: number;
   publish: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 import { IUser } from './user.interface';
@@ -77,4 +82,6 @@ export interface IEntreprise {
   dateFondation: string;
   demandes: [IDemande];
   offres: [IOffre];
+  createdAt?: string;
+  updatedAt?: string;
 }

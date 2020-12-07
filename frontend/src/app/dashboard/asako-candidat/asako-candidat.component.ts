@@ -32,6 +32,7 @@ export class AsakoCandidatComponent implements OnInit {
   ) {
     this.roles = this.toArray(Role);
     this.status = this.toArray(Statut);
+    // this.filieres = this.toArray(Filiere);
   }
 
   ngOnInit(): void {

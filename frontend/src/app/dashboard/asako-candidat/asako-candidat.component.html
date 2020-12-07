@@ -6,20 +6,32 @@
     <form [formGroup]="formationsForm">
       <ng-template matStepLabel>Fill out your name</ng-template>
       <mat-form-field appearance="outline">
-        <mat-label>votre titre</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="label" required />
+        <mat-label>Titre de la formation ou diplome</mat-label>
+        <input matInput placeholder="Last name, First name" formControlName="titre" required />
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Type de compte</mat-label>
-        <mat-select formControlName="role">
+        <mat-label>Groupe</mat-label>
+        <mat-select formControlName="groupe">
           <mat-option [value]="role.value" *ngFor="let role of roles">{{ role.label }} </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Votre Statut</mat-label>
-        <mat-select formControlName="status">
-          <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
+        <mat-label>Filière</mat-label>
+        <mat-select formControlName="filiere">
+          <mat-option [value]="role.value" *ngFor="let role of filieres">{{ role.label }} </mat-option>
         </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Ecole ou établissements</mat-label>
+        <input matInput placeholder="établissements" formControlName="etablissement" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Date de début</mat-label>
+        <input matInput placeholder="jj/mm/yyyy" formControlName="debut" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Date de fin</mat-label>
+        <input matInput placeholder="jj/mm/yyyy" formControlName="fin" required />
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -29,12 +41,6 @@
   <mat-step [stepControl]="experiencesForm" optional>
     <form [formGroup]="experiencesForm">
       <ng-template matStepLabel>Fill out your address</ng-template>
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Groupe</mat-label>
-        <mat-select formControlName="groupe" multiple>
-          <mat-option [value]="groupe.value" *ngFor="let groupe of roles">{{ groupe.label }} </mat-option>
-        </mat-select>
-      </mat-form-field> -->
       <mat-form-field appearance="outline">
         <mat-label>Secteur</mat-label>
         <mat-select formControlName="secteur" multiple>
@@ -50,12 +56,6 @@
   <mat-step [stepControl]="competencesForm" optional>
     <form [formGroup]="competencesForm">
       <ng-template matStepLabel>Fill out your address</ng-template>
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Groupe</mat-label>
-        <mat-select formControlName="groupe" multiple>
-          <mat-option [value]="groupe.value" *ngFor="let groupe of roles">{{ groupe.label }} </mat-option>
-        </mat-select>
-      </mat-form-field> -->
       <mat-form-field appearance="outline">
         <mat-label>Secteur</mat-label>
         <mat-select formControlName="secteur" multiple>

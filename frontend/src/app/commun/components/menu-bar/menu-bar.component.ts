@@ -54,8 +54,16 @@ export class MenuBarComponent implements OnInit {
   ) { }
 
   public updateNav(nav: any): void {
+    let param;
+    switch (nav.label) {
+      case 'candidat':
+        param = this.candidatId;
+        break;
+      default:
+        param = '';
+    }
     this.updateActiveLink(nav.label);
-    this.router.navigate([nav.link]);
+    this.router.navigate([`${nav.link}/${param}`]);
   }
 
   private updateActiveLink(label: string): void {

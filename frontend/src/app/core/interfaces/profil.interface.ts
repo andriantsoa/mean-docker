@@ -11,4 +11,6 @@ export interface IProfil {
   aspirations?: string[];
   group?: string;
   _id: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
