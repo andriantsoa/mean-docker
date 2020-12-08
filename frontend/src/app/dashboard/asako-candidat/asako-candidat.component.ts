@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Secteurs } from 'src/app/commun/constantes/secteur.constant';
-import { Role, Statut } from 'src/app/commun/enum/role.enum';
+import { Filiere, Role, Statut } from 'src/app/commun/enum/role.enum';
 import { ValidationService } from 'src/app/core/components';
 import { IProfil } from 'src/app/core/interfaces/profil.interface';
 import { ICandidat } from 'src/app/core/interfaces/candidat.interface';
@@ -11,7 +11,7 @@ import { CandidatService } from 'src/app/core/services';
 @Component({
   selector: 'app-asako-candidat',
   templateUrl: './asako-candidat.component.html',
-  styleUrls: ['./asako-candidat.component.css']
+  styleUrls: ['./asako-candidat.component.scss']
 })
 export class AsakoCandidatComponent implements OnInit {
   public candidat: ICandidat;
@@ -20,8 +20,12 @@ export class AsakoCandidatComponent implements OnInit {
   public status: any[];
   public secteurs = Secteurs;
   experiencesForm: FormGroup;
+  experience: FormGroup;
   formationsForm: FormGroup;
+  formation: FormGroup;
   competencesForm: FormGroup;
+  competence: FormGroup;
+  filieres: any[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +36,7 @@ export class AsakoCandidatComponent implements OnInit {
   ) {
     this.roles = this.toArray(Role);
     this.status = this.toArray(Statut);
-    // this.filieres = this.toArray(Filiere);
+    this.filieres = this.toArray(Filiere);
   }
 
   ngOnInit(): void {
@@ -83,7 +87,6 @@ export class AsakoCandidatComponent implements OnInit {
       label: new FormControl('', [Validators.required, Validators.minLength(2)]),
       aspirations: new FormControl(['']),
       status: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      groupe: new FormControl(['']),
       secteur: new FormControl([''], [Validators.minLength(1)]),
       entreprise: new FormControl('', [Validators.required, Validators.minLength(2)]),
       competence: new FormControl([''], [Validators.minLength(1)]),
