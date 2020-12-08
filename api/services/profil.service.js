@@ -11,9 +11,13 @@ exports.createProfilforUser = async (user) => {
   profil.role = user.role;
   profil.label = user.username;
   if (profil.role === ROLE.CANDIDAT) {
-    profil.candidat = new CandidatModel();
+    const newCandidat = new CandidatModel();
+    profil.candidat = await newCandidat.save();
+    logger.info('enregistrement nouveau candidat ' + newCandidat._id);
   } else if (profil.role === ROLE.ENTREPRISE) {
-    profil.entreprise = new EntrepriseModel();
+    const newEntreprise = new EntrepriseModel();
+    profil.entreprise = await newEntreprise.save();
+    logger.info('enregistrement nouvelle entreprise ' + newEntreprise._id);
   }
   const newProfil = await profil.save();
   logger.info('enregistrement nouveau profil ' + newProfil._id);

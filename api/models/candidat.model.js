@@ -41,6 +41,7 @@ const candidatSchema = new Schema({
   disponible: Boolean,
   metier: {
     type: String,
+    default: 'Métier',
     required: true
   },
   status: {

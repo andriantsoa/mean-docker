@@ -37,6 +37,9 @@ export class AsakoCandidatComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCandidat(this.route.snapshot.paramMap.get('id'));
+    this.createExperiences();
+    this.createFormations();
+    this.createCompetences();
   }
 
   public getCandidat(id: string): void {
@@ -75,13 +78,12 @@ export class AsakoCandidatComponent implements OnInit {
     this.updateCandidat(param);
   }
 
-
   public createExperiences(): void {
     this.experiencesForm = this.formBuilder.group({
       label: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      aspirations: new FormControl([''], [Validators.minLength(1)]),
+      aspirations: new FormControl(['']),
       status: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      groupe: new FormControl([''], [Validators.minLength(1)]),
+      groupe: new FormControl(['']),
       secteur: new FormControl([''], [Validators.minLength(1)]),
       entreprise: new FormControl('', [Validators.required, Validators.minLength(2)]),
       competence: new FormControl([''], [Validators.minLength(1)]),

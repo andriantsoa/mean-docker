@@ -1,9 +1,10 @@
 const CandidatModel = require('../models/candidat.model');
-const Candidat = require('../models/candidat.model');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 // Handle index actions
 
 exports.createCandidat = async (profil, newProfil) => {
-  const candidat = new Candidat();
+  const candidat = new CandidatModel();
   candidat.metier = newProfil.label;
   candidat.status = newProfil.status;
   const candidatCreated = await candidat.save();
@@ -20,12 +21,16 @@ exports.createCandidat = async (profil, newProfil) => {
     return null;
   }
 };
+exports.getProfilById = async (profil_id) => {
+  return await Profil.findById(profil_id);
+};
 
 exports.getCandidatById = async (id) => {
-  return await CandidatModel.findById(id, (error, candidat) => {
-    if (error) return { status: 400, message: 'Candidat introuvable', error };
-    return { data: candidat, message: 'Details sur le candidat' };
-  });
+  const candidat = await CandidatModel.findById(id);
+  if (!candidat || !candidat._id) {
+    return { status: 400, message: 'Candidat introuvable' };
+  }
+  return { data: candidat, message: 'Details sur le candidat' };
 };
 
 exports.updateCandidat = async (candidat_id, body) => {
