@@ -3,8 +3,9 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const profilService = require('../services/profil.service');
 const logger = require('../services/private/logger.service');
+const environment = require('../config/environment');
 
-exports.generateActivationCode = () => {
+generateActivationCode = () => {
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let part1 = '';
   let part2 = '';
@@ -17,31 +18,45 @@ exports.generateActivationCode = () => {
   return 'ASA' + part1 + part2[0] + '-' + part1[0] + part2;
 };
 
-exports.authenticate = (param) => {
-  UserModel.findOne({ email: param.username }, (error, user) => {
-    if (error) return { status: 400, message: 'Compte introuvable', error };
-    if (user && bcrypt.compareSync(param.password, user.password)) {
-      // authentication successful
-      user.token = jwt.sign({ sub: user._id }, environment.secret, {
-        algorithm: 'HS256'
-      });
-      delete user.password;
-      const data = {
-        city: user.city,
-        notifications: user.notifications,
-        role: user.role,
-        token: user.token,
-        username: user.username,
-        profils: user.profils,
-        active: user.active,
-        _id: user._id
-      };
-      return { data, message: 'Connexion avec succes' };
-    } else {
-      return { status: 401, message: 'Erreur sur la connexion', error };
-    }
-  });
+exports.generateActivationCode = generateActivationCode();
+
+exports.authenticate = async (param) => {
+  const user = await getUserProfilCandidatByMail(param.username);
+  if (user && user._id && bcrypt.compareSync(param.password, user.password)) {
+    // authentication successful
+    user.token = jwt.sign({ sub: user._id }, environment.secret, {
+      algorithm: 'HS256'
+    });
+    delete user.password;
+    const data = {
+      city: user.city,
+      notifications: user.notifications,
+      role: user.role,
+      token: user.token,
+      username: user.username,
+      profils: user.profils,
+      active: user.active,
+      _id: user._id
+    };
+    return { data, message: 'Connexion avec succes' };
+  } else {
+    return { status: 401, message: 'Erreur sur la connexion' };
+  }
 };
+
+getUserProfilCandidatByMail = async (username) => {
+  return await UserModel.findOne({ email: username }, (error, user) => {
+    if (error) throw new Error('Utilisateur introuvable pour ' + username);
+    return user;
+  }).populate('profils');
+}
+
+getUserProfilCandidatById = async (_id) => {
+  return await UserModel.findOne({ _id }, (error, user) => {
+    if (error) throw new Error('Utilisateur introuvable pour ' + username);
+    return user;
+  }).populate('profils');
+}
 
 exports.validate = async (req) => {
   if (req.body && req.body.validationKey && req.body.username) {
@@ -55,14 +70,23 @@ exports.validate = async (req) => {
         return { user };
       }
     });
-    const data = await profilService.createProfilforUser(user);
-    console.log('data validation apres creation', data);
-    return data && data._id ? { validated: true, user } : { validated: false };
+    const newProfil = await profilService.createProfilforUser(user);
+    console.log('newProfil validation apres creation', newProfil);
+    return newProfil && newProfil._id ? { validated: true, user: userProfilMapping(user, newProfil) } : { validated: false };
   } else {
     logger.error('requete invalide');
     return null;
   }
 };
+
+userProfilMapping = (user, newProfil) => {
+  const mappedUser = user;
+  if (mappedUser && newProfil && newProfil._id) {
+    mappedUser.profils = [];
+    mappedUser.profils.push(newProfil);
+  }
+  return mappedUser;
+}
 
 exports.changePassword = (req) => {
   UserModel.findById(req.params.user_id, (error, user) => {
@@ -85,26 +109,21 @@ exports.changePassword = (req) => {
 };
 
 exports.createUser = async (param) => {
-  const result = await UserModel.find({ username: param.username.trim() }, (error, users) => {
-    if (error) return { status: 400, message: 'Compte introuvable', error };
-    if (users && users.length > 0) {
-      return { status: 400, message: 'L\'utilisateur n\'est plus disponible', error };
-    } else {
-      return null
-    }
-  });
-  if (result === null) {
-    const user = new User(param);
-    user.active = false;
-    user.codeActivation = userService.generateActivationCode();
+  const result = await UserModel.find({ username: param.username.trim() });
+  if ((result && result.length === 0) || result === null) {
+    const newUser = new UserModel(param);
+    newUser.active = false;
+    newUser.codeActivation = generateActivationCode();
     if (param.password) {
-      user.password = bcrypt.hashSync(param.password, 10);
+      newUser.password = bcrypt.hashSync(param.password, 10);
     }
-
     // save the user and check for errors
-    return await user.save((error, user) => {
-      if (error) return { status: 400, message: 'Utilisateur non enregistré', error };
-      return { data: user, message: 'Mot de passe mis a jour' };
-    });
+    const user = await newUser.save();
+    if (!user || !user._id) {
+      return { status: 400, message: 'Utilisateur non enregistré' };
+    }
+    return { data: user, message: 'Utilisateur bien enregistré' };
+  } else {
+    return { status: 400, message: 'L\'utilisateur n\'est plus disponible' };
   }
 };

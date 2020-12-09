@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class LoginService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public login(username: string, password: string): Observable<any> {
     return this.http
@@ -21,7 +21,6 @@ export class LoginService {
               localStorage.setItem('currentUser', JSON.stringify(user.data));
             }
           }
-
           return user.data;
         })
       );

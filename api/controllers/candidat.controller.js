@@ -2,6 +2,7 @@
 // Import candidat model
 const responseHandler = require('./response-handler');
 const candidatService = require('../services/candidat.service');
+const mailService = require('../services/private/mail.service');
 
 // Handle index actions
 
@@ -25,28 +26,25 @@ exports.view = async (req, res) => {
 };
 
 // Handle update candidat info
-exports.update = (req, res) => {
-  const result = await candidatService.updateCandidat(req.params.candidat_id, body);
+exports.update = async (req, res) => {
+  const result = await candidatService.updateCandidat(req.params.candidat_id, req.body);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
+    const email = 'andryrandriadev@gmail.com';
+    const subject = '[ASAKO] Mise à jour de votre profil de candidat';
+    const text = 'Bonjour, Votre profil de candidat a été modifié avec succès, Bien cordialement, ARTI PROJECT';
+    mailService.sendMailSimple(email, subject, text);
   } else {
     responseHandler.handleError(res, result.error, result.status, result.message);
   }
 };
 
-// // Handle delete candidat
-// exports.delete = (req, res) => {
-//   CandidatModel.remove(
-//     {
-//       _id: req.params.candidat_id
-//     },
-//     (err, candidat) => {
-//       if (err) {
-//         responseHandler.handleError(res, err, 400);
-//       }
-//       responseHandler.handleMessage(res, 'Candidat supprimé');
-//     }
-//   );
-// };
-
-
+// Handle delete candidat
+exports.delete = async (req, res) => {
+  const result = await candidatService.deleteCandidat(req.params.candidat_id);
+  if (result && result.data) {
+    responseHandler.handleMessage(res, result.message);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
+};

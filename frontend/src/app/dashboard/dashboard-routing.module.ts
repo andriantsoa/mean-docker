@@ -29,7 +29,7 @@ const publicRoutes: Routes = [
         component: ProfilFormComponent
       },
       {
-        path: 'candidat',
+        path: 'candidat/:id',
         canActivate: [AuthGuard],
         component: AsakoCandidatComponent
       },

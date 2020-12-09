@@ -13,11 +13,16 @@ const competence = new Schema({
 });
 
 const experience = new Schema({
+  label: { type: String },
   entreprise: { type: String },
   competence: [competence],
   duree: { type: Number },
   debut: { type: String },
   fin: { type: String },
+  status: {
+    type: STATUS,
+    required: false
+  },
   secteur: [String],
   _id: false
 });
@@ -41,6 +46,7 @@ const candidatSchema = new Schema({
   disponible: Boolean,
   metier: {
     type: String,
+    default: 'Métier',
     required: true
   },
   status: {

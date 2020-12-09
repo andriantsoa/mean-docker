@@ -3,19 +3,8 @@
 const User = require('../models/user.model');
 const userService = require('../services/user.service');
 const mailService = require('../services/private/mail.service');
-
 const responseHandler = require('./response-handler');
-// const responder = require('../middle/response.middle');
-// Handle index actions
-
-/**
- * 
- * ATTENTION : ENLEVER LES ACCESS BASES DE DONNEES DANS LE CONTROLLER
- * LES FAIRE DANS SERVICE
- * 
- * 
- */
-const environment = require('../config/environment');
+const logger = require('../services/private/logger.service');
 
 exports.index = function (req, res) {
   User.get(function (err, users) {
@@ -27,13 +16,19 @@ exports.index = function (req, res) {
 };
 
 // Handle create user actions
-exports.new = function (req, res) {
-  const result = userService.createUser(req.body);
+exports.new = async (req, res) => {
+  const result = await userService.createUser(req.body);
+  console.log(result);
+  logger.info(`creation utilisateur`);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
     const email = 'andryrandriadev@gmail.com';
     const subject = '[ASAKO] Votre compte a été créé';
-    const text = `Bonjour ${result.user.username}, Votre compte a été validé. Il vous reste à confirmer son activation sur l'url suivant: http://localhost:4200/dashboard/validation?validationKey=${result.user.codeActivation}`, ;
+    const text = `Bonjour ${result.user.username},
+      Votre compte a été validé.
+      Il vous reste à confirmer son activation sur l'url suivant:
+      http://localhost:4200/dashboard/validation?validationKey=
+      ${result.user.codeActivation}`;
     await mailService.sendMailSimple(email, subject, text);
   } else {
     responseHandler.handleError(res, result.error, result.status, result.message);
@@ -41,7 +36,7 @@ exports.new = function (req, res) {
 };
 
 // Handle view user info
-exports.view = function (req, res) {
+exports.view = (req, res) => {
   User.findById(req.params.user_id, function (err, user) {
     if (err) {
       responseHandler.handleError(res, err, 400);
@@ -51,7 +46,7 @@ exports.view = function (req, res) {
 };
 
 // Handle update user info
-exports.update = function (req, res) {
+exports.update = (req, res) => {
   User.findByIdAndUpdate(req.params.user_id, req.body, { new: true }, function (
     err,
     user
@@ -64,12 +59,12 @@ exports.update = function (req, res) {
 };
 
 // Handle delete user
-exports.delete = function (req, res) {
+exports.delete = (req, res) => {
   User.remove(
     {
       _id: req.params.user_id
     },
-    function (err, user) {
+    (err, user) => {
       if (err) {
         responseHandler.handleError(res, err, 400);
       }
@@ -78,8 +73,8 @@ exports.delete = function (req, res) {
   );
 };
 
-exports.authenticate = (req, res) => {
-  const result = userService.authenticate(req.body);
+exports.authenticate = async (req, res) => {
+  const result = await userService.authenticate(req.body);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
   } else {
@@ -98,7 +93,7 @@ exports.changePassword = (req, res) => {
 
 exports.validate = async (req, res) => {
   const result = await userService.validate(req);
-  console.log('validation controller', validation);
+  // console.log('validation controller', validation);
   if (result.validated == true) {
     responseHandler.handleMessage(res, 'Compte utilisateur activé pour ' + result.user.username);
     const email = 'andryrandriadev@gmail.com';

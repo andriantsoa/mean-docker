@@ -1,0 +1,53 @@
+<form [formGroup]="parent">
+  <button mat-button (click)="addNew()">Ajouter</button>
+  <div formArrayName="formations">
+    <div *ngFor="let formation of formations.controls; let i = index">
+      <div [formGroupName]="i">
+        <p>Formation {{ i + 1 }}: <button mat-button (click)="remove(i)">Supprimer</button><br /></p>
+        <mat-card>
+          <mat-form-field appearance="outline">
+            <mat-label>Titre de la formation ou diplome</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="titre" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Filière</mat-label>
+            <mat-select formControlName="filiere">
+              <mat-option [value]="role.value" *ngFor="let role of filieres">{{ role.label }} </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Niveau</mat-label>
+            <mat-select formControlName="niveau">
+              <mat-option value="Doctorat">Doctorat</mat-option>
+              <mat-option value="Ingénieur">Ingénieur</mat-option>
+              <mat-option value="Master2">Master 2</mat-option>
+              <mat-option value="Master1">Master 1</mat-option>
+              <mat-option value="Licence">Licence</mat-option>
+              <mat-option value="DUT">DUT</mat-option>
+              <mat-option value="Bacc + 5">Bacc + 5</mat-option>
+              <mat-option value="Bacc + 4">Bacc + 4</mat-option>
+              <mat-option value="Bacc + 3">Bacc + 3</mat-option>
+              <mat-option value="Bacc + 2">Bacc + 2</mat-option>
+              <mat-option value="Bacc + 1">Bacc + 1</mat-option>
+              <mat-option value="Bacc">Bacc</mat-option>
+              <mat-option value="Lycée">Lycée</mat-option>
+              <mat-option value="Secondaire">Secondaire</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Ecole ou établissements</mat-label>
+            <input matInput placeholder="établissements" formControlName="etablissement" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Date de début</mat-label>
+            <input matInput placeholder="jj/mm/yyyy" formControlName="debut" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Date de fin</mat-label>
+            <input matInput placeholder="jj/mm/yyyy" formControlName="fin" required />
+          </mat-form-field>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</form>

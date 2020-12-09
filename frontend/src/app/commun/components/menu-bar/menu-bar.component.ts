@@ -17,6 +17,7 @@ export class MenuBarComponent implements OnInit {
   public connectedUser: IUser;
   public isActivatedUser: boolean;
   public profilId: string;
+  public candidatId: string;
 
   public navigations = [
     {
@@ -53,8 +54,16 @@ export class MenuBarComponent implements OnInit {
   ) { }
 
   public updateNav(nav: any): void {
+    let param;
+    switch (nav.label) {
+      case 'candidat':
+        param = this.candidatId;
+        break;
+      default:
+        param = '';
+    }
     this.updateActiveLink(nav.label);
-    this.router.navigate([nav.link]);
+    this.router.navigate([`${nav.link}/${param}`]);
   }
 
   private updateActiveLink(label: string): void {
@@ -63,7 +72,10 @@ export class MenuBarComponent implements OnInit {
 
   public ngOnInit(): void {
     this.connectedUser = this.userService.getCurrentUser();
-    this.profilId = this.connectedUser.profils[0];
+    if (this.connectedUser.profils[0]) {
+      this.profilId = this.connectedUser.profils[0]._id;
+      this.candidatId = this.connectedUser.profils[0].candidat;
+    }
     this.isActivatedUser = this.connectedUser.active;
     this.updateLabelByUrl(this.router.url);
   }

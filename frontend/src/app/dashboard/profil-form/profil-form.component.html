@@ -8,7 +8,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Type de compte</mat-label>
-        <mat-select formControlName="role">
+        <mat-select formControlName="role" disabled>
           <mat-option [value]="role.value" *ngFor="let role of roles">{{ role.label }} </mat-option>
         </mat-select>
       </mat-form-field>

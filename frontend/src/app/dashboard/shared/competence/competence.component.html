@@ -1,0 +1,30 @@
+<form [formGroup]="parent">
+  <button mat-button (click)="addNew()">Ajouter</button>
+  <div formArrayName="competences">
+    <div *ngFor="let exp of competences.controls; let i = index">
+      <div [formGroupName]="i">
+        <p>Compétence {{ i + 1 }}: <button mat-button (click)="remove(i)">Supprimer</button><br /></p>
+        <mat-card>
+          <mat-form-field appearance="outline">
+            <mat-label>compétence *</mat-label>
+            <input matInput placeholder="compétence" formControlName="titre" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Niveau de compétence</mat-label>
+            <mat-select formControlName="niveau">
+              <mat-option [value]="5">Expert</mat-option>
+              <mat-option [value]="4">Avancé</mat-option>
+              <mat-option [value]="3">Intermédiaire</mat-option>
+              <mat-option [value]="2">Débutant</mat-option>
+              <mat-option [value]="1">Notion</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Version</mat-label>
+            <input matInput placeholder="version" formControlName="version" />
+          </mat-form-field>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</form>

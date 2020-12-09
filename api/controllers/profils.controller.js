@@ -1,7 +1,7 @@
 // userController.js
 // Import profil model
 const Profil = require('../models/profil.model');
-const candidatService = require('../services/candidat.service');
+const mailService = require('../services/private/mail.service');
 const profilService = require('../services/profil.service');
 
 const responseHandler = require('./response-handler');
@@ -19,8 +19,8 @@ exports.index = function (req, res) {
 };
 
 // Handle view profil info
-exports.view = (req, res) => {
-  const profil = profilService.getProfilById(req.params.profil_id);
+exports.view = async (req, res) => {
+  const profil = await profilService.getProfilById(req.params.profil_id);
   if (profil && profil._id) {
     responseHandler.handleDataAndMessage(res, profil, 'details du profil');
   } else {
