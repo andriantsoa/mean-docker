@@ -1,4 +1,39 @@
-<mat-horizontal-stepper labelPosition="bottom" #stepper>
+<form [formGroup]="parent">
+  <button mat-button (click)="addNew()">Ajouter</button>
+  <div formArrayName="formations">
+    <div *ngFor="let formation of formations.controls; let i = index">
+      <div [formGroupName]="i" style="margin-top: 5rem">
+        <p>Formation {{ i + 1 }}: <button mat-button (click)="removeExperience(i)">Supprimer</button><br /></p>
+        <mat-card>
+          <mat-form-field appearance="outline">
+            <mat-label>Titre de la formation ou diplome</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="titre" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Filière</mat-label>
+            <mat-select formControlName="filiere">
+              <mat-option [value]="role.value" *ngFor="let role of filieres">{{ role.label }} </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Ecole ou établissements</mat-label>
+            <input matInput placeholder="établissements" formControlName="etablissement" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Date de début</mat-label>
+            <input matInput placeholder="jj/mm/yyyy" formControlName="debut" required />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Date de fin</mat-label>
+            <input matInput placeholder="jj/mm/yyyy" formControlName="fin" required />
+          </mat-form-field>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- <mat-horizontal-stepper labelPosition="bottom" #stepper>
   <form [formGroup]="candidatForm">
     <mat-step [stepControl]="formationsForm">
       <ng-template matStepLabel>FORMATIONS ET DIPLOMES</ng-template>
@@ -124,4 +159,4 @@
       <button mat-button (click)="sendUpdate()">Enregistrer</button>
     </div>
   </mat-step>
-</mat-horizontal-stepper>
+</mat-horizontal-stepper> -->

@@ -1,4 +1,45 @@
-<mat-horizontal-stepper labelPosition="bottom" #stepper>
+<form [formGroup]="parent">
+  <div formArrayName="experiences">
+    <div *ngFor="let exp of experiences.controls; let i = index">
+      <div [formGroupName]="i">
+        <mat-form-field appearance="outline">
+          <mat-label>Sujet</mat-label>
+          <input matInput placeholder="Titre" formControlName="label" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Votre statut</mat-label>
+          <mat-select formControlName="status">
+            <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Secteur de travail</mat-label>
+          <mat-select formControlName="secteur">
+            <mat-option [value]="secteur.name" *ngFor="let secteur of secteurs">{{ secteur.name }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Entreprise</mat-label>
+          <input matInput placeholder="Titre" formControlName="entreprise" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Durée</mat-label>
+          <input matInput placeholder="Titre" formControlName="duree" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date de début</mat-label>
+          <input matInput placeholder="jj/mm/yyyy" formControlName="debut" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date de fin</mat-label>
+          <input matInput placeholder="jj/mm/yyyy" formControlName="fin" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- <mat-horizontal-stepper labelPosition="bottom" #stepper>
   <form [formGroup]="candidatForm">
     <mat-step [stepControl]="formationsForm">
       <ng-template matStepLabel>FORMATIONS ET DIPLOMES</ng-template>
@@ -124,4 +165,4 @@
       <button mat-button (click)="sendUpdate()">Enregistrer</button>
     </div>
   </mat-step>
-</mat-horizontal-stepper>
+</mat-horizontal-stepper> -->

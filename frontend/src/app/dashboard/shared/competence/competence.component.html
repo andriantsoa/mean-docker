@@ -1,4 +1,31 @@
-<mat-horizontal-stepper labelPosition="bottom" #stepper>
+<form [formGroup]="parent">
+  <div formArrayName="competences">
+    <div *ngFor="let exp of competences.controls; let i = index">
+      <div [formGroupName]="i">
+        <mat-form-field appearance="outline">
+          <mat-label>compétence *</mat-label>
+          <input matInput placeholder="compétence" formControlName="titre" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Niveau de compétence</mat-label>
+          <mat-select formControlName="niveau">
+            <mat-option value="5">Expert</mat-option>
+            <mat-option value="4">Avancé</mat-option>
+            <mat-option value="3">Intermédiaire</mat-option>
+            <mat-option value="2">Débutant</mat-option>
+            <mat-option value="1">Notion</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Version</mat-label>
+          <input matInput placeholder="version" formControlName="version" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- <mat-horizontal-stepper labelPosition="bottom" #stepper>
   <form [formGroup]="candidatForm">
     <mat-step [stepControl]="formationsForm">
       <ng-template matStepLabel>FORMATIONS ET DIPLOMES</ng-template>
@@ -124,4 +151,4 @@
       <button mat-button (click)="sendUpdate()">Enregistrer</button>
     </div>
   </mat-step>
-</mat-horizontal-stepper>
+</mat-horizontal-stepper> -->

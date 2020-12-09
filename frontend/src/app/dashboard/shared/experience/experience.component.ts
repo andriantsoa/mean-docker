@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Secteurs } from 'src/app/commun/constantes/secteur.constant';
@@ -12,7 +12,11 @@ import { IProfil } from 'src/app/core/interfaces/profil.interface';
   styleUrls: ['./experience.component.scss']
 })
 export class ExperienceComponent {
-  candidatForm: FormGroup;
+  public parent: FormGroup;
+  @Input() set parentForm(parentForm: FormGroup) {
+    this.parent = parentForm;
+    this.addNew();
+  }
   public candidat: ICandidat;
   public profil: IProfil;
   public roles: any[];
@@ -30,7 +34,7 @@ export class ExperienceComponent {
   }
 
   get experiences(): FormArray {
-    return this.candidatForm.get('experiences') as FormArray;
+    return this.parent.get('experiences') as FormArray;
   }
 
   public createExperience(): FormGroup {
@@ -47,7 +51,7 @@ export class ExperienceComponent {
     });
   }
 
-  public addExperience(): void {
+  public addNew(): void {
     this.experiences.push(this.createExperience());
   }
 
