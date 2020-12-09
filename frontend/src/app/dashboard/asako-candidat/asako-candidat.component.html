@@ -1,4 +1,4 @@
-<app-candidat-form [candidat]="candidat"></app-candidat-form>
+<app-candidat-form *ngIf="candidat" [candidat]="candidat"></app-candidat-form>
 
 <!-- <mat-horizontal-stepper labelPosition="bottom" #stepper>
   <mat-step [stepControl]="formationsForm">

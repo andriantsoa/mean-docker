@@ -15,7 +15,9 @@ export class FormationComponent {
   public parent: FormGroup;
   @Input() set parentForm(parentForm: FormGroup) {
     this.parent = parentForm;
-    this.addNew();
+    if (!parentForm || (parentForm && parentForm.value && parentForm.value.formations.length === 0)) {
+      this.addNew();
+    }
   }
   public candidat: ICandidat;
   public profil: IProfil;
@@ -53,7 +55,7 @@ export class FormationComponent {
     this.formations.push(this.createFormation());
   }
 
-  public removeExperience(i: number): void {
+  public remove(i: number): void {
     if (this.formations && this.formations.length > 1) {
       this.formations.removeAt(i);
     }

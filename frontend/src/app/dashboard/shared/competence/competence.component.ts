@@ -15,7 +15,9 @@ export class CompetenceComponent {
   public parent: FormGroup;
   @Input() set parentForm(parentForm: FormGroup) {
     this.parent = parentForm;
-    this.addNew();
+    if (!parentForm || (parentForm && parentForm.value && parentForm.value.competences.length === 0)) {
+      this.addNew();
+    }
   }
   public candidat: ICandidat;
   public profil: IProfil;
@@ -47,6 +49,12 @@ export class CompetenceComponent {
 
   public addNew(): void {
     this.competences.push(this.createCompetence());
+  }
+
+  public remove(i: number): void {
+    if (this.competences && this.competences.length > 1) {
+      this.competences.removeAt(i);
+    }
   }
 
   public filterNumber(value): boolean {

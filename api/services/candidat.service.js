@@ -34,10 +34,12 @@ exports.getCandidatById = async (id) => {
 };
 
 exports.updateCandidat = async (candidat_id, body) => {
-  return await CandidatModel.findByIdAndUpdate(candidat_id, body, { new: true }, (error, candidat) => {
-    if (error) return { status: 400, message: 'Candidat introuvable', error };
+  const candidat = await CandidatModel.findByIdAndUpdate(candidat_id, body, { new: true });
+  if (candidat && candidat._id) {
     return { data: candidat, message: 'Candidat mis à jour' };
-  });
+  } else {
+    return { status: 400, message: 'Candidat introuvable' };
+  }
 };
 
 exports.deleteCandidat = async (candidat_id) => {

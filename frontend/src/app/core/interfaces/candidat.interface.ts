@@ -16,6 +16,8 @@ export interface ICandidat {
 }
 
 export interface IExperience {
+  label: string;
+  status: number;
   entreprise: string;
   competence: [ICompetence];
   duree: number;

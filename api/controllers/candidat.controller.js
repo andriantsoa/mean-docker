@@ -26,7 +26,7 @@ exports.view = async (req, res) => {
 
 // Handle update candidat info
 exports.update = async (req, res) => {
-  const result = await candidatService.updateCandidat(req.params.candidat_id, body);
+  const result = await candidatService.updateCandidat(req.params.candidat_id, req.body);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
   } else {
@@ -43,5 +43,3 @@ exports.delete = async (req, res) => {
     responseHandler.handleError(res, result.error, result.status, result.message);
   }
 };
-
-

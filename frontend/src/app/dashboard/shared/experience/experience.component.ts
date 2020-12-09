@@ -15,7 +15,9 @@ export class ExperienceComponent {
   public parent: FormGroup;
   @Input() set parentForm(parentForm: FormGroup) {
     this.parent = parentForm;
-    this.addNew();
+    if (!parentForm || (parentForm && parentForm.value && parentForm.value.experiences.length === 0)) {
+      this.addNew();
+    }
   }
   public candidat: ICandidat;
   public profil: IProfil;
@@ -55,7 +57,7 @@ export class ExperienceComponent {
     this.experiences.push(this.createExperience());
   }
 
-  public removeExperience(i: number): void {
+  public remove(i: number): void {
     this.experiences.removeAt(i);
   }
 
