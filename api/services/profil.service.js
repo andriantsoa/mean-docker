@@ -3,6 +3,7 @@ const Profil = require('../models/profil.model');
 const EntrepriseModel = require('../models/entreprise.model');
 const CandidatModel = require('../models/candidat.model');
 const logger = require('../services/private/logger.service');
+const candidatService = require('../services/candidat.service');
 const ROLE = require('../models/constants/role');
 // Handle index actions
 

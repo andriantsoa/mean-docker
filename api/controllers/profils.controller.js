@@ -1,7 +1,7 @@
 // userController.js
 // Import profil model
 const Profil = require('../models/profil.model');
-const candidatService = require('../services/candidat.service');
+const mailService = require('../services/private/mail.service');
 const profilService = require('../services/profil.service');
 
 const responseHandler = require('./response-handler');
