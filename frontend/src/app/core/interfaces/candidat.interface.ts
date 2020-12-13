@@ -4,7 +4,7 @@ export interface ICandidat {
   presentation: string;
   disponible: boolean;
   metier: string;
-  status: string;
+  status: number;
   experiences: [IExperience];
   competences: [ICompetence];
   aspirations: [string];
