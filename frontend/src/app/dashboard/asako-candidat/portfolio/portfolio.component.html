@@ -93,6 +93,7 @@
           Secteur :
           <li *ngFor="let item of experience.secteur">{{ item }}</li>
         </mat-list-item>
+        <textarea mat-input [value]="experience.details" readonly rows="5" cols="150" style="border: none"></textarea>
         <mat-divider *ngIf="!last"></mat-divider>
       </mat-list>
     </mat-expansion-panel>
@@ -113,6 +114,9 @@
         <mat-list-item>
           Filière :
           <li *ngFor="let item of formation.filiere">{{ item }}</li>
+        </mat-list-item>
+        <mat-list-item>
+          <textarea mat-input value="formation.details" readonly></textarea>
         </mat-list-item>
         <mat-divider *ngIf="!last"></mat-divider>
       </mat-list>

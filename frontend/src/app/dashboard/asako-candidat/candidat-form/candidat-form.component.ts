@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { defaultFormat } from 'moment';
 import { Statut } from 'src/app/commun/enum/role.enum';
 import { ValidationService } from 'src/app/core/components';
-import { ICandidat, ICompetence } from 'src/app/core/interfaces/candidat.interface';
+import { defaultCompetence, defaultExperience, defaultFormation, defaultInfosCandidat, ICandidat, ICandidatInfos, ICompetence, IExperience, IFormation } from 'src/app/core/interfaces/candidat.interface';
 import { CandidatService } from 'src/app/core/services';
 
 @Component({
@@ -31,10 +32,7 @@ export class CandidatFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createCandidatForm1();
-    this.createCandidatForm2();
-    this.createCandidatForm3();
-    this.createCandidatForm4();
+    this.buildForms();
   }
 
   public finish(): void {
@@ -55,55 +53,23 @@ export class CandidatFormComponent implements OnInit {
     });
   }
 
-  public createCandidatForm1(): void {
-    if (!this.candidat) {
-      this.candidat = {} as ICandidat;
-    }
-    const candidatInfos = {
-      posteActuel: this.candidat.posteActuel || '',
-      presentation: this.candidat.presentation || '',
-      metier: this.candidat.metier || '',
-      status: this.candidat.status || '',
-      disponible: this.candidat.disponible || true,
-    } as ICandidat;
-    this.candidatForm1 = this.formBuilder.group(candidatInfos);
-  }
-
-  public createCandidatForm3(): void {
-    if (!this.candidat) {
-      this.candidat = {} as ICandidat;
-    }
-    const experiences = this.candidat.experiences || [];
+  private createFormulaireFromCandidat(defaultValue: any, sourceObject: any, ObjectKey?: string): FormGroup {
     const list = [];
-    experiences.forEach(exp => list.push(this.formBuilder.group(exp)));
-    this.candidatForm3 = this.formBuilder.group({
-      experiences: this.formBuilder.array(list),
+    sourceObject = Object.assign({}, { ...sourceObject });
+    if (!ObjectKey) {
+      return this.formBuilder.group({ ...defaultValue, ...sourceObject as ICandidatInfos });
+    }
+    (sourceObject[ObjectKey] || []).forEach((value: any) => list.push(this.formBuilder.group({ ...defaultValue, ...value })));
+    return this.formBuilder.group({
+      [ObjectKey]: this.formBuilder.array(list),
     });
   }
 
-  public createCandidatForm4(): void {
-    if (!this.candidat) {
-      this.candidat = {} as ICandidat;
-    }
-    const competences = this.candidat.competences || [];
-    const list = [];
-    competences.forEach(comp => list.push(this.formBuilder.group(comp)));
-
-    this.candidatForm4 = this.formBuilder.group({
-      competences: this.formBuilder.array(list),
-    });
-  }
-
-  public createCandidatForm2(): void {
-    if (!this.candidat) {
-      this.candidat = {} as ICandidat;
-    }
-    const formations = this.candidat.formations || [];
-    const list = [];
-    formations.forEach(comp => list.push(this.formBuilder.group(comp)));
-    this.candidatForm2 = this.formBuilder.group({
-      formations: this.formBuilder.array(list),
-    });
+  private buildForms(): void {
+    this.candidatForm1 = this.createFormulaireFromCandidat(defaultInfosCandidat, this.candidat);
+    this.candidatForm2 = this.createFormulaireFromCandidat(defaultFormation, this.candidat, 'formations');
+    this.candidatForm3 = this.createFormulaireFromCandidat(defaultExperience, this.candidat, 'experiences');
+    this.candidatForm4 = this.createFormulaireFromCandidat(defaultCompetence, this.candidat, 'competences');
   }
 
   private updateCandidat(candidat: ICandidat): void {

@@ -35,6 +35,7 @@ const formation = new Schema({
   etablissement: { type: String, required: true },
   debut: { type: String },
   fin: { type: String },
+  details: { type: String },
   _id: false
 });
 
