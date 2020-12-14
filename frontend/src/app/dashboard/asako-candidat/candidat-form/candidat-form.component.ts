@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Statut } from 'src/app/commun/enum/role.enum';
@@ -17,7 +17,7 @@ export class CandidatFormComponent implements OnInit {
   public candidatForm2: FormGroup;
   public candidatForm3: FormGroup;
   public candidatForm4: FormGroup;
-
+  @Output() update: EventEmitter<boolean> = new EventEmitter();
   @Input() candidat: ICandidat;
   status: any[];
 
@@ -35,6 +35,10 @@ export class CandidatFormComponent implements OnInit {
     this.createCandidatForm2();
     this.createCandidatForm3();
     this.createCandidatForm4();
+  }
+
+  public finish(): void {
+    this.update.emit(false);
   }
 
   public createCandidatForm(): void {
@@ -119,6 +123,7 @@ export class CandidatFormComponent implements OnInit {
     } as ICandidat;
     console.log(param);
     this.updateCandidat(param);
+    this.finish();
   }
 
   public filterNumber(value): boolean {

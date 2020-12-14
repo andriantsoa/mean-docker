@@ -19,6 +19,7 @@ const experience = new Schema({
   duree: { type: Number },
   debut: { type: String },
   fin: { type: String },
+  details: { type: String },
   status: {
     type: STATUS,
     required: false

@@ -5,24 +5,25 @@ export interface ICandidat {
   disponible: boolean;
   metier: string;
   status: number;
-  experiences: [IExperience];
-  competences: [ICompetence];
-  aspirations: [string];
-  formations: [IFormation];
-  demandes: [IDemande];
-  offres: [IOffre];
+  experiences?: [IExperience];
+  competences?: [ICompetence];
+  aspirations?: [string];
+  formations?: [IFormation];
+  demandes?: [IDemande];
+  offres?: [IOffre];
   createdAt?: string;
   updatedAt?: string;
 }
 
 export interface IExperience {
   label: string;
-  status: number;
-  entreprise: string;
-  competence: [ICompetence];
-  duree: number;
-  debut: string;
-  fin: string;
+  status?: number;
+  entreprise?: string;
+  competence?: [ICompetence];
+  duree?: number;
+  debut?: string;
+  fin?: string;
+  details?: string;
   secteur: [string];
 }
 

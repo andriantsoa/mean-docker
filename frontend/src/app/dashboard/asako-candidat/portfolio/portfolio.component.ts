@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { Statut } from 'src/app/commun/enum/role.enum';
 
@@ -12,11 +12,15 @@ export class PortfolioComponent {
   @Input() candidat: any;
   public Statut = Statut;
   @ViewChild(MatAccordion) accordion: MatAccordion;
-
+  @Output() update: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
 
   public format(str: string): string {
     return str.replace('_', ' ');
+  }
+
+  public openCandidatForm(): void {
+    this.update.emit(true);
   }
 }

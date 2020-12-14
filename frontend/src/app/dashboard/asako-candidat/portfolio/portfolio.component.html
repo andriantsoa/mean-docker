@@ -15,14 +15,11 @@
           <span class="portfolio-header-profil-subtitle"> </span>
 
           <button mat-flat-button color="accent">Contact</button>
-          <button mat-stroked-button color="primary">Resume</button>
+          <button mat-stroked-button color="primary" (click)="openCandidatForm()">Modifier</button>
         </div>
       </div>
-      <div class="portfolio-header-card">
-        <!-- <h3>Actuellement {{ candidat.posteActuel | titlecase }}</h3>
-        <p>titre derniere experience</p>
-        <p>entreprise (derniere entreprise)</p> -->
-      </div>
+      <div class="portfolio-header-card"></div>
+      <mat-divider [vertical]="true"></mat-divider>
       <div class="portfolio-header-card">
         <p>
           <li>
@@ -31,6 +28,10 @@
           <li>Dispo : {{ candidat.disponible }}</li>
           <li>annee d'experience : 2</li>
           <li>age : 28</li>
+          <li>
+            <mat-icon svgIcon="linkedin" style="width: 12px"></mat-icon>
+            <mat-icon svgIcon="facebook" style="width: 12px"></mat-icon>
+          </li>
         </p>
       </div>
     </div>
@@ -44,6 +45,7 @@
           {{ candidat.presentation }}
         </p>
       </div>
+      <mat-divider [vertical]="true"></mat-divider>
       <div class="portfolio-header-card">
         <h3>Je suis actuellement {{ candidat.posteActuel | titlecase }}</h3>
         <p>titre derniere experience</p>
@@ -53,73 +55,69 @@
   </mat-card>
 
   <mat-card class="portfolio-body">
-    <div class="portfolio-body-card">
-      <h1>Mes compétences</h1>
-      <mat-chip-list aria-label="Fish selection">
-        <mat-chip *ngFor="let item of candidat.competences">{{ item.titre | titlecase }}</mat-chip>
-        <mat-chip>Two fish</mat-chip>
-        <mat-chip color="primary" selected>Primary fish</mat-chip>
-        <mat-chip color="accent" selected>Accent fish</mat-chip>
-      </mat-chip-list>
-      <h1>Langues</h1>
-      <mat-chip-list aria-label="Fish selection">
-        <mat-chip>Français</mat-chip>
-        <mat-chip color="primary" selected>Anglais</mat-chip>
-        <mat-chip color="accent" selected>Espagnole</mat-chip>
-      </mat-chip-list>
+    <div class="portfolio-header">
+      <div class="portfolio-header-card">
+        <h1>Mes compétences</h1>
+        <mat-chip-list aria-label="skill selection">
+          <mat-chip *ngFor="let item of candidat.competences; let i = index" [color]="i % 2 === 0 ? 'primary' : 'accent'" selected>
+            {{ item.titre | titlecase }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+      <mat-divider [vertical]="true"></mat-divider>
+      <div class="portfolio-header-card">
+        <h1>Langues</h1>
+        <mat-chip-list aria-label="Language selection">
+          <mat-chip>Français</mat-chip>
+          <mat-chip color="primary" selected>Anglais</mat-chip>
+          <mat-chip color="accent" selected>Espagnole</mat-chip>
+        </mat-chip-list>
+      </div>
     </div>
   </mat-card>
 
-  <mat-card class="portfolio-body">
-    <!-- <h3>
-      <button mat-button (click)="accordion.openAll()">Expand All</button>
-      <button mat-button (click)="accordion.closeAll()">Collapse All</button>
-    </h3>
-    <br /> -->
-    <mat-accordion class="portfolio-body-panel" multi>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title> Mes expériences </mat-panel-title>
-          <mat-panel-description>
-            Travail, Stage et Activités
-            <mat-icon>account_circle</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+  <mat-accordion class="portfolio-body-panel" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Mes expériences </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-list *ngFor="let experience of candidat.experiences; let last = last">
+        <h2>{{ experience.label }}</h2>
+        <h3>{{ experience.entreprise }}</h3>
+        <h5>
+          Depuis le {{ experience.debut }} {{ experience.fin ? "au" : "" }} {{ experience.fin }} en tant que
+          {{ format(Statut[experience.status]) | titlecase }}
+        </h5>
 
-        <!-- MES EXPERIENCES ICI -->
-        <mat-list *ngFor="let experience of candidat.experiences">
-          <mat-list-item>{{ experience.label }} Chez {{ experience.entreprise }}</mat-list-item>
-          <mat-list-item>Du {{ experience.debut }} au {{ experience.fin }}</mat-list-item>
-          <mat-list-item>En tant que {{ format(Statut[experience.status]) }}</mat-list-item>
-          <mat-list-item
-            >Secteur :
-            <li *ngFor="let item of experience.secteur">{{ item }}</li>
-          </mat-list-item>
-          <mat-divider></mat-divider>
-        </mat-list>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </mat-card>
-  <mat-card class="portfolio-body">
-    <!-- <h3>
-      <button mat-button (click)="accordion.openAll()">Expand All</button>
-      <button mat-button (click)="accordion.closeAll()">Collapse All</button>
-    </h3>
-    <br /> -->
-    <mat-accordion class="portfolio-body-card" multi>
-      <mat-expansion-panel class="portfolio-body">
-        <mat-expansion-panel-header>
-          <mat-panel-title> Mes Formations </mat-panel-title>
-          <mat-panel-description>
-            Diplômes, attestations et certificats
-            <mat-icon>map</mat-icon>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
+        <mat-list-item>
+          Secteur :
+          <li *ngFor="let item of experience.secteur">{{ item }}</li>
+        </mat-list-item>
+        <mat-divider *ngIf="!last"></mat-divider>
+      </mat-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion class="portfolio-body-panel" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Mes Formations </mat-panel-title>
+      </mat-expansion-panel-header>
 
-        <!-- ICI FORMATIONS -->
-      </mat-expansion-panel>
-    </mat-accordion>
-  </mat-card>
+      <!-- ICI FORMATIONS -->
+      <mat-list *ngFor="let formation of candidat.formations; let last = last">
+        <h2>{{ formation.titre }}</h2>
+        <h3>{{ formation.etablissement }}</h3>
+        <h3>{{ formation.niveau }}</h3>
+        <h5>Depuis le {{ formation.debut }} {{ formation.fin ? "au" : "" }} {{ formation.fin }}</h5>
+
+        <mat-list-item>
+          Filière :
+          <li *ngFor="let item of formation.filiere">{{ item }}</li>
+        </mat-list-item>
+        <mat-divider *ngIf="!last"></mat-divider>
+      </mat-list>
+    </mat-expansion-panel>
+  </mat-accordion>
 </div>
 
 <!-- <mat-card class="example-card" *ngIf="candidat">

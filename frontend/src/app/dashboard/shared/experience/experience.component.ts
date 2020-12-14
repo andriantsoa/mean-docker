@@ -46,6 +46,7 @@ export class ExperienceComponent {
       status: new FormControl('', [Validators.required, Validators.minLength(2)]),
       secteur: new FormControl([''], [Validators.minLength(1)]),
       entreprise: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      details: new FormControl('', [Validators.required, Validators.minLength(2)]),
       competence: new FormControl([''], [Validators.minLength(1)]),
       duree: new FormControl(1),
       debut: new FormControl('', [Validators.required, Validators.minLength(2)]),

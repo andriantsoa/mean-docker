@@ -24,7 +24,7 @@
   h1,
   h2,
   h3 {
-    width: 100%;
+    width: 80%;
     height: 24px;
   }
   &-card {
@@ -34,7 +34,8 @@
     margin: 10px;
   }
   &-panel {
-    width: 70vw;
+    width: 71vw;
+    margin-bottom: 15px;
   }
 }
 
