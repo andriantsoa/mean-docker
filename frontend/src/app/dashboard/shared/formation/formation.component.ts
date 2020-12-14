@@ -48,6 +48,7 @@ export class FormationComponent {
       etablissement: new FormControl('', [Validators.required, Validators.minLength(2)]),
       debut: new FormControl('', [Validators.required, Validators.minLength(2)]),
       fin: new FormControl(''),
+      details: new FormControl(''),
     });
   }
 

@@ -4,25 +4,26 @@ export interface ICandidat {
   presentation: string;
   disponible: boolean;
   metier: string;
-  status: string;
-  experiences: [IExperience];
-  competences: [ICompetence];
-  aspirations: [string];
-  formations: [IFormation];
-  demandes: [IDemande];
-  offres: [IOffre];
+  status: number;
+  experiences?: [IExperience];
+  competences?: [ICompetence];
+  aspirations?: [string];
+  formations?: [IFormation];
+  demandes?: [IDemande];
+  offres?: [IOffre];
   createdAt?: string;
   updatedAt?: string;
 }
 
 export interface IExperience {
   label: string;
-  status: number;
-  entreprise: string;
-  competence: [ICompetence];
-  duree: number;
-  debut: string;
-  fin: string;
+  status?: number;
+  entreprise?: string;
+  competence?: [ICompetence];
+  duree?: number;
+  debut?: string;
+  fin?: string;
+  details: string;
   secteur: [string];
 }
 
@@ -33,6 +34,7 @@ export interface IFormation {
   etablissement: string;
   debut: string;
   fin: string;
+  details: string;
 }
 
 export interface ICompetence {
@@ -86,4 +88,50 @@ export interface IEntreprise {
   offres: [IOffre];
   createdAt?: string;
   updatedAt?: string;
+}
+
+export const defaultCompetence = {
+  titre: '',
+  niveau: null,
+  version: ''
+} as ICompetence;
+
+export const defaultExperience = {
+  label: '',
+  aspirations: [''],
+  status: 1,
+  secteur: [''],
+  entreprise: '',
+  competence: [{} as ICompetence],
+  duree: 1,
+  debut: '',
+  fin: '',
+  details: '',
+} as IExperience;
+
+export const defaultFormation = {
+  titre: '',
+  groupe: [''],
+  filiere: [''],
+  niveau: '',
+  etablissement: '',
+  debut: '',
+  fin: '',
+  details: '',
+} as IFormation;
+
+export const defaultInfosCandidat = {
+  posteActuel: '',
+  presentation: '',
+  metier: '',
+  status: null,
+  disponible: true,
+} as ICandidatInfos;
+
+export interface ICandidatInfos extends Pick<ICandidat, 'posteActuel' | 'presentation' | 'metier' | 'status' | 'disponible'> {
+  posteActuel: string;
+  presentation: string;
+  disponible: boolean;
+  metier: string;
+  status: number;
 }

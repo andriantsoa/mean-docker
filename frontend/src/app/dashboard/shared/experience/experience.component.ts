@@ -50,6 +50,7 @@ export class ExperienceComponent {
       duree: new FormControl(1),
       debut: new FormControl('', [Validators.required, Validators.minLength(2)]),
       fin: new FormControl(''),
+      details: new FormControl(''),
     });
   }
 

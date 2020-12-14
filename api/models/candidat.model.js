@@ -19,6 +19,7 @@ const experience = new Schema({
   duree: { type: Number },
   debut: { type: String },
   fin: { type: String },
+  details: { type: String },
   status: {
     type: STATUS,
     required: false
@@ -34,6 +35,7 @@ const formation = new Schema({
   etablissement: { type: String, required: true },
   debut: { type: String },
   fin: { type: String },
+  details: { type: String },
   _id: false
 });
 

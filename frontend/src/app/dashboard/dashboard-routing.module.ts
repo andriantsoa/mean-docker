@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AsakoComponent } from '../asako-public/asako.component';
 import { AuthGuard } from '../core/guards';
 import { LayoutComponent } from '../core/layout/layout.component';
-import { AsakoCandidatComponent } from './asako-candidat/asako-candidat.component';
 import { AsakoEnterpriseComponent } from './asako-enterprise/asako-enterprise.component';
 import { ProfilFormComponent } from './profil-form/profil-form.component';
 import { UserValidationComponent } from './user-validation/user-validation.component';
@@ -29,9 +28,9 @@ const publicRoutes: Routes = [
         component: ProfilFormComponent
       },
       {
-        path: 'candidat/:id',
+        path: 'candidat',
         canActivate: [AuthGuard],
-        component: AsakoCandidatComponent
+        loadChildren: () => import('./asako-candidat/asako-candidat.module').then((module) => module.AsakoCandidatModule)
       },
       {
         path: 'entreprise',
