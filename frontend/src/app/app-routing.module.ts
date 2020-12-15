@@ -5,7 +5,7 @@ import { AuthGuard } from './core/guards';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./asako-public/asako-public.module').then((module) => module.AsakoPublicModule)
+    loadChildren: () => import('./home-public/home-public.module').then((module) => module.HomePublicModule)
   },
   {
     path: 'dashboard',

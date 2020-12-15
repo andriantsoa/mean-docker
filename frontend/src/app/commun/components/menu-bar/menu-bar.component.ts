@@ -5,7 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IUser } from 'src/app/core/interfaces/user.interface';
 import { UserService } from 'src/app/core/services';
-import { LoginService } from '../asako-login/login.service';
+import { LoginService } from '../user-login/login.service';
 
 @Component({
   selector: 'app-menu-bar',

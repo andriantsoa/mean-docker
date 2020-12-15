@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { IJobOffer } from '../commun/interfaces/job-offer.interface';
 
 @Component({
-  selector: 'app-asako',
-  templateUrl: './asako.component.html',
-  styleUrls: ['./asako.component.scss']
+  selector: 'app-home-public',
+  templateUrl: './home-public.component.html',
+  styleUrls: ['./home-public.component.scss']
 })
-export class AsakoComponent implements OnInit {
+export class HomePublicComponent implements OnInit {
 
   public items = [
     { title: 'Slide 1' },

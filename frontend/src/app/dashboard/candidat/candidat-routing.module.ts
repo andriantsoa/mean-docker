@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AsakoCandidatComponent } from './asako-candidat.component';
+import { CandidatComponent } from './candidat.component';
 
 const candidatRoutes: Routes = [
   {
     path: ':id',
-    component: AsakoCandidatComponent
+    component: CandidatComponent
   }
 ];
 

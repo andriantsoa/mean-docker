@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { defaultFormat } from 'moment';
 import { Statut } from 'src/app/commun/enum/role.enum';
-import { ValidationService } from 'src/app/core/components';
-import { defaultCompetence, defaultExperience, defaultFormation, defaultInfosCandidat, ICandidat, ICandidatInfos, ICompetence, IExperience, IFormation } from 'src/app/core/interfaces/candidat.interface';
+import { defaultCompetence, defaultExperience, defaultFormation, defaultInfosCandidat, ICandidat, ICandidatInfos } from 'src/app/core/interfaces/candidat.interface';
 import { CandidatService } from 'src/app/core/services';
+import { toArray } from '../../shared/outils/array-utils';
 
 @Component({
   selector: 'app-candidat-form',
@@ -20,15 +18,13 @@ export class CandidatFormComponent implements OnInit {
   public candidatForm4: FormGroup;
   @Output() update: EventEmitter<boolean> = new EventEmitter();
   @Input() candidat: ICandidat;
-  status: any[];
+  public status: any[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private candidatService: CandidatService,
-    private validationService: ValidationService,
   ) {
-    this.status = this.toArray(Statut);
+    this.status = toArray(Statut);
   }
 
   ngOnInit(): void {
@@ -87,21 +83,7 @@ export class CandidatFormComponent implements OnInit {
       ...this.candidatForm3.value,
       ...this.candidatForm4.value,
     } as ICandidat;
-    console.log(param);
     this.updateCandidat(param);
     this.finish();
   }
-
-  public filterNumber(value): boolean {
-    return isNaN(Number(value)) === true;
-  }
-
-  public toArray(data: any): any[] {
-    return Object.keys(data).filter(this.filterNumber).map(key => ({ value: data[key], label: key }));
-  }
-
-  // get aspirations(): FormArray {
-  //   return this.candidatForm.get('aspirations') as FormArray;
-  // }
-
 }
