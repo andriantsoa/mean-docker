@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IUser } from 'src/app/core/interfaces/user.interface';
 import { UserService } from 'src/app/core/services';
 import { LoginService } from '../user-login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-bar',
@@ -41,7 +41,7 @@ export class MenuBarComponent implements OnInit {
       active: false
     }
   ];
-  public activeLink = this.navigations[0].label;
+  public activeLink: string;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(map(result => result.matches), shareReplay());
@@ -57,6 +57,9 @@ export class MenuBarComponent implements OnInit {
     let param;
     switch (nav.label) {
       case 'candidat':
+        param = this.candidatId;
+        break;
+      case 'entreprise':
         param = this.candidatId;
         break;
       default:
@@ -81,7 +84,9 @@ export class MenuBarComponent implements OnInit {
   }
 
   private updateLabelByUrl(url: string): void {
-    const navigation = this.navigations.find(nav => nav.link === url);
+    const splitedUrl = (url) ? url.split('/') : ['', ''];
+    const path = (splitedUrl && splitedUrl.length <= 2) ? `${splitedUrl[0]}/${splitedUrl[1]}` : `${splitedUrl[0]}/${splitedUrl[1]}/${splitedUrl[2]}`;
+    const navigation = this.navigations.find(nav => path === nav.link);
     if (navigation) {
       this.updateNav(navigation);
     }
