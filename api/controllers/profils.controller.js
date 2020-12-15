@@ -34,7 +34,7 @@ exports.update = async (req, res) => {
   if (profil && profil._id) {
     responseHandler.handleDataAndMessage(res, profil, 'Profil mis à jour');
     const email = 'andryrandriadev@gmail.com';
-    const subject = '[ASAKO] Compte validé';
+    const subject = '[APP] Compte validé';
     const text = 'Votre compte a été validé';
     mailService.sendMailSimple(email, subject, text);
   } else {

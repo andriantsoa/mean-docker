@@ -23,7 +23,7 @@ exports.new = async (req, res) => {
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
     const email = 'andryrandriadev@gmail.com';
-    const subject = '[ASAKO] Votre compte a été créé';
+    const subject = '[APP] Votre compte a été créé';
     const text = `Bonjour ${result.user.username},
       Votre compte a été validé.
       Il vous reste à confirmer son activation sur l'url suivant:
@@ -97,7 +97,7 @@ exports.validate = async (req, res) => {
   if (result.validated == true) {
     responseHandler.handleMessage(res, 'Compte utilisateur activé pour ' + result.user.username);
     const email = 'andryrandriadev@gmail.com';
-    const subject = '[ASAKO] Compte validé ' + result.user.username;
+    const subject = '[APP] Compte validé ' + result.user.username;
     const text = 'Votre compte a été validé';
     await mailService.sendMailSimple(email, subject, text);
   } else if (validated == false) {
