@@ -5,11 +5,11 @@ import { CryptoService } from 'src/app/core/services';
 import { LoginService } from './login.service';
 
 @Component({
-  selector: 'app-asako-login',
-  templateUrl: './asako-login.component.html',
-  styleUrls: ['./asako-login.component.css']
+  selector: 'app-user-login',
+  templateUrl: './user-login.component.html',
+  styleUrls: ['./user-login.component.css']
 })
-export class AsakoLoginComponent implements OnInit {
+export class UserLoginComponent implements OnInit {
 
   public loginForm: FormGroup;
   public submitted: boolean;

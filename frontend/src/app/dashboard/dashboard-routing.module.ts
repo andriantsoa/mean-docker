@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AsakoComponent } from '../asako-public/asako.component';
+
 import { AuthGuard } from '../core/guards';
+import { HomePublicComponent } from '../home-public/home-public.component';
 import { LayoutComponent } from '../core/layout/layout.component';
-import { AsakoEnterpriseComponent } from './asako-enterprise/asako-enterprise.component';
 import { ProfilFormComponent } from './profil-form/profil-form.component';
 import { UserValidationComponent } from './user-validation/user-validation.component';
 
-const publicRoutes: Routes = [
+const boardRoutes: Routes = [
   {
     path: '',
     component: LayoutComponent,
@@ -15,7 +15,7 @@ const publicRoutes: Routes = [
       {
         path: '',
         canActivate: [AuthGuard],
-        component: AsakoComponent
+        component: HomePublicComponent
       },
       {
         path: 'validation',
@@ -30,19 +30,19 @@ const publicRoutes: Routes = [
       {
         path: 'candidat',
         canActivate: [AuthGuard],
-        loadChildren: () => import('./asako-candidat/asako-candidat.module').then((module) => module.AsakoCandidatModule)
+        loadChildren: () => import('./candidat/candidat.module').then((module) => module.CandidatModule)
       },
       {
         path: 'entreprise',
         canActivate: [AuthGuard],
-        component: AsakoEnterpriseComponent
+        loadChildren: () => import('./entreprise/entreprise.module').then((module) => module.EntrepriseModule)
       }
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(publicRoutes)],
+  imports: [RouterModule.forChild(boardRoutes)],
   exports: [RouterModule]
 })
 export class DashboardRoutingModule { }

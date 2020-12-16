@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IUser } from 'src/app/core/interfaces/user.interface';
 import { UserService } from 'src/app/core/services';
-import { LoginService } from '../asako-login/login.service';
+import { LoginService } from '../user-login/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-bar',
@@ -18,8 +18,10 @@ export class MenuBarComponent implements OnInit {
   public isActivatedUser: boolean;
   public profilId: string;
   public candidatId: string;
+  public entreprisetId: string;
+  public activeLink: string;
 
-  public navigations = [
+  public readonly navigations = [
     {
       label: 'accueil',
       link: '/',
@@ -41,7 +43,6 @@ export class MenuBarComponent implements OnInit {
       active: false
     }
   ];
-  public activeLink = this.navigations[0].label;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(map(result => result.matches), shareReplay());
@@ -57,7 +58,10 @@ export class MenuBarComponent implements OnInit {
     let param;
     switch (nav.label) {
       case 'candidat':
-        param = this.candidatId;
+        param = this.candidatId || '';
+        break;
+      case 'entreprise':
+        param = this.entreprisetId || '';
         break;
       default:
         param = '';
@@ -75,13 +79,16 @@ export class MenuBarComponent implements OnInit {
     if (this.connectedUser.profils[0]) {
       this.profilId = this.connectedUser.profils[0]._id;
       this.candidatId = this.connectedUser.profils[0].candidat;
+      this.entreprisetId = this.connectedUser.profils[0].entreprise;
     }
     this.isActivatedUser = this.connectedUser.active;
     this.updateLabelByUrl(this.router.url);
   }
 
   private updateLabelByUrl(url: string): void {
-    const navigation = this.navigations.find(nav => nav.link === url);
+    const splitedUrl = (url) ? url.split('/') : ['', ''];
+    const path = (splitedUrl && splitedUrl.length <= 2) ? `${splitedUrl[0]}/${splitedUrl[1]}` : `${splitedUrl[0]}/${splitedUrl[1]}/${splitedUrl[2]}`;
+    const navigation = this.navigations.find(nav => path === nav.link);
     if (navigation) {
       this.updateNav(navigation);
     }

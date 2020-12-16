@@ -5,14 +5,14 @@ import { finalize } from 'rxjs/operators';
 import { ValidationService } from 'src/app/core/components';
 import { IUser } from 'src/app/core/interfaces/user.interface';
 import { UserService } from 'src/app/core/services';
-import { Role } from './../../enum/role.enum';
+import { Role } from '../../enum/role.enum';
 
 @Component({
-  selector: 'app-asako-registration',
-  templateUrl: './asako-registration.component.html',
-  styleUrls: ['./asako-registration.component.css']
+  selector: 'app-user-registration',
+  templateUrl: './user-registration.component.html',
+  styleUrls: ['./user-registration.component.css']
 })
-export class AsakoRegistrationComponent implements OnInit {
+export class UserRegistrationComponent implements OnInit {
 
   // public rolesKey = Object.keys(Role);
   public Roles = Object.keys(Role)

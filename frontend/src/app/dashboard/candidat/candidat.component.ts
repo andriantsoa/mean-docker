@@ -7,11 +7,11 @@ import { ICandidat } from 'src/app/core/interfaces/candidat.interface';
 import { IUser } from 'src/app/core/interfaces/user.interface';
 
 @Component({
-  selector: 'app-asako-candidat',
-  templateUrl: './asako-candidat.component.html',
-  styleUrls: ['./asako-candidat.component.scss']
+  selector: 'app-candidat',
+  templateUrl: './candidat.component.html',
+  styleUrls: ['./candidat.component.scss']
 })
-export class AsakoCandidatComponent implements OnInit {
+export class CandidatComponent implements OnInit {
   public candidat: ICandidat;
   public profil: IProfil;
   public isUpdate = false;

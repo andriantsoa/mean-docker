@@ -6,14 +6,13 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MaterialModule } from '../material/material.module';
-import { AsakoCandidatModule } from './asako-candidat/asako-candidat.module';
+import { CandidatModule } from './candidat/candidat.module';
+import { EntrepriseModule } from './entreprise/entreprise.module';
 
-import { AsakoEnterpriseComponent } from './asako-enterprise/asako-enterprise.component';
 import { UserValidationComponent } from './user-validation/user-validation.component';
 import { ProfilFormComponent } from './profil-form/profil-form.component';
 
 const components = [
-  AsakoEnterpriseComponent,
   UserValidationComponent,
   ProfilFormComponent,
 ];
@@ -30,7 +29,8 @@ const components = [
     MaterialModule,
     RouterModule,
     CoreModule.forRoot(),
-    AsakoCandidatModule
+    CandidatModule,
+    EntrepriseModule
   ],
   exports: [
     ...components

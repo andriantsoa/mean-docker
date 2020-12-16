@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AsakoLoginComponent } from '../commun/components/asako-login/asako-login.component';
-import { AsakoRegistrationComponent } from '../commun/components/asako-registration/asako-registration.component';
+import { UserLoginComponent } from '../commun/components/user-login/user-login.component';
+import { UserRegistrationComponent } from '../commun/components/user-registration/user-registration.component';
 import { LayoutComponent } from '../core/layout/layout.component';
-import { AsakoComponent } from './asako.component';
+import { HomePublicComponent } from './home-public.component';
 
 const publicRoutes: Routes = [
   {
@@ -12,17 +12,17 @@ const publicRoutes: Routes = [
     children: [
       {
         path: '',
-        component: AsakoComponent
+        component: HomePublicComponent
       }
     ]
   },
   {
     path: 'login',
-    component: AsakoLoginComponent
+    component: UserLoginComponent
   },
   {
     path: 'register',
-    component: AsakoRegistrationComponent
+    component: UserRegistrationComponent
   }
 ];
 
@@ -30,4 +30,4 @@ const publicRoutes: Routes = [
   imports: [RouterModule.forChild(publicRoutes)],
   exports: [RouterModule]
 })
-export class AsakoPublicRoutingModule {}
+export class HomePublicRoutingModule { }

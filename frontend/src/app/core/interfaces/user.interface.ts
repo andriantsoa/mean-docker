@@ -20,6 +20,7 @@ export interface IUser {
 export interface IUserProfile {
   _id?: string;
   candidat?: string;
+  entreprise?: string;
   label?: string;
   createdAt?: string;
   updatedAt?: string;

@@ -1,17 +1,17 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { AsakoComponent } from './asako.component';
+import { HomePublicComponent } from './home-public.component';
 import { CommunModule } from '../commun/commun.module';
-import { AsakoPublicRoutingModule } from './asako-public-routing.module';
+import { HomePublicRoutingModule } from './home-public-routing.module';
 import { CoreModule } from '../core/core.module';
 
 const components = [
-  AsakoComponent,
+  HomePublicComponent,
 ];
 
 @NgModule({
   imports: [
     CommunModule,
-    AsakoPublicRoutingModule,
+    HomePublicRoutingModule,
     CoreModule.forRoot()
   ],
   declarations: [
@@ -23,4 +23,4 @@ const components = [
     components,
   ]
 })
-export class AsakoPublicModule { }
+export class HomePublicModule { }

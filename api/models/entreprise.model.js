@@ -4,25 +4,18 @@ require('mongoose-type-email');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 const STATUS = require('./constants/status');
-// const niveau = require('./constants/niveau');
 
-// Setup schema
 const entrepriseSchema = new Schema({
-
-  immatricularion: String,
+  immatriculation: String,
   presentation: String,
   nomPublic: {
     type: String,
-    required: true
+    required: false
   },
   status: {
     type: STATUS,
     default: STATUS.STARTUP,
-    required: true
-  },
-  user: {
-    type: ObjectId,
-    ref: 'user'
+    required: false
   },
   nbSalaries: Number,
   mission: String,
@@ -30,11 +23,13 @@ const entrepriseSchema = new Schema({
   dateFondation: String,
   demandes: [{
     type: ObjectId,
-    ref: 'demande'
+    ref: 'demande',
+    required: false
   }],
   offres: [{
     type: ObjectId,
-    ref: 'offre'
+    ref: 'offre',
+    required: false
   }]
 }, {
   timestamps: true

@@ -1,4 +1,5 @@
 const UserModel = require('../models/user.model');
+const ProfilModel = require('../models/profil.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const profilService = require('../services/profil.service');
@@ -21,7 +22,7 @@ generateActivationCode = () => {
 exports.generateActivationCode = generateActivationCode();
 
 exports.authenticate = async (param) => {
-  const user = await getUserProfilCandidatByMail(param.username);
+  const user = await getUserProfilCandidatByUsername(param.username);
   if (user && user._id && bcrypt.compareSync(param.password, user.password)) {
     // authentication successful
     user.token = jwt.sign({ sub: user._id }, environment.secret, {
@@ -44,16 +45,23 @@ exports.authenticate = async (param) => {
   }
 };
 
-getUserProfilCandidatByMail = async (username) => {
+getUserProfilCandidatByUsername = async (username) => {
   return await UserModel.findOne({ email: username }, (error, user) => {
-    if (error) throw new Error('Utilisateur introuvable pour ' + username);
+    if (error) logger.error('Utilisateur introuvable pour ' + username);
     return user;
-  }).populate('profils');
+  })
+    .populate([
+      {
+        path: 'profils',
+        select: ['label', 'candidat', 'entreprise'],
+        model: ProfilModel
+      }
+    ]);
 }
 
 getUserProfilCandidatById = async (_id) => {
   return await UserModel.findOne({ _id }, (error, user) => {
-    if (error) throw new Error('Utilisateur introuvable pour ' + username);
+    if (error) logger.error('Utilisateur introuvable pour ' + username);
     return user;
   }).populate('profils');
 }
