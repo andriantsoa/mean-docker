@@ -18,8 +18,10 @@ export class MenuBarComponent implements OnInit {
   public isActivatedUser: boolean;
   public profilId: string;
   public candidatId: string;
+  public entreprisetId: string;
+  public activeLink: string;
 
-  public navigations = [
+  public readonly navigations = [
     {
       label: 'accueil',
       link: '/',
@@ -41,7 +43,6 @@ export class MenuBarComponent implements OnInit {
       active: false
     }
   ];
-  public activeLink: string;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(map(result => result.matches), shareReplay());
@@ -57,10 +58,10 @@ export class MenuBarComponent implements OnInit {
     let param;
     switch (nav.label) {
       case 'candidat':
-        param = this.candidatId;
+        param = this.candidatId || '';
         break;
       case 'entreprise':
-        param = this.candidatId;
+        param = this.entreprisetId || '';
         break;
       default:
         param = '';
@@ -78,6 +79,7 @@ export class MenuBarComponent implements OnInit {
     if (this.connectedUser.profils[0]) {
       this.profilId = this.connectedUser.profils[0]._id;
       this.candidatId = this.connectedUser.profils[0].candidat;
+      this.entreprisetId = this.connectedUser.profils[0].entreprise;
     }
     this.isActivatedUser = this.connectedUser.active;
     this.updateLabelByUrl(this.router.url);
