@@ -11,14 +11,14 @@ const iconUrl = 'assets/icons';
 export class IconService {
   list: IIconList = {
     facebook: `${iconUrl}/facebook.svg`,
-    linkedin: `${iconUrl}/linkedin.svg`
+    linkedin: `${iconUrl}/linkedin.svg`,
+    candidat: `${iconUrl}/candidat.svg`,
+    entreprise: `${iconUrl}/entreprise.svg`,
   };
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) { }
 
   public load(): void {
     Object.keys(this.list).forEach(icon => {
-      console.log(icon);
-
       this.matIconRegistry.addSvgIcon(
         icon,
         this.domSanitizer.bypassSecurityTrustResourceUrl(this.list[icon])

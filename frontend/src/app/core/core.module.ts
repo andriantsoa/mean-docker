@@ -6,7 +6,7 @@ import { AlertComponent, AlertService, ValidationMessagesComponent, ValidationSe
 import { AuthGuard } from './guards/index';
 import { JwtInterceptorProvider, ErrorInterceptorProvider } from './helpers/index';
 import { LayoutModule } from './layout/layout.module';
-import { CandidatService, CryptoService, ProfilService, UserService } from './services';
+import { CandidatService, CryptoService, EntrepriseService, ProfilService, UserService } from './services';
 
 @NgModule({
   imports: [
@@ -25,7 +25,7 @@ export class CoreModule {
       ngModule: CoreModule,
       providers: [
         AuthGuard,
-        UserService, CryptoService, ProfilService, CandidatService,
+        UserService, CryptoService, ProfilService, CandidatService, EntrepriseService,
         AlertService, ValidationService, JwtInterceptorProvider, ErrorInterceptorProvider
       ],
     };

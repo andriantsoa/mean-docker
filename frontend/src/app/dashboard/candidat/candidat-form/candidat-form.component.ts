@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Statut } from 'src/app/commun/enum/role.enum';
-import { defaultCompetence, defaultExperience, defaultFormation, defaultInfosCandidat, ICandidat, ICandidatInfos } from 'src/app/core/interfaces/candidat.interface';
+import { defaultCompetence, defaultExperience, defaultFormation, defaultInfosCandidat, ICandidat, ICandidatInfos } from 'src/app/core/interfaces';
 import { CandidatService } from 'src/app/core/services';
 import { toArray } from '../../shared/outils/array-utils';
 
@@ -49,7 +49,7 @@ export class CandidatFormComponent implements OnInit {
     });
   }
 
-  private createFormulaireFromCandidat(defaultValue: any, sourceObject: any, ObjectKey?: string): FormGroup {
+  private createFormulaireFromSourceObject(defaultValue: any, sourceObject: any, ObjectKey?: string): FormGroup {
     const list = [];
     sourceObject = Object.assign({}, { ...sourceObject });
     if (!ObjectKey) {
@@ -62,10 +62,10 @@ export class CandidatFormComponent implements OnInit {
   }
 
   private buildForms(): void {
-    this.candidatForm1 = this.createFormulaireFromCandidat(defaultInfosCandidat, this.candidat);
-    this.candidatForm2 = this.createFormulaireFromCandidat(defaultFormation, this.candidat, 'formations');
-    this.candidatForm3 = this.createFormulaireFromCandidat(defaultExperience, this.candidat, 'experiences');
-    this.candidatForm4 = this.createFormulaireFromCandidat(defaultCompetence, this.candidat, 'competences');
+    this.candidatForm1 = this.createFormulaireFromSourceObject(defaultInfosCandidat, this.candidat);
+    this.candidatForm2 = this.createFormulaireFromSourceObject(defaultFormation, this.candidat, 'formations');
+    this.candidatForm3 = this.createFormulaireFromSourceObject(defaultExperience, this.candidat, 'experiences');
+    this.candidatForm4 = this.createFormulaireFromSourceObject(defaultCompetence, this.candidat, 'competences');
   }
 
   private updateCandidat(candidat: ICandidat): void {

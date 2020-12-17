@@ -1,0 +1,24 @@
+.invitation {
+  width: 70%;
+  margin: 5px 15%;
+  padding: 2rem;
+
+  &-selector {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex: 1 1 0;
+  }
+
+  &-element {
+    display: flex;
+    flex-direction: row;
+
+    mat-icon {
+      width: 150px;
+      height: auto;
+      padding: 0rem 5rem;
+      cursor: pointer;
+    }
+  }
+}

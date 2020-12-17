@@ -4,6 +4,10 @@ import { CandidatComponent } from './candidat.component';
 
 const candidatRoutes: Routes = [
   {
+    path: '',
+    component: CandidatComponent
+  },
+  {
     path: ':id',
     component: CandidatComponent
   }

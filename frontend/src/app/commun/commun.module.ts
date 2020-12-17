@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { JobOffersComponent } from './components/job-offers/job-offers.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
 import { LoginService } from './components/user-login/login.service';
+import { BandeauModule } from './components/bandeau/bandeau.module';
 
 const components = [
   UserRegistrationComponent,
@@ -34,6 +35,7 @@ const components = [
     MaterialModule,
     NgImageSliderModule,
     RouterModule,
+    BandeauModule,
   ],
   declarations: [
     ...components,

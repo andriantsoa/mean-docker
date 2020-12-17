@@ -1,13 +1,14 @@
 // userController.js
 // Import entreprise model
 const responseHandler = require('./response-handler');
+const entrepriseModel = require('../models/entreprise.model');
 const entrepriseService = require('../services/entreprise.service');
 const mailService = require('../services/private/mail.service');
 
 // Handle index actions
 
-exports.index = (req, res) => {
-  CandidatModel.get((error, entreprises) => {
+exports.index = async (req, res) => {
+  await entrepriseModel.get((error, entreprises) => {
     if (error) {
       responseHandler.handleError(res, error, 400);
     }
@@ -17,7 +18,7 @@ exports.index = (req, res) => {
 
 // Handle view entreprise info
 exports.view = async (req, res) => {
-  const result = await entrepriseService.getCandidatById(req.params.entreprise_id);
+  const result = await entrepriseService.getEntrepriseById(req.params.entreprise_id);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
   } else {
@@ -27,7 +28,7 @@ exports.view = async (req, res) => {
 
 // Handle update entreprise info
 exports.update = async (req, res) => {
-  const result = await entrepriseService.updateCandidat(req.params.entreprise_id, req.body);
+  const result = await entrepriseService.updateEntreprise(req.params.entreprise_id, req.body);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
     const email = 'andryrandriadev@gmail.com';
@@ -41,7 +42,7 @@ exports.update = async (req, res) => {
 
 // Handle delete entreprise
 exports.delete = async (req, res) => {
-  const result = await entrepriseService.deleteCandidat(req.params.entreprise_id);
+  const result = await entrepriseService.deleteEntreprise(req.params.entreprise_id);
   if (result && result.data) {
     responseHandler.handleMessage(res, result.message);
   } else {

@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CandidatService, UserService } from 'src/app/core/services';
-import { IProfil } from 'src/app/core/interfaces/profil.interface';
-import { ICandidat } from 'src/app/core/interfaces/candidat.interface';
-import { IUser } from 'src/app/core/interfaces/user.interface';
+import { IProfil, ICandidat, IUser } from 'src/app/core/interfaces';
 
 @Component({
   selector: 'app-candidat',
@@ -25,13 +23,30 @@ export class CandidatComponent implements OnInit {
 
   ngOnInit(): void {
     this.connectedUser = this.userService.getCurrentUser();
-    this.getCandidat(this.route.snapshot.paramMap.get('id'));
+
+    /**
+     * TODO:
+     *  si profil candidat : afficher portfolio avec possiblité de modification profil
+     *  si profil entreprise : afficher la liste des demandes de candidature pour mes offres ou et la liste de candidats aux profils recherchés
+     */
+    if (this.route.snapshot.paramMap.get('id')) {
+      this.getCandidat(this.route.snapshot.paramMap.get('id'));
+    } else {
+      this.getCandidats();
+    }
   }
 
-  public getCandidat(id: string): void {
+  private getCandidat(id: string): void {
     this.candidatService.getById(id)
       .subscribe(candidat => {
         this.candidat = candidat;
+      });
+  }
+
+  private getCandidats(): void {
+    this.candidatService.getAll()
+      .subscribe(candidats => {
+        console.log(candidats);
       });
   }
 }
