@@ -1,2 +1,2 @@
-<app-bandeau [title]="entreprise.nomPublic"></app-bandeau>
+<app-entreprise-portfolio [entreprise]="entreprise"></app-entreprise-portfolio>
 <app-entreprise-form *ngIf="entreprise && isUpdate" [entreprise]="entreprise" (update)="isUpdate = $event"></app-entreprise-form>

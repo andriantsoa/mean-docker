@@ -7,9 +7,10 @@ import { EntrepriseRoutingModule } from './entreprise-routing.module';
 import { MaterialModule } from 'src/app/material/material.module';
 import { EntrepriseFormComponent } from './entreprise-form/entreprise-form.component';
 import { BandeauModule } from 'src/app/commun/components/bandeau/bandeau.module';
+import { EntreprisePortfolioComponent } from './entreprise-portfolio/entreprise-portfolio.component';
 
 @NgModule({
-  declarations: [EntrepriseComponent, EntrepriseFormComponent],
+  declarations: [EntrepriseComponent, EntrepriseFormComponent, EntreprisePortfolioComponent],
   imports: [
     CommonModule,
     FormsModule,
