@@ -1,2 +1,2 @@
-<app-entreprise-portfolio [entreprise]="entreprise"></app-entreprise-portfolio>
+<app-entreprise-portfolio *ngIf="entreprise && !isUpdate" [entreprise]="entreprise" (update)="isUpdate = $event"></app-entreprise-portfolio>
 <app-entreprise-form *ngIf="entreprise && isUpdate" [entreprise]="entreprise" (update)="isUpdate = $event"></app-entreprise-form>

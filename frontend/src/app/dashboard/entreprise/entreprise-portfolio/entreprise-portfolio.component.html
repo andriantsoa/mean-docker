@@ -1,6 +1,6 @@
 <app-bandeau *ngIf="entreprise" [title]="entreprise.nomPublic"></app-bandeau>
 
-<div class="container" *ngIf="entreprise">
+<!-- <div class="container" *ngIf="entreprise">
   <mat-card class="card-presentation">
     <div class="card-element">
       <div class="card-element-header">
@@ -30,7 +30,7 @@
     </div>
   </mat-card>
 
-  <mat-card class="card-photos">
+  <mat-card class="card-news">
     <div class="card-element">
       <div class="card-element-header">
         <div class="card-title">Photos</div>
@@ -53,4 +53,157 @@
       </div>
     </div>
   </mat-card>
+
+  <mat-card class="card-statistiques">
+    <div class="card-element">
+      <div class="card-element-header">
+        <div class="card-title">Statistiques</div>
+        <div class="card-subtitle">{{ entreprise.presentation }}</div>
+      </div>
+    </div>
+    <div class="card-element">
+      <div class="card-element-list">
+        <div class="card-element-list-item">
+          <div class="card-element-title">Nombre d'offres</div>
+          <div class="card-element-text">{{ entreprise.mission }}</div>
+        </div>
+        <div class="card-element-list-item">
+          <div class="card-element-title">Nombre de demandes</div>
+          <div class="card-element-text">{{ Statut[entreprise.status] }}</div>
+        </div>
+        <div class="card-element-list-item">
+          <div class="card-element-title">Secteur de travail</div>
+          <div class="card-element-text">Le {{ entreprise.dateFondation }}</div>
+        </div>
+        <div class="card-element-list-item">
+          <div class="card-element-title">Avis</div>
+          <div class="card-element-text">{{ entreprise.nbSalaries }}</div>
+        </div>
+        <div class="card-element-list-item">
+          <div class="card-element-title">Salaire moyenne</div>
+          <div class="card-element-text">{{ entreprise.nbSalaries }}</div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div> -->
+
+<!-- SECTION -->
+<div class="container" *ngIf="entreprise">
+  <div class="section-presentation">
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Présentation</div>
+          <div class="card-subtitle">{{ entreprise.presentation }}</div>
+        </div>
+      </div>
+      <div class="card-element">
+        <div class="card-element-list">
+          <div class="card-element-list-item">
+            <div class="card-element-title">Mission</div>
+            <div class="card-element-text">{{ entreprise.mission }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Statut</div>
+            <div class="card-element-text">{{ Statut[entreprise.status] }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Date de fondation</div>
+            <div class="card-element-text">Le {{ entreprise.dateFondation }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Nombre de salariés</div>
+            <div class="card-element-text">{{ entreprise.nbSalaries }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <button mat-flat-button color="accent" (click)="openUpdateForm()">Modifier</button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="section-news">
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Photos</div>
+        </div>
+      </div>
+      <div class="card-element">
+        <div class="card-element-photos">
+          <div class="card-element-photos-item">
+            <img src="assets/images/photo.jpg" />
+          </div>
+          <div class="card-element-photos-item">
+            <img src="assets/images/photo.jpg" />
+          </div>
+          <div class="card-element-photos-item">
+            <img src="assets/images/photo.jpg" />
+          </div>
+          <div class="card-element-photos-item">
+            <img src="assets/images/photo.jpg" />
+          </div>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Les offres d'emplois</div>
+        </div>
+      </div>
+      <div class="card-element">Liste des offres de l'entreprise</div>
+    </mat-card>
+
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Les demandes d'emplois en cours</div>
+        </div>
+      </div>
+      <div class="card-element">
+        <li>offre 1</li>
+        <li>offre 1</li>
+        <li>offre 1</li>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="section-statistiques">
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Statistiques</div>
+          <div class="card-subtitle">{{ entreprise.presentation }}</div>
+        </div>
+      </div>
+      <div class="card-element">
+        <div class="card-element-list">
+          <div class="card-element-list-item">
+            <div class="card-element-title">Nombre d'offres</div>
+            <div class="card-element-text">{{ entreprise.mission }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Nombre de demandes</div>
+            <div class="card-element-text">{{ Statut[entreprise.status] }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Secteur de travail</div>
+            <div class="card-element-text">Le {{ entreprise.dateFondation }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Avis</div>
+            <div class="card-element-text">{{ entreprise.nbSalaries }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Salaire moyenne</div>
+            <div class="card-element-text">{{ entreprise.nbSalaries }}</div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>

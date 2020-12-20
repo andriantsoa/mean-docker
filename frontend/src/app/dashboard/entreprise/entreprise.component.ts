@@ -10,7 +10,7 @@ import { EntrepriseService } from 'src/app/core/services';
 })
 export class EntrepriseComponent implements OnInit {
   public entreprise: IEntreprise;
-  public isUpdate = true;
+  public isUpdate = false;
 
   constructor(
     private route: ActivatedRoute,

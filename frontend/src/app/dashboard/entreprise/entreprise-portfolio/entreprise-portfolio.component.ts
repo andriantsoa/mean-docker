@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IEntreprise } from 'src/app/core/interfaces';
 import { Statut } from 'src/app/commun/enum/role.enum';
 
@@ -7,13 +7,15 @@ import { Statut } from 'src/app/commun/enum/role.enum';
   templateUrl: './entreprise-portfolio.component.html',
   styleUrls: ['./entreprise-portfolio.component.scss']
 })
-export class EntreprisePortfolioComponent implements OnInit {
+export class EntreprisePortfolioComponent {
   public Statut = Statut;
   @Input() entreprise: IEntreprise;
+  @Output() update: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
 
-  ngOnInit(): void {
+  public openUpdateForm(): void {
+    this.update.emit(true);
   }
 
 }
