@@ -1,4 +1,4 @@
-<app-bandeau *ngIf="entreprise" [title]="entreprise.nomPublic"></app-bandeau>
+<app-bandeau [title]="entreprise?.nomPublic"></app-bandeau>
 
 <!-- SECTION -->
 <div class="container" *ngIf="entreprise">
@@ -108,7 +108,12 @@
           </div>
           <div class="card-element-list-item">
             <div class="card-element-title">Avis</div>
-            <div class="card-element-text">{{ entreprise.nbSalaries }}</div>
+            <div class="card-element-text">
+              <mat-icon>grade</mat-icon>
+              <mat-icon>grade</mat-icon>
+              <mat-icon>grade</mat-icon>
+              <mat-icon>grade</mat-icon>
+            </div>
           </div>
           <div class="card-element-list-item">
             <div class="card-element-title">Salaire moyenne</div>
