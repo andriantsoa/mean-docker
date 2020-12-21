@@ -7,13 +7,14 @@ import { CandidatRoutingModule } from './candidat-routing.module';
 import { CandidatComponent } from './candidat.component';
 import { CandidatFormComponent } from './candidat-form/candidat-form.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
-import { CompetenceComponent } from '../shared/competence/competence.component';
-import { ExperienceComponent } from '../shared/experience/experience.component';
-import { FormationComponent } from '../shared/formation/formation.component';
+import { BandeauModule } from 'src/app/commun/components/bandeau/bandeau.module';
+import { FormationModule } from '../shared/formation/formation.module';
+import { CompetenceModule } from '../shared/competence/competence.module';
+import { ExperienceModule } from '../shared/experience/experience.module';
 
 @NgModule({
   declarations: [
-    CandidatComponent, CandidatFormComponent, FormationComponent, ExperienceComponent, CompetenceComponent, PortfolioComponent,
+    CandidatComponent, CandidatFormComponent, PortfolioComponent,
   ],
   imports: [
     CommonModule,
@@ -21,9 +22,13 @@ import { FormationComponent } from '../shared/formation/formation.component';
     ReactiveFormsModule,
     CandidatRoutingModule,
     MaterialModule,
+    BandeauModule,
+    FormationModule,
+    CompetenceModule,
+    ExperienceModule
   ],
   exports: [
-    CandidatComponent, CandidatFormComponent, FormationComponent, ExperienceComponent, CompetenceComponent, PortfolioComponent
+    CandidatComponent, CandidatFormComponent, PortfolioComponent
   ]
 })
 export class CandidatModule { }

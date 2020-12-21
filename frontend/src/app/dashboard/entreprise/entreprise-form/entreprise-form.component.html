@@ -1,0 +1,52 @@
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-step [stepControl]="form1">
+    <form [formGroup]="form1">
+      <ng-template matStepLabel>INFOS GENERALES</ng-template>
+      <mat-card>
+        <mat-form-field appearance="outline">
+          <mat-label>Immatriculation</mat-label>
+          <input matInput placeholder="Immatriculation" formControlName="immatriculation" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>nomPublic</mat-label>
+          <input matInput placeholder="metier" formControlName="nomPublic" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date de fondation</mat-label>
+          <input matInput placeholder="metier" formControlName="dateFondation" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Votre statut</mat-label>
+          <mat-select formControlName="status">
+            <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Effectif salariés</mat-label>
+          <input matInput placeholder="metier" formControlName="nbSalaries" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Principale mission</mat-label>
+          <input matInput placeholder="metier" formControlName="mission" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Présentation</mat-label>
+          <textarea matInput placeholder="presentation" formControlName="presentation"></textarea>
+        </mat-form-field>
+      </mat-card>
+      <div>
+        <button mat-button (click)="sendUpdate()">Enregistrer</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Enregistrement</ng-template>
+    <p>Merci vous avez tous rempli. Appuyez sur terminer pour quitter</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button (click)="sendUpdate()">Terminer</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

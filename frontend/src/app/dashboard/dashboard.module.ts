@@ -7,14 +7,14 @@ import { CoreModule } from '../core/core.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MaterialModule } from '../material/material.module';
 import { CandidatModule } from './candidat/candidat.module';
+import { SharedModule } from './shared/shared.module';
 import { EntrepriseModule } from './entreprise/entreprise.module';
 
 import { UserValidationComponent } from './user-validation/user-validation.component';
-import { ProfilFormComponent } from './profil-form/profil-form.component';
+import { ProfilModule } from './profil/profil.module';
 
 const components = [
-  UserValidationComponent,
-  ProfilFormComponent,
+  UserValidationComponent
 ];
 
 @NgModule({
@@ -30,7 +30,9 @@ const components = [
     RouterModule,
     CoreModule.forRoot(),
     CandidatModule,
-    EntrepriseModule
+    EntrepriseModule,
+    SharedModule,
+    ProfilModule
   ],
   exports: [
     ...components

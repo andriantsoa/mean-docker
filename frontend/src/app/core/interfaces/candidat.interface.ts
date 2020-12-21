@@ -1,3 +1,5 @@
+import { IEntreprise } from './entreprise.interface';
+
 export interface ICandidat {
   _id?: string;
   posteActuel: string;
@@ -70,22 +72,6 @@ export interface IOffre {
   avantages: [string];
   salaire: number;
   publish: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-import { IUser } from './user.interface';
-export interface IEntreprise {
-  immatricularion: string;
-  presentation: string;
-  nomPublic: string;
-  status: string;
-  user: IUser;
-  nbSalaries: number;
-  mission: string;
-  dateFondation: string;
-  demandes: [IDemande];
-  offres: [IOffre];
   createdAt?: string;
   updatedAt?: string;
 }

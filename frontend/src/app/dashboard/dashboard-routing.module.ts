@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../core/guards';
 import { HomePublicComponent } from '../home-public/home-public.component';
 import { LayoutComponent } from '../core/layout/layout.component';
-import { ProfilFormComponent } from './profil-form/profil-form.component';
 import { UserValidationComponent } from './user-validation/user-validation.component';
 
 const boardRoutes: Routes = [
@@ -23,9 +22,9 @@ const boardRoutes: Routes = [
         component: UserValidationComponent
       },
       {
-        path: 'profil/:id',
+        path: 'profil',
         canActivate: [AuthGuard],
-        component: ProfilFormComponent
+        loadChildren: () => import('./profil/profil.module').then((module) => module.ProfilModule)
       },
       {
         path: 'candidat',

@@ -1,0 +1,107 @@
+.bandeau {
+  display: inline-flex;
+  height: 15%;
+
+  &-image {
+    width: 100%;
+    img {
+      width: 100%;
+      height: 150px;
+    }
+  }
+
+  &-title {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.007);
+    top: 35vw;
+    margin-left: 40px;
+    color: white;
+    font-size: 36px;
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .bandeau-title {
+    top: 40vw;
+  }
+}
+
+@media only screen and (max-width: 397px) and (min-width: 381px) {
+  .bandeau-title {
+    top: 54vw;
+  }
+}
+
+@media only screen and (max-width: 435px) and (min-width: 397px) {
+  .bandeau-title {
+    top: 50vw;
+  }
+}
+
+@media only screen and (max-width: 471px) and (min-width: 435px) {
+  .bandeau-title {
+    top: 48vw;
+  }
+}
+
+@media only screen and (max-width: 501px) and (min-width: 471px) {
+  .bandeau-title {
+    top: 43vw;
+  }
+}
+
+@media only screen and (max-width: 669px) and (min-width: 501px) {
+  .bandeau-title {
+    top: 38vw;
+  }
+}
+
+@media only screen and (max-width: 720px) and (min-width: 669px) {
+  .bandeau-title {
+    top: 36vw;
+  }
+}
+
+@media only screen and (max-width: 992px) and (min-width: 720px) {
+  .bandeau-title {
+    top: 23vw;
+  }
+}
+
+@media only screen and (max-width: 1379px) and (min-width: 992px) {
+  .bandeau-title {
+    top: 18vw;
+  }
+}
+
+@media only screen and (max-width: 1624px) and (min-width: 1379px) {
+  .bandeau-title {
+    top: 14vw;
+  }
+}
+
+@media only screen and (max-width: 1934px) and (min-width: 1624px) {
+  .bandeau-title {
+    top: 12vw;
+  }
+}
+
+@media only screen and (max-width: 2534px) and (min-width: 1934px) {
+  .bandeau-title {
+    top: 10vw;
+  }
+}
+
+@media only screen and (max-width: 3000px) and (min-width: 2534px) {
+  .bandeau-title {
+    top: 8vw;
+  }
+}
+
+@media only screen and (max-width: 3934px) and (min-width: 3000px) {
+  .bandeau-title {
+    top: 7vw;
+  }
+}

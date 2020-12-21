@@ -4,6 +4,10 @@ import { EntrepriseComponent } from './entreprise.component';
 
 const entrepriseRoutes: Routes = [
   {
+    path: '',
+    component: EntrepriseComponent
+  },
+  {
     path: ':id',
     component: EntrepriseComponent
   }

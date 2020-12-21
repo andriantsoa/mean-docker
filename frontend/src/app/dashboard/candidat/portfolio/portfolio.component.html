@@ -1,169 +1,256 @@
-<div class="page" *ngIf="candidat">
-  <mat-card class="portfolio">
-    <div class="portfolio-header">
-      <div class="portfolio-header-profil">
-        <img src="assets/images/unnamed.png" width="120" alt="entete" />
-        <div class="portfolio-header-profil-card">
-          <h2>{{ candidat.metier | titlecase }}</h2>
-          <span class="portfolio-header-profil-subtitle">{{ format(Statut[candidat.status]) }}</span>
-          <span class="portfolio-header-profil-subtitle">
-            <mat-icon>grade</mat-icon>
-            <mat-icon>grade</mat-icon>
-            <mat-icon>grade</mat-icon>
-            <mat-icon>grade</mat-icon>
-          </span>
-          <span class="portfolio-header-profil-subtitle"> </span>
+<app-bandeau [title]="candidat?.metier"></app-bandeau>
 
+<div class="container page" *ngIf="candidat">
+  <div class="section-presentation">
+    <mat-card class="section-card">
+      <div class="card-element-photos">
+        <div class="card-element-photos-item">
+          <img src="assets/images/unnamed.png" alt="profil" style="border: solid 1px; border-radius: 50%" />
+        </div>
+        <div class="card-element-photos-item">
           <button mat-flat-button color="accent">Contact</button>
           <button mat-stroked-button color="primary" (click)="openCandidatForm()">Modifier</button>
         </div>
       </div>
-      <div class="portfolio-header-card"></div>
-      <mat-divider [vertical]="true"></mat-divider>
-      <div class="portfolio-header-card">
-        <p>
-          <li>
-            Ville : <span class="portfolio-header-profil-subtitle">{{ user.city | titlecase }}</span>
-          </li>
-          <li>Dispo : {{ candidat.disponible }}</li>
-          <li>annee d'experience : 2</li>
-          <li>age : 28</li>
-          <li>
-            <mat-icon svgIcon="linkedin" style="width: 12px"></mat-icon>
-            <mat-icon svgIcon="facebook" style="width: 12px"></mat-icon>
-          </li>
-        </p>
-      </div>
-    </div>
-  </mat-card>
 
-  <mat-card class="portfolio-body">
-    <div class="portfolio-header">
-      <div class="portfolio-header-card">
-        <h1>A propos de moi</h1>
-        <p>
-          {{ candidat.presentation }}
-        </p>
+      <div class="card-element">
+        <div class="card-element-list">
+          <div class="card-element-list-item">
+            <div class="card-element-title">Statut</div>
+            <div class="card-element-text">{{ format(Statut[candidat.status]) }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Ville</div>
+            <div class="card-element-text">{{ user.city | titlecase }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Disponibilité</div>
+            <div class="card-element-text">{{ candidat.disponible ? "Oui" : "Non" }}</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Année d'expérience</div>
+            <div class="card-element-text">2</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Age</div>
+            <div class="card-element-text">28</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Note</div>
+            <div class="card-element-text">
+              <mat-icon>grade</mat-icon>
+              <mat-icon>grade</mat-icon>
+              <mat-icon>grade</mat-icon>
+              <mat-icon>grade</mat-icon>
+            </div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title"><mat-icon svgIcon="linkedin" style="width: 12px"></mat-icon></div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title"><mat-icon svgIcon="facebook" style="width: 12px"></mat-icon></div>
+          </div>
+        </div>
       </div>
-      <mat-divider [vertical]="true"></mat-divider>
-      <div class="portfolio-header-card">
-        <h3>Je suis actuellement {{ candidat.posteActuel | titlecase }}</h3>
-        <p>titre derniere experience</p>
-        <p>entreprise (derniere entreprise)</p>
-      </div>
-    </div>
-  </mat-card>
+    </mat-card>
 
-  <mat-card class="portfolio-body">
-    <div class="portfolio-header">
-      <div class="portfolio-header-card">
-        <h1>Mes compétences</h1>
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Photos</div>
+        </div>
+      </div>
+      <div class="card-element">
+        <div class="card-element-photos">
+          <div class="card-element-photos-item">
+            <img src="assets/images/photo.jpg" />
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="section-news">
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">A propos de moi</div>
+          <div class="card-subtitle">{{ candidat.presentation }}</div>
+        </div>
+      </div>
+      <div class="card-element">
+        <div class="card-element-list">
+          <div class="card-element-list-item">
+            <div class="card-element-title">Actualités</div>
+            <div class="card-element-text">
+              <p>Je suis actuellement {{ candidat.posteActuel | titlecase }}</p>
+            </div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Titre derniere experience</div>
+            <div class="card-element-text">entreprise (derniere entreprise)</div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-accordion class="section-card" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header class="card-element">
+          <mat-panel-title class="card-element-header">
+            <div class="card-title">Mes expériences</div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list *ngFor="let experience of candidat.experiences; let last = last">
+          <div class="card-element">
+            <div class="card-element-list">
+              <div class="card-element-list-item">
+                <div class="card-element-title" style="color: chocolate">{{ experience.label | titlecase }}</div>
+              </div>
+              <div class="card-element-list-item">
+                <div class="card-element-title">Chez</div>
+                <div class="card-element-text">{{ experience.entreprise | titlecase }}</div>
+              </div>
+              <div class="card-element-list-item">
+                <div class="card-element-title">Date</div>
+                <div class="card-element-text">Depuis le {{ experience.debut }} {{ experience.fin ? "au" : "" }} {{ experience.fin }}</div>
+              </div>
+              <div class="card-element-list-item">
+                <div class="card-element-title">Statut</div>
+                <div class="card-element-text">En tant que {{ format(Statut[experience.status]) | titlecase }}</div>
+              </div>
+              <div class="card-element-list-item">
+                <div class="card-element-title">Secteur</div>
+                <mat-chip-list aria-label="skill selection">
+                  <mat-chip *ngFor="let item of experience.secteur; let i = index" [color]="i % 2 === 0 ? 'primary' : 'accent'" selected>
+                    {{ item | titlecase }}
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+              <div class="card-element-list-item">
+                <div class="card-element-title">Details</div>
+                <div class="card-element-text">{{ experience.details | titlecase }}</div>
+              </div>
+            </div>
+          </div>
+          <!-- 
+          <mat-list-item>
+            Secteur :
+            <li *ngFor="let item of experience.secteur">{{ item }}</li>
+          </mat-list-item>
+          <textarea mat-input [value]="experience.details" readonly rows="5" cols="150" style="border: none"></textarea> -->
+          <mat-divider *ngIf="!last"></mat-divider>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-accordion class="section-card" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header class="card-element">
+          <mat-panel-title class="card-element-header">
+            <div class="card-title">Mes Formations</div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-list *ngFor="let formation of candidat.formations; let last = last">
+          <h2>{{ formation.titre }}</h2>
+          <h3>{{ formation.etablissement }}</h3>
+          <h3>{{ formation.niveau }}</h3>
+          <h5>Depuis le {{ formation.debut }} {{ formation.fin ? "au" : "" }} {{ formation.fin }}</h5>
+
+          <mat-list-item>
+            Filière :
+            <li *ngFor="let item of formation.filiere">{{ item }}</li>
+          </mat-list-item>
+          <mat-list-item>
+            <textarea mat-input value="formation.details" readonly></textarea>
+          </mat-list-item>
+          <mat-divider *ngIf="!last"></mat-divider>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Les offres d'emplois</div>
+        </div>
+      </div>
+      <div class="card-element">Liste des offres de l'entreprise</div>
+    </mat-card>
+
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Les demandes d'emplois en cours</div>
+        </div>
+      </div>
+      <div class="card-element">
+        <li>offre 1</li>
+        <li>offre 1</li>
+        <li>offre 1</li>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="section-statistiques">
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Mes compétences</div>
+        </div>
+      </div>
+      <div class="card-element">
         <mat-chip-list aria-label="skill selection">
           <mat-chip *ngFor="let item of candidat.competences; let i = index" [color]="i % 2 === 0 ? 'primary' : 'accent'" selected>
             {{ item.titre | titlecase }}
           </mat-chip>
         </mat-chip-list>
       </div>
-      <mat-divider [vertical]="true"></mat-divider>
-      <div class="portfolio-header-card">
-        <h1>Langues</h1>
+    </mat-card>
+
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Mes langues</div>
+        </div>
+      </div>
+      <div class="card-element">
         <mat-chip-list aria-label="Language selection">
           <mat-chip>Français</mat-chip>
           <mat-chip color="primary" selected>Anglais</mat-chip>
           <mat-chip color="accent" selected>Espagnole</mat-chip>
         </mat-chip-list>
       </div>
-    </div>
-  </mat-card>
+    </mat-card>
 
-  <mat-accordion class="portfolio-body-panel" multi>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Mes expériences </mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-list *ngFor="let experience of candidat.experiences; let last = last">
-        <h2>{{ experience.label }}</h2>
-        <h3>{{ experience.entreprise }}</h3>
-        <h5>
-          Depuis le {{ experience.debut }} {{ experience.fin ? "au" : "" }} {{ experience.fin }} en tant que
-          {{ format(Statut[experience.status]) | titlecase }}
-        </h5>
-
-        <mat-list-item>
-          Secteur :
-          <li *ngFor="let item of experience.secteur">{{ item }}</li>
-        </mat-list-item>
-        <textarea mat-input [value]="experience.details" readonly rows="5" cols="150" style="border: none"></textarea>
-        <mat-divider *ngIf="!last"></mat-divider>
-      </mat-list>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <mat-accordion class="portfolio-body-panel" multi>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Mes Formations </mat-panel-title>
-      </mat-expansion-panel-header>
-
-      <!-- ICI FORMATIONS -->
-      <mat-list *ngFor="let formation of candidat.formations; let last = last">
-        <h2>{{ formation.titre }}</h2>
-        <h3>{{ formation.etablissement }}</h3>
-        <h3>{{ formation.niveau }}</h3>
-        <h5>Depuis le {{ formation.debut }} {{ formation.fin ? "au" : "" }} {{ formation.fin }}</h5>
-
-        <mat-list-item>
-          Filière :
-          <li *ngFor="let item of formation.filiere">{{ item }}</li>
-        </mat-list-item>
-        <mat-list-item>
-          <textarea mat-input value="formation.details" readonly></textarea>
-        </mat-list-item>
-        <mat-divider *ngIf="!last"></mat-divider>
-      </mat-list>
-    </mat-expansion-panel>
-  </mat-accordion>
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Statistiques</div>
+          <div class="card-subtitle">{{ candidat.presentation }}</div>
+        </div>
+      </div>
+      <div class="card-element">
+        <div class="card-element-list">
+          <div class="card-element-list-item">
+            <div class="card-element-title">Nombre d'offres</div>
+            <div class="card-element-text">2</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Nombre de demandes</div>
+            <div class="card-element-text">12</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Secteur de travail</div>
+            <div class="card-element-text">Le secteur</div>
+          </div>
+          <div class="card-element-list-item">
+            <div class="card-element-title">Salaire moyenne</div>
+            <div class="card-element-text">123021 $</div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>
-
-<!-- <mat-card class="example-card" *ngIf="candidat">
-  <mat-card-content class="page">
-    <div class="conteneur">
-      <div class="element">
-        <img src="assets/images/unnamed.png" width="170" alt="entete" />
-      </div>
-      <div class="element">
-        <h3>Nom + premon</h3>
-        <p>profil titre</p>
-        <p>entreprise</p>
-        <button mat-raised-button color="accent">Contact</button>
-        <button mat-raised-button color="primary">Resume</button>
-      </div>
-      <div class="element">
-        <h3>Infos Utiles</h3>
-        <li>Ville : ville</li>
-        <li>Ville : ville</li>
-        <li>Ville : ville</li>
-        <li>Ville : ville</li>
-        <a>fb</a> <a>in</a>
-      </div>
-    </div>
-  </mat-card-content>
-</mat-card> -->
-
-<!-- <mat-grid-list cols="5" rows="2" rowHeight="75px">
-  <mat-grid-tile colspan="1" rowspan="2" style.background="lightblue"> Photo </mat-grid-tile>
-  <mat-grid-tile colspan="2" rowspan="1"> Nom et prenom </mat-grid-tile>
-  <mat-grid-tile colspan="2" rowspan="1">
-    competence 1 * * * * * <br />
-    competence 1 * * * * * <br />
-    competence 1 * * * * * <br />
-    competence 1 * * * * * <br />
-  </mat-grid-tile>
-  <mat-grid-tile colspan="2" rowspan="1">
-    Details sur le profil <br />
-    Informations sur le candidat
-  </mat-grid-tile>
-  <mat-grid-tile colspan="2" rowspan="1">
-    <button mat-button color="success">modififer</button>
-    <button mat-button>partager</button>
-  </mat-grid-tile>
-</mat-grid-list> -->

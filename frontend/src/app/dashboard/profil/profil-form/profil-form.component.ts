@@ -3,9 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { Role, Statut } from 'src/app/commun/enum/role.enum';
 import { Secteurs } from 'src/app/commun/constantes/secteur.constant';
-import { ValidationService } from 'src/app/core/components';
-import { ProfilService, UserService } from 'src/app/core/services';
-import { IProfil } from '../../core/interfaces/profil.interface';
+import { ProfilService } from 'src/app/core/services';
+import { IProfil } from 'src/app/core/interfaces';
 
 @Component({
   selector: 'app-profil-form',
@@ -24,8 +23,7 @@ export class ProfilFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute, private profilService: ProfilService,
-    private validationService: ValidationService,
+    private route: ActivatedRoute, private profilService: ProfilService
   ) {
     this.step1 = this.formBuilder.group({
       label: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -80,17 +78,6 @@ export class ProfilFormComponent implements OnInit {
     } as IProfil;
     this.updateProfil(param);
   }
-
-
-  // public createExperiences(): void {
-  //   this.profilForm = this.formBuilder.group({
-  //     label: new FormControl('', [Validators.required, Validators.minLength(2)]),
-  //     aspirations: new FormControl([''], [Validators.minLength(1)]),
-  //     status: new FormControl('', [Validators.required, Validators.minLength(2)]),
-  //     groupe: new FormControl([''], [Validators.minLength(1)]),
-  //     secteur: new FormControl([''], [Validators.minLength(1)]),
-  //   });
-  // }
 
   public filterNumber(value): boolean {
     return isNaN(Number(value)) === true;

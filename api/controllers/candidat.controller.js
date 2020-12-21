@@ -2,12 +2,13 @@
 // Import candidat model
 const responseHandler = require('./response-handler');
 const candidatService = require('../services/candidat.service');
+const candidatModel = require('../models/candidat.model');
 const mailService = require('../services/private/mail.service');
 
 // Handle index actions
 
-exports.index = (req, res) => {
-  CandidatModel.get((error, candidats) => {
+exports.index = async (req, res) => {
+  await candidatModel.get((error, candidats) => {
     if (error) {
       responseHandler.handleError(res, error, 400);
     }
