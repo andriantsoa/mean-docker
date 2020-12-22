@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IJobOffer } from '../commun/interfaces/job-offer.interface';
+import { ICompetence, IEntreprise, IFormation } from '../core/interfaces';
 
 @Component({
   selector: 'app-home-public',
@@ -20,85 +21,100 @@ export class HomePublicComponent implements OnInit {
   ngOnInit(): void {
     this.jobOffers = [
       {
-        title: 'developpeur full stack',
+        titreOffre: 'developpeur full stack',
         date: 1604663216955,
         resume: '',
-        enterprise: 'CGI',
+        entreprise: { nomPublic: 'CGI' } as IEntreprise,
         domaine: 'informatique',
-        lieu: 'Paris',
-        advantages: '13eme mois + ticket restaurant + transport',
+        city: 'Paris',
+        // advantages: '13eme mois + ticket restaurant + transport',
         description: 'Cherche un agent expert en ANgular et Java pour une equipe agile a taille humaine. disponible de suite',
-        prerequis: '2 ans dexperience sur es6, diplome ingenieur informatique ou master equivqlent',
+        competences: [{ titre: 'angular', niveau: 1 } as ICompetence],
+        formations: [{ titre: 'informatique' } as IFormation],
+        // prerequis: '2 ans dexperience sur es6, diplome ingenieur informatique ou master equivqlent',
         salaire: 45000,
-        conditions: {},
+        avantages: ['resto', 'transport', '13eme mois'],
         contact: {
           label: 'Sale Manager',
           email: 'test.test@test.test'
-        }
+        },
+        online: true
       },
       {
-        title: 'developpeur mean stack',
-        enterprise: 'ANDRIAN&CO',
+        titreOffre: 'developpeur mean stack',
+        entreprise: { nomPublic: 'ANDRIAN&CO' } as IEntreprise,
         date: 1604663216955,
         domaine: 'informatique',
-        lieu: 'Lille',
-        advantages: 'teletravail 100%',
+        city: 'Lille',
+        avantages: ['teletravail 100%'],
         description: 'Cherche un agent expert en Angular 10 et Node.js pour une equipe agile a taille humaine. disponible de suite',
-        prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
+        competences: [{ titre: 'angular', niveau: 3 } as ICompetence],
+        formations: [{ titre: 'ingenieur informatique' } as IFormation],
+        // prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
         salaire: 49000,
-        conditions: {},
+        // conditions: {},
         contact: {
           label: 'Sale Manager',
           email: 'test.test@test.test'
-        }
+        },
+        online: true
       },
       {
-        title: 'Administrateur reseau',
-        enterprise: 'ANDRIAN&CO',
+        titreOffre: 'Administrateur reseau',
+        entreprise: { nomPublic: 'ANDRIAN&CO' } as IEntreprise,
         date: 1604663216955,
         domaine: 'informatique',
-        lieu: 'Antananarivo',
-        advantages: 'teletravail 100%',
+        city: 'Antananarivo',
+        avantages: ['teletravail 100%'],
         description: 'Cherche un agent expert en Angular 10 et Node.js pour une equipe agile a taille humaine. disponible de suite',
-        prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
+        competences: [{ titre: 'linux', niveau: 3 } as ICompetence],
+        formations: [{ titre: 'ingenieur informatique' } as IFormation],
+        // prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
         salaire: 49000,
-        conditions: {},
+        // conditions: {},
         contact: {
           label: 'Sale Manager',
           email: 'test.test@test.test'
-        }
+        },
+        online: true
       },
       {
-        title: 'Consultant RH',
-        enterprise: 'Conseil-RH',
+        titreOffre: 'Consultant RH',
+        entreprise: { nomPublic: 'Conseil-RH' } as IEntreprise,
         domaine: 'Aeronautique',
         date: 1604663216955,
-        lieu: 'Antananarivo',
-        advantages: 'teletravail 100%',
+        city: 'Antananarivo',
+        avantages: ['teletravail 100%'],
         description: 'Cherche un agent expert en Angular 10 et Node.js pour une equipe agile a taille humaine. disponible de suite',
-        prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
+        competences: [{ titre: 'recrutement', niveau: 3 } as ICompetence],
+        formations: [{ titre: 'licence rh' } as IFormation],
+        // prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
         salaire: 49000,
-        conditions: {},
+        // conditions: {},
         contact: {
           label: 'Sale Manager',
           email: 'test.test@test.test'
-        }
+        },
+        online: true
       },
       {
-        title: 'Consultant Marketing',
-        enterprise: 'Conseil-RH',
+        titreOffre: 'Consultant Marketing',
+        entreprise: { nomPublic: 'Conseil-RH' } as IEntreprise,
         domaine: 'Aeronautique',
         date: 1604663216955,
-        lieu: 'Antananarivo',
-        advantages: 'teletravail 100%',
+        city: 'Antananarivo',
+        avantages: ['teletravail 100%'],
         description: 'Cherche un agent expert en Angular 10 et Node.js pour une equipe agile a taille humaine. disponible de suite',
-        prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
+        competences: [{ titre: 'marketing', niveau: 3 } as ICompetence],
+        formations: [{ titre: 'licence marketing' } as IFormation],
+        // prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
         salaire: 49000,
-        conditions: {},
+        // conditions: {},
         contact: {
           label: 'Sale Manager',
           email: 'test.test@test.test'
-        }
+        },
+        online: true
       }
     ];
   }

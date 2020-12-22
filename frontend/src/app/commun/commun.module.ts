@@ -11,10 +11,10 @@ import { CarouselAutoComponent } from './components/carousel-auto/carousel-auto.
 import { ImageSliderComponent } from './components/image-slider/image-slider.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { RouterModule } from '@angular/router';
-import { JobOffersComponent } from './components/job-offers/job-offers.component';
 import { FooterBarComponent } from './components/footer-bar/footer-bar.component';
 import { LoginService } from './components/user-login/login.service';
 import { BandeauModule } from './components/bandeau/bandeau.module';
+import { JobOffersModule } from './components/job-offers/job-offers.module';
 
 const components = [
   UserRegistrationComponent,
@@ -23,7 +23,6 @@ const components = [
   SearchFormComponent,
   CarouselAutoComponent,
   ImageSliderComponent,
-  JobOffersComponent,
   FooterBarComponent,
 ];
 
@@ -36,6 +35,7 @@ const components = [
     NgImageSliderModule,
     RouterModule,
     BandeauModule,
+    JobOffersModule,
   ],
   declarations: [
     ...components,

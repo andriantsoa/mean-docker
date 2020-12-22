@@ -1,4 +1,5 @@
-import { IDemande, IOffre } from './candidat.interface';
+import { IDemande } from './candidat.interface';
+import { IOffre } from './offre.interface';
 
 export interface IEntreprise {
   _id?: string;

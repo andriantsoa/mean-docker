@@ -12,6 +12,8 @@ exports.addRoute = (router) => {
     .get(entrepriseController.view)
     .patch(entrepriseController.update)
     .put(entrepriseController.update);
-
+  router
+    .route('/entreprise/:entreprise_id/offre')
+    .post(entrepriseController.offer);
   return router;
 };

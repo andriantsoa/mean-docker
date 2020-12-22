@@ -1,24 +1,25 @@
 <div class="job-offers" *ngIf="jobOffers">
-  <mat-card class="job-offers-card" [ngClass]="{zoomed: item.zoom}" *ngFor="let item of jobOffers">
+  <mat-card class="job-offers-card" [ngClass]="{ zoomed: item.zoom }" *ngFor="let item of jobOffers">
     <mat-card-header class="job-offers-card-header">
       <div mat-card-avatar>
         <mat-icon class="job-offers-card-header-icon">star</mat-icon>
       </div>
-      <mat-card-title>{{item.title}}</mat-card-title>
-      <mat-card-subtitle>{{item.enterprise}} {{item.lieu}}</mat-card-subtitle>
+      <mat-card-title>{{ item.titreOffre }}</mat-card-title>
+      <mat-card-subtitle>{{ item.entreprise?.nomPublic }} {{ item.city }}</mat-card-subtitle>
       <mat-card-subtitle *ngIf="item.zoom">
-        {{item.advantages}} - {{item.salaire}} Ar Annuel
+        <span *ngFor="let avantage of item.avantages">{{ avantage }} </span>
+        - {{ item.salaire }} Ar Annuel
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="job-offers-card-content">
-      <p class="job-offers-card-content-text-sm">
-          Le {{item.date|date:'dd/MM/yyyy'}}
-      </p>
+      <p class="job-offers-card-content-text-sm" *ngIf="item.date">Le {{ item.date | date: "dd/MM/yyyy" }}</p>
+      <p class="job-offers-card-content-text-sm" *ngIf="!item.date">Le {{ item.updatedAt | date: "dd/MM/yyyy" }}</p>
       <p class="job-offers-card-content-text">
-        {{item.description}}
+        {{ item.description }}
       </p>
       <p class="job-offers-card-content-text" *ngIf="item.zoom">
-        {{item.prerequis}}
+        <span *ngFor="let formation of item.formations"> {{ formation?.titre }} - </span>
+        <span *ngFor="let competence of item.competences"> {{ competence?.titre }} - </span>
       </p>
     </mat-card-content>
     <mat-card-actions class="job-offers-card-actions">
@@ -28,4 +29,3 @@
     </mat-card-actions>
   </mat-card>
 </div>
-

@@ -11,12 +11,12 @@ import { EntrepriseService } from 'src/app/core/services';
 export class EntrepriseComponent implements OnInit {
   public entreprise: IEntreprise;
   public isUpdate = false;
+  public isOffreCreation = false;
 
   constructor(
     private route: ActivatedRoute,
     private entrepriseService: EntrepriseService,
   ) { }
-
 
   /**
    * TODO:
@@ -43,5 +43,9 @@ export class EntrepriseComponent implements OnInit {
       .subscribe(enterprises => {
         console.log(enterprises);
       });
+  }
+
+  public addOffre() {
+    this.isOffreCreation = true;
   }
 }

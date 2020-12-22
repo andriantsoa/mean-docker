@@ -6,8 +6,8 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const STATUS = require('./constants/status');
 
 const competence = new Schema({
-  titre: { type: String, required: true },
-  niveau: { type: Double, required: true },
+  titre: { type: String },
+  niveau: { type: Number },
   version: { type: String },
   _id: false
 });
@@ -24,9 +24,15 @@ const formation = new Schema({
 
 // Setup schema
 const offreSchema = new Schema({
-
-  numOffre: Number,
+  codeOffre: String,
   description: String,
+  online: Boolean,
+  boosted: Boolean,
+  dateLimit: String,
+  city: String,
+  dateDebut: String,
+  duree: String,
+  salaire: Number,
   titreOffre: {
     type: String,
     required: true
@@ -44,15 +50,9 @@ const offreSchema = new Schema({
     type: ObjectId,
     ref: 'profil'
   }],
-  dateLimit: String,
-  competencesRequises: [competence],
-  formationsRequises: [formation],
-  avantages: [String],
-  salaire: Double,
-  publish: {
-    type: Boolean,
-    default: true
-  }
+  competences: [competence],
+  formations: [formation],
+  avantages: [String]
 }, {
   timestamps: true
 });

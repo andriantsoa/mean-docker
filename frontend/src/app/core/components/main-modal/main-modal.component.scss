@@ -1,0 +1,126 @@
+.margin-bot{
+    margin-bottom: 10%;
+}
+
+p {
+    margin: 0;
+}
+
+.glc-popin {
+    width: 10% !important;
+}
+
+.popin-close {
+    width: 15%;
+    color: #fff;
+    border-radius: 0;
+}
+
+.glc-popin-icons {
+    font-size: 4rem;
+}
+
+.btn-modal-action {
+    width: 90%;
+}
+
+.glc-modal-text {
+    color: #0f0e0e;
+    margin-bottom: 1rem;
+    font-size: .75rem;
+}
+
+.list-title {
+    height: 1rem !important;
+    font-size: 0.9375rem;
+}
+
+.list-item {
+    height: auto !important;
+    padding-bottom: 1rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 1.2rem !important;
+
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+    
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.glc-text-color-orange {
+    color: orange;
+}
+
+.glc-text-color-bleu {
+    color: blue;
+}
+
+.glc-text-color-red {
+    color: red;
+}
+
+.glc-text-color-black {
+    color: black;
+}
+
+.glc-text-color-mauve {
+    color: #870059;
+}
+
+.glc-text-color-green {
+    color: green;
+}
+
+.glc-text-color-purple {
+    color: #8064a2;
+}
+
+.glc-text-color-grey {
+    color: #837b8b;
+}
+
+.glc-border-color-black {
+    border: 0.5px solid grey;
+}
+
+.glc-date-info-mobile {
+    margin-left: 2rem;
+}
+
+.glc-date-info {
+    margin-left: 1rem;
+}
+
+.glc-modal-content {
+    margin: 0rem 0rem 1.5rem 0rem;
+    padding: 0;
+}
+
+.glc-input-label {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.form-control{
+    margin-bottom: 1rem;
+}
+
+.btn-success {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.mat-dialog-popin{
+    max-height: 30rem;
+}
