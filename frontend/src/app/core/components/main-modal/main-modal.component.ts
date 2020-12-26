@@ -3,6 +3,7 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { IEntreprise, IOffre } from '../../interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-modal',
@@ -15,6 +16,7 @@ export class MainModalComponent implements OnInit {
 
   constructor(
     public snackBar: MatSnackBar,
+    private router: Router,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<MainModalComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
@@ -47,5 +49,12 @@ export class MainModalComponent implements OnInit {
       data,
       duration: 3000
     });
+  }
+
+  update_entreprise(value: boolean) {
+    // if (value) {
+    this.router.navigate(['/dashboard/entreprise', this.entreprise._id]);
+    // }
+    this.closeDialog();
   }
 }

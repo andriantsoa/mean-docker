@@ -1,4 +1,4 @@
 <div>
   <button type="button" (click)="closeDialog()">Fermer</button>
-  <app-offre-form *ngIf="entreprise" [entreprise]="entreprise" [offre]="offre" (update)="closeDialog()"></app-offre-form>
+  <app-offre-form *ngIf="entreprise" [entreprise]="entreprise" [offre]="offre" (update)="update_entreprise($event)"></app-offre-form>
 </div>
