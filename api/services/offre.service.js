@@ -56,7 +56,7 @@ exports.updateOffreEntreprise = async (entreprise_id, offre_id, body) => {
     return { status: 400, message: 'Offre introuvable' };
   }
   const entrepriseOffres = entreprise.offres;
-  if (entrepriseOffres.contains(offre_id)) {
+  if (entrepriseOffres.includes(offre_id)) {
     const offre = await OffreModel.findByIdAndUpdate(offre_id, body, { new: true });
     if (offre && offre._id) {
       return { data: offre, message: 'Offre mis à jour' };

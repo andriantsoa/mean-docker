@@ -3,6 +3,7 @@
     <form [formGroup]="form1">
       <ng-template matStepLabel>Details sur l'offre</ng-template>
       <mat-card>
+        <mat-checkbox formControlName="online"> Publiée </mat-checkbox>
         <mat-form-field appearance="outline" disabled>
           <mat-label>codeOffre</mat-label>
           <input matInput placeholder="codeOffre" formControlName="codeOffre" />
@@ -76,7 +77,8 @@
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
-      <button mat-button (click)="sendOffre()">Terminer</button>
+      <button mat-button (click)="sendOffre()">Enregistrer</button>
+      <button mat-button (click)="finish()">Terminer</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

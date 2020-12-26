@@ -13,6 +13,5 @@ exports.addRoute = (router) => {
     .get(profilController.view)
     .patch(profilController.update)
     .put(profilController.update);
-
   return router;
 };

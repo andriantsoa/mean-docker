@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Statut } from 'src/app/commun/enum/role.enum';
 import { defaultInfosOffre, IEntreprise, IOffre, IOffreInfos } from 'src/app/core/interfaces';
 import { OffreService } from 'src/app/core/services';
-import { toArray } from '../../outils/array-utils';
-
+import { toArray, pick } from '../../outils/array-utils';
 @Component({
   selector: 'app-offre-form',
   templateUrl: './offre-form.component.html',
@@ -34,7 +33,10 @@ export class OffreFormComponent implements OnInit {
     const list = [];
     sourceObject = Object.assign({}, { ...sourceObject });
     if (!ObjectKey) {
-      return this.formBuilder.group({ ...defaultValue, ...sourceObject as IOffreInfos });
+      const keys = [
+        'codeOffre', 'description', 'titreOffre', 'status', 'online', 'city', 'salaire', 'duree', 'dateDebut', 'dateLimit'
+      ];
+      return this.formBuilder.group({ ...defaultValue, ...pick(sourceObject, keys) as IOffreInfos });
     }
     (sourceObject[ObjectKey] || []).forEach((value: any) => list.push(this.formBuilder.group({ ...defaultValue, ...value })));
     return this.formBuilder.group({
@@ -70,7 +72,6 @@ export class OffreFormComponent implements OnInit {
       ...this.form3.value
     } as IOffre;
     this.newOffre(this.entreprise._id, param);
-    this.finish();
   }
 
   public sendUpdate(): void {
@@ -81,7 +82,6 @@ export class OffreFormComponent implements OnInit {
       ...this.form3.value
     } as IOffre;
     this.updateOffre(param);
-    this.finish();
   }
 
   public sendOffre() {
@@ -90,6 +90,7 @@ export class OffreFormComponent implements OnInit {
     } else {
       this.sendCreation();
     }
+    this.finish();
   }
 
   public finish(): void {

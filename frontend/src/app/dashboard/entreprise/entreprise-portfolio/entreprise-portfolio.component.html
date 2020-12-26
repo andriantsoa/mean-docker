@@ -71,7 +71,7 @@
     </mat-card>
 
     <mat-card class="section-card" *ngFor="let offre of entreprise.offres">
-      <app-offre [offre]="offre"></app-offre>
+      <app-offre [offre]="offre" [entrepriseId]="entreprise._id"></app-offre>
     </mat-card>
 
     <mat-card class="section-card">

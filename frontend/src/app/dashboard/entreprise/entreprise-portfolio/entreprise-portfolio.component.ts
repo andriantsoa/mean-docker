@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { IEntreprise } from 'src/app/core/interfaces';
+import { IEntreprise, IOffre } from 'src/app/core/interfaces';
 import { Statut } from 'src/app/commun/enum/role.enum';
 import { MainModalComponent } from 'src/app/core/components';
 
@@ -22,14 +22,14 @@ export class EntreprisePortfolioComponent {
     this.update.emit(true);
   }
 
-  open_dialog_modal(): void {
+  open_dialog_modal(offre?: IOffre): void {
     const dialogRef = this.dialog.open(MainModalComponent, {
       width: '80%',
       height: '80%',
       panelClass: 'mat-dialog-popin',
       data: {
         entreprise: this.entreprise,
-        offre: null
+        offre
       }
     });
 

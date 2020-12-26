@@ -31,7 +31,7 @@
     <p class="offre-content-text-sm" *ngIf="offre?.dateLimit">Date Limite: {{ offre.dateLimit }}</p>
   </div>
   <div class="offre-actions">
-    <button mat-raised-button color="primary">Modifier</button>
+    <button mat-raised-button color="primary" (click)="open_dialog_modal('offre')">Modifier</button>
     <button mat-button>Booster</button>
     <button mat-button>Supprimer</button>
   </div>

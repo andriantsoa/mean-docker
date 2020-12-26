@@ -1,25 +1,32 @@
 @import "../../../../styling/variables";
 
-// .bottomSheetChoice {
-//   min-height: 3rem;
-//   color: #fff;
-//   padding: 1rem 0 1rem 0;
-// }
+.snackbar {
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  flex-basis: 100%;
+  justify-content: space-between;
+  margin: 0px;
+}
 
-// .bottomSheetChoiceBkgTaxi {
-//   background-color: $taxis-text-color;
-// }
+.success {
+  @extend .snackbar;
+  background-color: rgb(94, 194, 102, 0.95);
+}
 
-// .success {
-//   background-color: rgb(94, 194, 102, 0.95);
-//   padding: 1rem;
-//   margin: 0px;
-//   min-height: 5.5rem;
-// }
+.error {
+  @extend .snackbar;
+  background-color: rgb(192, 43, 68, 0.95);
+}
 
-// .error {
-//   background-color: rgb(192, 43, 68, 0.95);
-//   padding: 1rem;
-//   margin: 0px;
-//   min-height: 5.5rem;
-// }
+.type {
+  font-size: 20px;
+}
+
+.message {
+  font-size: 16px;
+}
+
+.mat-snack-bar-container {
+  padding: 0px;
+}

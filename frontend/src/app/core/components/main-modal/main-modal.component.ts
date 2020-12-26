@@ -1,9 +1,8 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IEntreprise } from '../../interfaces';
-
-// import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { IEntreprise, IOffre } from '../../interfaces';
 
 @Component({
   selector: 'app-main-modal',
@@ -12,6 +11,7 @@ import { IEntreprise } from '../../interfaces';
 })
 export class MainModalComponent implements OnInit {
   public entreprise: IEntreprise;
+  public offre: IOffre;
 
   constructor(
     public snackBar: MatSnackBar,
@@ -19,9 +19,8 @@ export class MainModalComponent implements OnInit {
     public dialogRef: MatDialogRef<MainModalComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log(data.entreprise);
-
     this.entreprise = data ? data.entreprise : null;
+    this.offre = data ? data.offre : null;
   }
 
   ngOnInit() {
@@ -36,16 +35,17 @@ export class MainModalComponent implements OnInit {
           param: 'OKOK'
         }
       });
+    this.open_snackbar('success', 'fermeture');
   }
 
-  // open_snackbar(type: string, message: string) {
-  //   const data = {
-  //     type,
-  //     message
-  //   };
-  //   this.snackBar.openFromComponent(SnackbarComponent, {
-  //     data,
-  //     duration: 3000
-  //   });
-  // }
+  open_snackbar(type: string, message: string) {
+    const data = {
+      type,
+      message
+    };
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data,
+      duration: 3000
+    });
+  }
 }

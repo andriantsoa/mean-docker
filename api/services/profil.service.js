@@ -40,6 +40,7 @@ exports.updateProfil = async (req) => {
     if (error) error;
     return profil;
   });
+  console.log(req.body);
   const updatedProfil = await candidatService.createCandidat(profil, req.body);
   return updatedProfil;
 };

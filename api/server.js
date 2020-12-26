@@ -79,6 +79,14 @@ app.use(
 // Use Api routes in the App
 app.use('/api', apiRoutes);
 
+// config mail
+// const mailConfig = require('./config/mail.config');
+// const transporter = mailConfig.transporter;
+
+// app.configure(function() {
+//   app.set('transporter', transporter);
+// });
+
 const HOST = '127.0.0.1';
 // start server
 // Launch app to listen to specified port

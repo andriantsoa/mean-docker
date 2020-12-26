@@ -28,12 +28,12 @@ export interface IOffreInfos extends Pick<IOffre, 'codeOffre' | 'description' | 
   description: string;
   titreOffre: string;
   status: number;
-  dateLimit: string;
   online: boolean;
   city: string;
-  dateDebut: string;
-  duree: string;
   salaire: number;
+  duree: string;
+  dateDebut: string;
+  dateLimit: string;
 }
 
 export const defaultInfosOffre = {

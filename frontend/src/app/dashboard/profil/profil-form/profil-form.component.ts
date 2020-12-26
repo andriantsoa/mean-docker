@@ -52,21 +52,22 @@ export class ProfilFormComponent implements OnInit {
         () => {
           this.step1.controls.label.setValue(this.profil.label);
           this.step1.controls.role.setValue(this.profil.role);
-          this.step1.controls.role.disable();
           this.step1.controls.status.setValue(this.profil.status);
           this.step2.controls.secteur.setValue(this.profil.secteur);
         });
   }
 
   private updateProfil(profil: IProfil): void {
+    const id = this.route.snapshot.paramMap.get('id');
     this.profilService.update(profil)
       .subscribe(p => {
         console.log(p);
-        if (profil.role === Role.CANDIDAT) {
-          this.router.navigate(['/dashboard/candidat']);
-        } else if (profil.role === Role.ENTREPRISE) {
-          this.router.navigate(['/dashboard/entreprise']);
-        }
+        this.router.navigate(['/']);
+        // if (profil.role === Role.CANDIDAT) {
+        //   this.router.navigate(['/dashboard/candidat', id]);
+        // } else if (profil.role === Role.ENTREPRISE) {
+        //   this.router.navigate(['/dashboard/entreprise', id]);
+        // }
       });
   }
 
