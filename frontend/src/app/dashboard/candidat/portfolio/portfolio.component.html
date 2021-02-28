@@ -11,6 +11,9 @@
           <button mat-flat-button color="accent">Contact</button>
           <button mat-stroked-button color="primary" (click)="openCandidatForm()">Modifier</button>
         </div>
+        <div class="card-element-photos-item">
+          <button mat-stroked-button color="primary" (click)="addDocument()">upload document</button>
+        </div>
       </div>
 
       <div class="card-element">
@@ -190,6 +193,15 @@
         <li>offre 1</li>
         <li>offre 1</li>
       </div>
+    </mat-card>
+
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Documents</div>
+        </div>
+      </div>
+      <app-document-form [candidat]="candidat"></app-document-form>
     </mat-card>
   </div>
 

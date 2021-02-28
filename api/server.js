@@ -14,6 +14,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
+app.use(express.static(path.resolve(__dirname, 'public')));
+
 // Connect to Mongoose and set connection variable
 // MongoDB connection
 mongoose.connect(environment.mongodb.uri, {

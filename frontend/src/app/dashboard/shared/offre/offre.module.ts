@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
 import { CompetenceModule } from '../competence/competence.module';
 import { FormationModule } from '../formation/formation.module';
+import { MainModalModule } from 'src/app/core/components/main-modal/main-modal.module';
 
 @NgModule({
   declarations: [OffreComponent, OffreFormComponent],

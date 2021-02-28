@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IOffre } from 'src/app/core/interfaces';
-import { MainModalComponent } from 'src/app/core/components';
 import { MatDialog } from '@angular/material/dialog';
+import { MainModalComponent } from 'src/app/core/components/main-modal/main-modal.component';
 
 @Component({
   selector: 'app-offre',

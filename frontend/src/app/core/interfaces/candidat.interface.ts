@@ -46,6 +46,15 @@ export interface ICompetence {
   version?: string;
 }
 
+export interface IDocument {
+  _id: string,
+  categorie: number,
+  imageUrl: string,
+  imageTitle: string,
+  imageDesc?: string,
+  uploaded?: string
+}
+
 export interface IDemande {
   numDemande: number;
   description: string;

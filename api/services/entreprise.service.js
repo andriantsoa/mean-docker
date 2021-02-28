@@ -1,7 +1,7 @@
 const EntrepriseModel = require('../models/entreprise.model');
 const OffreModel = require('../models/offre.model');
 const mongoose = require('mongoose');
-const offreService = require('../services/offre.service');
+const offreService = require('./offre.service');
 const ObjectId = mongoose.Types.ObjectId;
 // Handle index actions
 

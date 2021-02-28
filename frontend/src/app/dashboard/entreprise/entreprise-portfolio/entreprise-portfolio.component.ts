@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { IEntreprise, IOffre } from 'src/app/core/interfaces';
 import { Statut } from 'src/app/commun/enum/role.enum';
-import { MainModalComponent } from 'src/app/core/components';
+import { MainModalComponent } from 'src/app/core/components/main-modal/main-modal.component';
 
 @Component({
   selector: 'app-entreprise-portfolio',
@@ -22,7 +22,7 @@ export class EntreprisePortfolioComponent {
     this.update.emit(true);
   }
 
-  open_dialog_modal(offre?: IOffre): void {
+  public open_dialog_modal(offre?: IOffre): void {
     const dialogRef = this.dialog.open(MainModalComponent, {
       width: '80%',
       height: '80%',

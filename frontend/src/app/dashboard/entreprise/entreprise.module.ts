@@ -9,6 +9,7 @@ import { EntrepriseFormComponent } from './entreprise-form/entreprise-form.compo
 import { BandeauModule } from 'src/app/commun/components/bandeau/bandeau.module';
 import { EntreprisePortfolioComponent } from './entreprise-portfolio/entreprise-portfolio.component';
 import { OffreModule } from '../shared/offre/offre.module';
+import { MainModalModule } from 'src/app/core/components/main-modal/main-modal.module';
 
 @NgModule({
   declarations: [EntrepriseComponent, EntrepriseFormComponent, EntreprisePortfolioComponent],
@@ -19,7 +20,8 @@ import { OffreModule } from '../shared/offre/offre.module';
     MaterialModule,
     EntrepriseRoutingModule,
     BandeauModule,
-    OffreModule
+    OffreModule,
+    MainModalModule
   ]
 })
 export class EntrepriseModule { }

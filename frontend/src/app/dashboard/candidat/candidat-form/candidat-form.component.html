@@ -1,202 +1,76 @@
-<mat-horizontal-stepper labelPosition="bottom" #stepper>
-  <mat-step [stepControl]="candidatForm1">
-    <form [formGroup]="candidatForm1">
-      <ng-template matStepLabel>INFOS GENERALES</ng-template>
-      <mat-card>
-        <mat-form-field appearance="outline">
-          <mat-label>posteActuel</mat-label>
-          <input matInput placeholder="Poste" formControlName="posteActuel" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>presentation</mat-label>
-          <textarea matInput placeholder="presentation" formControlName="presentation"></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>metier</mat-label>
-          <input matInput placeholder="metier" formControlName="metier" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Votre statut</mat-label>
-          <mat-select formControlName="status">
-            <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-checkbox formControlName="disponible"> Disponible </mat-checkbox>
-      </mat-card>
-      <div>
-        <button mat-button (click)="sendUpdate()">Enregistrer</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="candidatForm4">
-    <form [formGroup]="candidatForm4">
-      <ng-template matStepLabel>COMPETENCES</ng-template>
-      <app-competence [parentForm]="candidatForm4"></app-competence>
-      <div>
-        <button mat-button (click)="sendUpdate()">Enregistrer</button>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="candidatForm3">
-    <form [formGroup]="candidatForm3">
-      <ng-template matStepLabel>EXPERIENCES</ng-template>
-      <app-experience [parentForm]="candidatForm3"></app-experience>
-      <div>
-        <button mat-button (click)="sendUpdate()">Enregistrer</button>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="candidatForm2">
-    <form [formGroup]="candidatForm2">
-      <ng-template matStepLabel>FORMATIONS</ng-template>
-      <app-formation [parentForm]="candidatForm2"></app-formation>
-      <div>
-        <button mat-button (click)="sendUpdate()">Enregistrer</button>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Enregistrement</ng-template>
-    <p>ça a été utile pour la suite.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-      <button mat-button (click)="sendUpdate()">Terminer</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
-
-<!-- <mat-horizontal-stepper labelPosition="bottom" #stepper>
-  <form [formGroup]="candidatForm">
-    <mat-step [stepControl]="formationsForm">
-      <ng-template matStepLabel>FORMATIONS ET DIPLOMES</ng-template>
-      <div formArrayName="formations">
-        <div *ngFor="let formation of formations.controls; let i = index">
-          <div [formGroupName]="i">
-            <mat-form-field appearance="outline">
-              <mat-label>Titre de la formation ou diplome</mat-label>
-              <input matInput placeholder="Last name, First name" formControlName="titre" required />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Filière</mat-label>
-              <mat-select formControlName="filiere">
-                <mat-option [value]="role.value" *ngFor="let role of filieres">{{ role.label }} </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Ecole ou établissements</mat-label>
-              <input matInput placeholder="établissements" formControlName="etablissement" required />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Date de début</mat-label>
-              <input matInput placeholder="jj/mm/yyyy" formControlName="debut" required />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Date de fin</mat-label>
-              <input matInput placeholder="jj/mm/yyyy" formControlName="fin" required />
-            </mat-form-field>
-          </div>
-        </div>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-          <button mat-button>Ajouter formation</button>
-        </div>
-      </div>
-    </mat-step>
-    <mat-step [stepControl]="experiences" optional>
-      <ng-template matStepLabel>VOS EXPERIENCES</ng-template>
-      <div formArrayName="experiences">
-        <div *ngFor="let exp of experiences.controls; let i = index">
-          <div [formGroupName]="i">
-            <mat-form-field appearance="outline">
-              <mat-label>Sujet</mat-label>
-              <input matInput placeholder="Titre" formControlName="label" required />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Votre statut</mat-label>
-              <mat-select formControlName="status">
-                <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Secteur de travail</mat-label>
-              <mat-select formControlName="secteur">
-                <mat-option [value]="secteur.name" *ngFor="let secteur of secteurs">{{ secteur.name }} </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Entreprise</mat-label>
-              <input matInput placeholder="Titre" formControlName="entreprise" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Durée</mat-label>
-              <input matInput placeholder="Titre" formControlName="duree" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Date de début</mat-label>
-              <input matInput placeholder="jj/mm/yyyy" formControlName="debut" />
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>Date de fin</mat-label>
-              <input matInput placeholder="jj/mm/yyyy" formControlName="fin" />
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-        <button mat-button>Ajouter expérience</button>
-      </div>
-    </mat-step>
-  </form>
-
-  <mat-step [stepControl]="competencesForm" optional>
-    <ng-template matStepLabel>VOS COMPETENCES</ng-template>
-    <div formArrayName="competences">
-      <div *ngFor="let cmp of competences.controls; let i = index">
-        <div [formGroupName]="i">
+<div>
+  <mat-horizontal-stepper labelPosition="bottom" #stepper>
+    <mat-step [stepControl]="candidatForm1">
+      <form [formGroup]="candidatForm1">
+        <ng-template matStepLabel>INFOS GENERALES</ng-template>
+        <mat-card>
           <mat-form-field appearance="outline">
-            <mat-label>compétence *</mat-label>
-            <input matInput placeholder="compétence" formControlName="titre" required />
+            <mat-label>posteActuel</mat-label>
+            <input matInput placeholder="Poste" formControlName="posteActuel" />
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <mat-label>Niveau de compétence</mat-label>
-            <mat-select formControlName="niveau">
-              <mat-option value="5">Expert</mat-option>
-              <mat-option value="4">Avancé</mat-option>
-              <mat-option value="3">Intermédiaire</mat-option>
-              <mat-option value="2">Débutant</mat-option>
-              <mat-option value="1">Notion</mat-option>
+            <mat-label>presentation</mat-label>
+            <textarea matInput placeholder="presentation" formControlName="presentation"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>metier</mat-label>
+            <input matInput placeholder="metier" formControlName="metier" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Votre statut</mat-label>
+            <mat-select formControlName="status">
+              <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Version</mat-label>
-            <input matInput placeholder="version" formControlName="version" />
-          </mat-form-field>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-            <button mat-button>Ajouter compétence</button>
-          </div>
+          <mat-checkbox formControlName="disponible"> Disponible </mat-checkbox>
+        </mat-card>
+        <div>
+          <button mat-button (click)="sendUpdate()">Enregistrer</button>
+          <button mat-button matStepperNext>Next</button>
         </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="candidatForm4">
+      <form [formGroup]="candidatForm4">
+        <ng-template matStepLabel>COMPETENCES</ng-template>
+        <app-competence [parentForm]="candidatForm4"></app-competence>
+        <div>
+          <button mat-button (click)="sendUpdate()">Enregistrer</button>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="candidatForm3">
+      <form [formGroup]="candidatForm3">
+        <ng-template matStepLabel>EXPERIENCES</ng-template>
+        <app-experience [parentForm]="candidatForm3"></app-experience>
+        <div>
+          <button mat-button (click)="sendUpdate()">Enregistrer</button>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="candidatForm2">
+      <form [formGroup]="candidatForm2">
+        <ng-template matStepLabel>FORMATIONS</ng-template>
+        <app-formation [parentForm]="candidatForm2"></app-formation>
+        <div>
+          <button mat-button (click)="sendUpdate()">Enregistrer</button>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Enregistrement</ng-template>
+      <p>ça a été utile pour la suite.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button (click)="sendUpdate()">Terminer</button>
       </div>
-    </div>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Enregistrement</ng-template>
-    <p>ça a été utile pour la suite.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-      <button mat-button (click)="sendUpdate()">Enregistrer</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper> -->
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

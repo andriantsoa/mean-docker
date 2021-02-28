@@ -11,10 +11,14 @@ import { BandeauModule } from 'src/app/commun/components/bandeau/bandeau.module'
 import { FormationModule } from '../shared/formation/formation.module';
 import { CompetenceModule } from '../shared/competence/competence.module';
 import { ExperienceModule } from '../shared/experience/experience.module';
+import { MainModalComponent } from 'src/app/core/components/main-modal/main-modal.component';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { MainModalModule } from 'src/app/core/components/main-modal/main-modal.module';
+import { DocumentModule } from '../shared/document/document.module';
 
 @NgModule({
   declarations: [
-    CandidatComponent, CandidatFormComponent, PortfolioComponent,
+    CandidatComponent, CandidatFormComponent, PortfolioComponent
   ],
   imports: [
     CommonModule,
@@ -25,10 +29,21 @@ import { ExperienceModule } from '../shared/experience/experience.module';
     BandeauModule,
     FormationModule,
     CompetenceModule,
-    ExperienceModule
+    ExperienceModule,
+    MainModalModule,
+    DocumentModule
   ],
   exports: [
     CandidatComponent, CandidatFormComponent, PortfolioComponent
+  ],
+  entryComponents: [
+    MainModalComponent
+  ],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false }
+    }
   ]
 })
 export class CandidatModule { }

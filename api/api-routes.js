@@ -10,8 +10,9 @@ const offreRoute = require('./routes/offre.route');
 router = homeRoute.addRoute(router);
 router = userRoute.addRoute(router);
 router = profilRoute.addRoute(router);
-router = candidatRoute.addRoute(router);
 router = entrepriseRoute.addRoute(router);
 router = offreRoute.addRoute(router);
+
+router.use('/candidat', candidatRoute);
 
 module.exports = router;
