@@ -8,7 +8,6 @@ const CATEGORIE = require('./constants/cat-doc');
 const documentSchema = new Schema({
   categorie: {
     type: Number,
-    enum: CATEGORIE.keys(),
     default: CATEGORIE.CV
   },
   imageUrl: String,

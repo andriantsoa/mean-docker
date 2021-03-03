@@ -118,6 +118,8 @@ export class DocumentFormComponent implements OnInit {
 
   public onChangeFile(event: any) {
     if (event.target.files.length > 0) {
+      console.log('file', event);
+
       const file = (event.target as HTMLInputElement).files[0];
       this.documentForm.patchValue({
         file

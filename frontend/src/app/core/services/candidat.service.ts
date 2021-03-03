@@ -81,7 +81,7 @@ export class CandidatService {
   }
 
   public upload(data, candidatId): Observable<any> {
-    const uploadURL = `${environment.apiEndpoint}/candidat/${candidatId}/file`;
+    const uploadURL = `${environment.apiEndpoint}/candidat/${candidatId}/uploadphoto`;
 
     return this.http.post<any>(uploadURL, data, {
       reportProgress: true,
