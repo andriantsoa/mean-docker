@@ -80,7 +80,7 @@ export class CandidatService {
     });
   }
 
-  public upload(data, candidatId): Observable<any> {
+  public upload(data: FormData, candidatId, formValue: any): Observable<any> {
     const uploadURL = `${environment.apiEndpoint}/candidat/${candidatId}/uploadphoto`;
 
     return this.http.post<any>(uploadURL, data, {

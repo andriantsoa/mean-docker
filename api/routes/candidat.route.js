@@ -21,11 +21,10 @@ const saveFile = (url, encode_image, req, res) => {
     imageDesc: '',
   };
   const file = new documentModel(finalImg);
-  file.save((err, result) => {
+  return file.save((err, result) => {
     console.log(result)
     if (err) return console.log(err)
     console.log('saved to database')
-    res.json({ success: true });
   });
 };
 
@@ -68,9 +67,12 @@ router
   .post(
     upload.single('picture'), // upload single file
     (req, res) => {
-      console.log(req.file, req.files);
-      const file = `E:/CRH/mean-docker-app/api/ressources/upload/${req.files.data.name}`;
-      fs.outputFile(file, req.files.data)
+      console.log('----------', req.body);
+
+      console.log('----------', req.files);
+      // const fileExtension = req.files.file.name.split('.')[1];
+      const file = `E:/CRH/mean-docker-app/api/ressources/upload/${req.params.candidat_id}/${req.files.file.name}`;
+      fs.outputFile(file, req.files.file.data)
         .then(() => fs.readFile(file, 'utf8'))
         .then(data => {
           const encode_image = data.toString('base64');
@@ -81,6 +83,9 @@ router
         })
         .catch(err => {
           console.error(err)
+          res.json({
+            saved: false
+          });
         });
     }
   )

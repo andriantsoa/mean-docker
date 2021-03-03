@@ -35,11 +35,9 @@ export class DocumentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.documentForm = this.formBuilder.group({
-      // imageFile: [null, Validators.required],
       title: [null, Validators.required],
       categorie: [CategorieDoc.CV, Validators.required],
       file: [''],
-      // image: [null, Validators.required]
     });
   }
 
@@ -122,18 +120,24 @@ export class DocumentFormComponent implements OnInit {
 
       const file = (event.target as HTMLInputElement).files[0];
       this.documentForm.patchValue({
+        title: this.documentForm.get('title')?.value || '',
+        categorie: this.documentForm.get('categorie')?.value || 1,
         file
       });
-      this.documentForm.get('file').updateValueAndValidity()
+      this.documentForm.get('file').updateValueAndValidity();
     }
   }
 
   public onSubmit() {
     const formData = new FormData();
-    formData.append("name", this.documentForm.get('title').value);
-    formData.append("data", this.documentForm.get('file').value);
+    console.log(this.documentForm.get('title').value, this.documentForm.get('categorie').value);
 
-    this.candidatService.upload(formData, this.candidat._id)
+    formData.append('file', this.documentForm.get('file').value);
+    formData.append('title', this.documentForm.get('title').value);
+    formData.append('categorie', this.documentForm.get('categorie').value);
+    console.log(formData);
+
+    this.candidatService.upload(formData, this.candidat._id, this.documentForm.value)
       .subscribe(
         (res) => {
           console.log(res);
