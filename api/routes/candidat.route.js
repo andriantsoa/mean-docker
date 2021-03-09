@@ -11,22 +11,22 @@ const documentModel = require('../models/document.model');
 // const uploader = require('../config/multer-uploader');
 // const upload = uploader.upload;
 
-const saveFile = (url, encode_image, req, res) => {
-  const finalImg = {
-    contentType: req.files.mimetype,
-    image: new Buffer.from(encode_image),
-    categorie: req.body.categorie,
-    imageUrl: url,
-    imageTitle: req.body.title,
-    imageDesc: '',
-  };
-  const file = new documentModel(finalImg);
-  return file.save((err, result) => {
-    console.log(result)
-    if (err) return console.log(err)
-    console.log('saved to database')
-  });
-};
+// const saveFile = (url, encode_image, req, res) => {
+//   const finalImg = {
+//     contentType: req.files.mimetype,
+//     image: new Buffer.from(encode_image),
+//     categorie: req.body.categorie,
+//     imageUrl: url,
+//     imageTitle: req.body.title,
+//     imageDesc: '',
+//   };
+//   const file = new documentModel(finalImg);
+//   return file.save((err, result) => {
+//     console.log(result)
+//     if (err) return console.log(err)
+//     console.log('saved to database')
+//   });
+// };
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -66,28 +66,25 @@ router
   .route('/:candidat_id/uploadphoto')
   .post(
     upload.single('picture'), // upload single file
-    (req, res) => {
-      console.log('----------', req.body);
-
-      console.log('----------', req.files);
-      // const fileExtension = req.files.file.name.split('.')[1];
-      const file = `E:/CRH/mean-docker-app/api/ressources/upload/${req.params.candidat_id}/${req.files.file.name}`;
-      fs.outputFile(file, req.files.file.data)
-        .then(() => fs.readFile(file, 'utf8'))
-        .then(data => {
-          const encode_image = data.toString('base64');
-          saveFile(file, encode_image, req, res);
-          res.json({
-            saved: true
-          });
-        })
-        .catch(err => {
-          console.error(err)
-          res.json({
-            saved: false
-          });
-        });
-    }
+    candidatController.addFileOK
+    // (req, res) => {
+    //   const file = `E:/CRH/mean-docker-app/api/ressources/upload/${req.params.candidat_id}/${req.files.file.name}`;
+    //   fs.outputFile(file, req.files.file.data)
+    //     .then(() => fs.readFile(file, 'utf8'))
+    //     .then(data => {
+    //       const encode_image = data.toString('base64');
+    //       saveFile(file, encode_image, req, res);
+    //       res.json({
+    //         saved: true
+    //       });
+    //     })
+    //     .catch(err => {
+    //       console.error(err)
+    //       res.json({
+    //         saved: false
+    //       });
+    //     });
+    // }
   )
   // .get('/:candidat_id/photos', (req, res) => {
   //   documentModel.find().toArray((err, result) => {

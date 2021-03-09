@@ -128,15 +128,15 @@ export class DocumentFormComponent implements OnInit {
     }
   }
 
+  // Vrai Submit file single
   public onSubmit() {
     const formData = new FormData();
-    console.log(this.documentForm.get('title').value, this.documentForm.get('categorie').value);
-
-    formData.append('file', this.documentForm.get('file').value);
-    formData.append('title', this.documentForm.get('title').value);
-    formData.append('categorie', this.documentForm.get('categorie').value);
-    console.log(formData);
-
+    const file = this.documentForm.get('file').value;
+    const title = this.documentForm.get('title').value;
+    const fileExtension = file.name.split('.')[1];
+    const blob = file.slice(0, file.size, file.type);
+    const newFile = new File([blob], `${title}.${fileExtension}`, { type: file.type });
+    formData.append('file', newFile);
     this.candidatService.upload(formData, this.candidat._id, this.documentForm.value)
       .subscribe(
         (res) => {

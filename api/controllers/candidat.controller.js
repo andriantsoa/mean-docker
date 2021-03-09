@@ -1,9 +1,11 @@
 // userController.js
 // Import candidat model
+fs = require('fs-extra');
+
 const responseHandler = require('./response-handler');
 const candidatService = require('../services/candidat.service');
 const candidatModel = require('../models/candidat.model');
-const documentModel = require('../models/candidat.model');
+const documentModel = require('../models/document.model');
 const mailService = require('../services/private/mail.service');
 
 // Handle index actions
@@ -122,4 +124,55 @@ exports.myUploadFunction = (req, res) => {
 
     // ...
   });
+};
+
+const saveFile = (finalImg, res) => {
+  // const finalImg = {
+  //   mimetype: req.files.mimetype,
+  //   image: new Buffer.from(encode_image),
+  //   categorie: req.body.categorie,
+  //   url,
+  //   title: req.body.title
+  // };
+  const file = new documentModel(finalImg);
+  file.save((err, result) => {
+    console.log(result)
+    if (err) {
+      return console.log(err);
+    }
+    console.log('saved to database');
+    console.log('send  file', result);
+    res.json({
+      file: result,
+      saved: !!result
+    });
+  });
+};
+
+exports.addFileOK = async (req, res) => {
+  console.log('----------', req.body);
+  console.log('----------', req.files);
+  console.log('-----filemen-----', req.files.filename);
+
+  // const fileExtension = req.files.file.name.split('.')[1];
+  const filePath = `E:/CRH/mean-docker-app/api/ressources/upload/${req.params.candidat_id}/${req.files.file.name}`;
+  await fs.outputFile(filePath, req.files.file.data)
+    .then(() => fs.readFile(filePath, 'utf8'))
+    .then(data => {
+      const encode_image = data.toString('base64');
+      const fileParam = {
+        mimetype: req.files.mimetype,
+        image: new Buffer.from(encode_image),
+        categorie: req.body.categorie,
+        url: filePath,
+        title: req.body.title
+      };
+      saveFile(fileParam, res);
+    })
+    .catch(err => {
+      console.error(err)
+      res.json({
+        saved: false
+      });
+    });
 };

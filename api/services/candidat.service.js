@@ -21,6 +21,7 @@ exports.createCandidat = async (profil, newProfil) => {
     return null;
   }
 };
+
 exports.getProfilById = async (profil_id) => {
   return await Profil.findById(profil_id);
 };
