@@ -3,35 +3,39 @@ const DocumentModel = require('../models/document.model');
 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
-// Handle index actions
 
-const saveFile = (url, encode_image, req) => {
-  const finalImg = {
-    contentType: req.files.mimetype,
-    image: new Buffer.from(encode_image),
-    categorie: req.body.categorie,
-    imageUrl: url,
-    imageTitle: req.body.title,
-    imageDesc: '',
-  };
-  const file = new DocumentModel(finalImg);
-  return file.save((err, result) => {
+const saveFile = (finalImg, res) => {
+  const file = new documentModel(finalImg);
+  file.save((err, result) => {
     console.log(result)
-    if (err) return console.log(err)
-    console.log('saved to database')
+    if (err) {
+      return console.log(err);
+    }
+    console.log('saved to database');
+    console.log('send  file', result);
+    res.json({
+      file: result,
+      saved: !!result
+    });
   });
 };
 
 exports.createDocument = async (req, res) => {
-  const file = `E:/CRH/mean-docker-app/api/ressources/upload/${req.params.candidat_id}/${req.files.file.name}`;
-  fs.outputFile(file, req.files.file.data)
-    .then(() => fs.readFile(file, 'utf8'))
+  const folderPath = `E:/CRH/mean-docker-app/api/ressources/upload`;
+  const url = `${req.params.candidat_id}/${req.files.file.name}`;
+  const filePath = `${folderPath}/${url}`;
+  await fs.outputFile(filePath, req.files.file.data)
+    .then(() => fs.readFile(filePath, 'utf8'))
     .then(data => {
       const encode_image = data.toString('base64');
-      saveFile(file, encode_image, req);
-      res.json({
-        saved: true
-      });
+      const fileParam = {
+        mimetype: req.files.mimetype,
+        image: new Buffer.from(encode_image),
+        categorie: req.body.categorie,
+        url: url,
+        title: req.body.title
+      };
+      saveFile(fileParam, res);
     })
     .catch(err => {
       console.error(err)
@@ -39,21 +43,4 @@ exports.createDocument = async (req, res) => {
         saved: false
       });
     });
-}
-  // const candidat = new CandidatModel();
-  // candidat.metier = newProfil.label;
-  // candidat.status = newProfil.status;
-  // const candidatCreated = await candidat.save();
-  // if (candidat._id) {
-  //   profil.candidat = candidatCreated._id;
-  //   profil.secteur = newProfil.secteur;
-  //   profil.label = newProfil.label;
-  //   profil.status = newProfil.status;
-  //   profil.role = newProfil.role;
-  //   profil.groupe = newProfil.groupe;
-  //   const profilUpdated = await profil.save();
-  //   return profilUpdated;
-  // } else {
-  //   return null;
-  // }
 };

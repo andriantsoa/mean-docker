@@ -1,4 +1,5 @@
 const CandidatModel = require('../models/candidat.model');
+const DocumentModel = require('../models/document.model');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 // Handle index actions
@@ -31,6 +32,9 @@ exports.getCandidatById = async (id) => {
   if (!candidat || !candidat._id) {
     return { status: 400, message: 'Candidat introuvable' };
   }
+  const list = await DocumentModel.find({});
+  console.log(list);
+  candidat.documents = list;
   return { data: candidat, message: 'Details sur le candidat' };
 };
 

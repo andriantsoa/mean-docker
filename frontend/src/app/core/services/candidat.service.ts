@@ -29,15 +29,15 @@ export class CandidatService {
     );
   }
 
-  public addDocument(candidatId: String, document: IDocument, file: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('imageTitle', document.imageTitle);
-    formData.append('imageDesc', document.imageDesc);
-    return this.http.post<any>(`${environment.apiEndpoint}/candidat/${candidatId}/documents`, formData).pipe(
-      map((p: any) => p.data)
-    );
-  }
+  // public addDocument(candidatId: String, document: IDocument, file: File): Observable<any> {
+  //   const formData = new FormData();
+  //   formData.append('file', file);
+  //   formData.append('imageTitle', document.imageTitle);
+  //   formData.append('imageDesc', document.imageDesc);
+  //   return this.http.post<any>(`${environment.apiEndpoint}/candidat/${candidatId}/documents`, formData).pipe(
+  //     map((p: any) => p.data)
+  //   );
+  // }
 
   public uploadFileForCandidat(formValue: any, candidatId: string): Observable<any> {
 
@@ -103,6 +103,13 @@ export class CandidatService {
       // })
       // )
       ;
+  }
+
+  public getPhotos(candidatId): Observable<any> {
+    const uploadURL = `${environment.apiEndpoint}/candidat/${candidatId}/uploadphoto`;
+    return this.http.get<any>(uploadURL).pipe(
+      map((doc: any) => doc)
+    );
   }
 
 }

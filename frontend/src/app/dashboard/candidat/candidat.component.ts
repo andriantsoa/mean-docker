@@ -49,4 +49,12 @@ export class CandidatComponent implements OnInit {
         console.log(candidats);
       });
   }
+
+  private getCandidatPhotos(idCandidat: string): void {
+    this.candidatService.getPhotos(idCandidat)
+      .subscribe(photos => {
+        this.candidat.documents = photos;
+        console.log(photos);
+      });
+  }
 }

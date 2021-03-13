@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Statut } from 'src/app/commun/enum/role.enum';
+import { CategorieDoc } from 'src/app/commun/enum/doc-categorie.enum';
 import { MainModalComponent } from 'src/app/core/components/main-modal/main-modal.component';
 import { ICandidat, IUser } from 'src/app/core/interfaces';
 
@@ -11,6 +12,7 @@ import { ICandidat, IUser } from 'src/app/core/interfaces';
 })
 export class PortfolioComponent {
   public Statut = Statut;
+  public CategorieDoc = CategorieDoc;
   @Input() user: IUser;
   @Input() candidat: ICandidat;
   @Output() update: EventEmitter<boolean> = new EventEmitter();

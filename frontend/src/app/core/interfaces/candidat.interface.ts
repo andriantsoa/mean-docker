@@ -16,6 +16,7 @@ export interface ICandidat {
   offres?: [IOffre];
   createdAt?: string;
   updatedAt?: string;
+  documents?: [IDocument];
 }
 
 export interface IExperience {
@@ -48,11 +49,12 @@ export interface ICompetence {
 
 export interface IDocument {
   _id: string,
-  categorie: number,
-  imageUrl: string,
-  imageTitle: string,
-  imageDesc?: string,
-  uploaded?: string
+  categorie?: number,
+  url?: string,
+  title?: string,
+  desc?: string,
+  createdAt?: string,
+  updatedAt?: string
 }
 
 export interface IDemande {

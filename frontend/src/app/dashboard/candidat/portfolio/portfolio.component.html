@@ -198,6 +198,22 @@
     <mat-card class="section-card">
       <div class="card-element">
         <div class="card-element-header">
+          <div class="card-title">Vos documents</div>
+        </div>
+      </div>
+      <div class="card-element" *ngIf="candidat.documents">
+        La liste :
+        <div *ngFor="let doc of candidat.documents">
+          <li>{{ CategorieDoc[doc.categorie] }} / {{ doc.url }}</li>
+          <img src="assets/uploads/{{ doc.url }}" [alt]="doc.categorie" />
+        </div>
+      </div>
+      <div class="card-element" *ngIf="!candidat.documents">Aucun document</div>
+    </mat-card>
+
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
           <div class="card-title">Documents</div>
         </div>
       </div>

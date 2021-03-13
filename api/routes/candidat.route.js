@@ -1,9 +1,10 @@
 var express = require('express');
 const router = express.Router();
-
 const multer = require('multer');
-fs = require('fs-extra');
+const path = require('path');
 
+// const config = require('../config/config')[env];
+// const uploadFolder = config.uploadPath;
 const candidatController = require('../controllers/candidat.controller');
 const logger = require('../services/private/logger.service');
 const documentModel = require('../models/document.model');
@@ -47,61 +48,62 @@ router
   .get(candidatController.view)
   .patch(candidatController.update)
   .put(candidatController.update);
-router
-  .route('/:candidat_id/documents')
-  .post(
-    upload.single('file'),
-    candidatController.addDocument
-  );
 
-// receive formData
-router
-  .route('/:candidat_id/file')
-  .post(
-    upload.single('picture'), // upload single file
-    candidatController.addCandidatFile
-  );
 
 router
   .route('/:candidat_id/uploadphoto')
+  .get(async (req, res) => {
+    // const idCandidat = req.params.candidat_id;
+    const list = await documentModel.find({}, (err) => {
+      if (err) return console.log(err)
+    });
+    console.log(list);
+    res.json({
+      photos: list
+    });
+  })
   .post(
     upload.single('picture'), // upload single file
     candidatController.addFileOK
-    // (req, res) => {
-    //   const file = `E:/CRH/mean-docker-app/api/ressources/upload/${req.params.candidat_id}/${req.files.file.name}`;
-    //   fs.outputFile(file, req.files.file.data)
-    //     .then(() => fs.readFile(file, 'utf8'))
-    //     .then(data => {
-    //       const encode_image = data.toString('base64');
-    //       saveFile(file, encode_image, req, res);
-    //       res.json({
-    //         saved: true
-    //       });
-    //     })
-    //     .catch(err => {
-    //       console.error(err)
-    //       res.json({
-    //         saved: false
-    //       });
-    //     });
-    // }
-  )
-  // .get('/:candidat_id/photos', (req, res) => {
-  //   documentModel.find().toArray((err, result) => {
-  //     const imgArray = result.map(element => element._id);
-  //     console.log(imgArray);
-  //     if (err) return console.log(err)
-  //     res.send(imgArray)
-  //   })
-  // })
-  // .get('/:candidat_id/photo/:id', (req, res) => {
-  //   var filename = req.params.id;
-  //   documentModel.findOne({ '_id': ObjectId(filename) }, (err, result) => {
-  //     if (err) return console.log(err)
-  //     res.contentType('image/jpeg');
-  //     res.send(result.image.buffer)
-  //   })
-  // })
-  ;
+  );
+router
+  .route('/:candidat_id/document/:document_id')
+  .get(async (req, res) => {
+    const idDoc = req.params.document_id;
+    const document = await documentModel.findById(idDoc, (err) => {
+      if (err) return console.log(err)
+    });
+    console.log(document);
+    if (document) {
+      try {
+        const uploadFolderPath = `E:/CRH/mean-docker-app/frontend/src/assets/uploads`;
+        res.sendFile(path.resolve(`${uploadFolderPath}/${document.url}`));
+      } catch (err) {
+        console.error(err);
+        res.sendStatus(400);
+      }
+    }
+  })
+/* Delete file */
+// .delete(async (req, res, next) => {
+//   const file = uploadFolder + req.params.fileName;
+//   fs.stat(file, function (err, stats) {
+//     if (err) {
+//       console.error(err);
+//       return res.sendStatus(400);
+//     }
+
+//     fs.unlink(file, function (err) {
+//       if (err) {
+//         console.error(err);
+//         return res.sendStatus(400);
+//       }
+//       res.send({
+//         status: "200",
+//         response: "File is deleted!"
+//       });
+//     });
+//   });
+// });
 
 module.exports = router;
