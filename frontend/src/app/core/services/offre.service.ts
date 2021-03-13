@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { IOffre } from '../interfaces';
+import { IEntreprise, IOffre } from '../interfaces';
 import { Observable } from 'rxjs';
+import { IJobOffer } from 'src/app/commun/interfaces/job-offer.interface';
 
 @Injectable()
 export class OffreService {
@@ -31,6 +32,57 @@ export class OffreService {
   public getAll(): Observable<IOffre[]> {
     return this.http.get<IOffre[]>(`${environment.apiEndpoint}/offres`).pipe(
       map((entreprise: any) => entreprise.data)
+    );
+  }
+
+  public getPublicOffers(filters: any): Observable<IJobOffer[]> {
+    return this.http.get<IOffre[]>(`${environment.apiEndpoint}/offres/public`).pipe(
+      map((list: any) => {
+        return list.data.map(offre => {
+          const jobOffer = {
+            titreOffre: offre.titreOffre,
+            entreprise: { nomPublic: 'ANDRIAN&CO' } as IEntreprise, // ?? a faire dans le populate back 
+            date: offre.createdAt,
+            domaine: 'informatique', // ??
+            city: offre.city,
+            avantages: offre.avantages,
+            description: offre.description,
+            competences: offre.competences,
+            formations: offre.formations,
+            // prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
+            salaire: offre.salaire,
+            // conditions: {},
+            contact: {
+              label: 'Sale Manager',
+              email: 'test.test@test.test'
+            },
+            online: offre.online
+          } as IJobOffer;
+          return jobOffer;
+          // Vrai retour à utiliser pour les offres sinon mettre à jour IJobOffer 
+          // {
+          //   titreOffre: "TESTER",
+          //   avantages: ["tickets restaurent", "transports"],
+          //   city: "Antananarivo",
+          //   codeOffre: "1608573568157",
+          //   competences: [{ titre: "Test qualité", niveau: 2, version: "" }, …],
+          //   createdAt: "2020-12-21T18:26:58.645Z",
+          //   dateDebut: "12/01/2021",
+          //   dateLimit: "12/01/2021",
+          //   description: "Travail de test sur des projets innovants",
+          //   duree: "12 mois",
+          //   formations: [{ filiere: ["informatique"], titre: "Master en informatique", niveau: "Licence", … }],
+          //   listeCandidats: [],
+          //   online: true,
+          //   salaire: 1000000,
+          //   status: 2,
+          //   updatedAt: "2020-12-25T23:08:49.109Z",
+          //   __v: 0,
+          //   _id: "5fe0e8f27352ea43745eb855",
+          // };
+        });
+        // return list.data;
+      })
     );
   }
 

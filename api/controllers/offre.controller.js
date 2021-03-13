@@ -14,6 +14,16 @@ exports.index = async (req, res) => {
   });
 };
 
+exports.publicJobOffers = async (req, res) => {
+  const filters = {};
+  const result = await offreService.getPublicJobOffers(filters);
+  if (result && result.data) {
+    responseHandler.handleDataAndMessage(res, result.data, result.message);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
+};
+
 exports.viewFull = async (req, res) => {
   const result = await offreService.getOffreEntrepriseById(req.params.entreprise_id, req.params.offre_id);
   if (result && result.data) {

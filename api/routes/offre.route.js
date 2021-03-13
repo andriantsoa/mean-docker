@@ -8,6 +8,9 @@ exports.addRoute = (router) => {
     .route('/offres')
     .get(offreController.index)
   router
+    .route('/offres/public')
+    .get(offreController.publicJobOffers)
+  router
     .route('/offre/:offre_id')
     .get(offreController.view)
   router

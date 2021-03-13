@@ -57,13 +57,13 @@ export class UserRegistrationComponent implements OnInit {
     this.submitted = true;
 
     if (this.formRegister.invalid) {
-      alert('What!! :-(\n\n' + JSON.stringify(this.formRegister.value, null, 4));
+      // alert('What!! :-(\n\n' + JSON.stringify(this.formRegister.value, null, 4));
 
       return;
     }
 
     this.register();
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.formRegister.value, null, 4));
+    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.formRegister.value, null, 4));
   }
 
   public onReset(): void {

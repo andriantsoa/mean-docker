@@ -2,17 +2,18 @@ const OffreModel = require('../models/offre.model');
 const EntrepriseModel = require('../models/entreprise.model');
 // Handle index actions
 
-// exports.createOffreForEntreprise = async (offre, entreprise) => {
-//   const newOffre = new OffreModel(offre);
-//   const createdOffre = await newOffre.save();
-//   if (createdOffre._id) {
-//     entreprise.offres = entreprise.offres ? entreprise.offres : [];
-//     entreprise.offres.push(createdOffre);
-//     return await entreprise.save();
-//   } else {
-//     return null;
-//   }
-// };
+exports.createOffreForEntreprise = async (offre, entreprise) => {
+  offre.entreprise = entreprise._id;
+  const newOffre = new OffreModel(offre);
+  const createdOffre = await newOffre.save();
+  if (createdOffre._id) {
+    entreprise.offres = entreprise.offres ? entreprise.offres : [];
+    entreprise.offres.push(createdOffre);
+    return await entreprise.save();
+  } else {
+    return null;
+  }
+};
 
 exports.getOffreEntrepriseById = async (entreprise_id, offre_id) => {
   const entreprise = await EntrepriseModel.findById(entreprise_id);
@@ -26,6 +27,12 @@ exports.getOffreEntrepriseById = async (entreprise_id, offre_id) => {
   } else {
     return { status: 403, message: 'Offre non accessible' };
   }
+};
+
+exports.getPublicJobOffers = async (filters) => {
+  // uitilisation des filter , limit, offset, ...
+  const publicOffers = await OffreModel.find(filters) || [];
+  return { data: publicOffers, message: 'Liste des offres public' }
 };
 
 exports.getOffreById = async (offre_id) => {
