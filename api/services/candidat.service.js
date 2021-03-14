@@ -1,8 +1,5 @@
 const CandidatModel = require('../models/candidat.model');
 const DocumentModel = require('../models/document.model');
-const mongoose = require('mongoose');
-const ObjectId = mongoose.Types.ObjectId;
-// Handle index actions
 
 exports.createCandidat = async (profil, newProfil) => {
   const candidat = new CandidatModel();
