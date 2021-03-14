@@ -133,10 +133,13 @@ export class DocumentFormComponent implements OnInit {
     const formData = new FormData();
     const file = this.documentForm.get('file').value;
     const title = this.documentForm.get('title').value;
+    const categorie = this.categories.find(cat => cat.value === this.documentForm.get('categorie').value);
     const fileExtension = file.name.split('.')[1];
     const blob = file.slice(0, file.size, file.type);
-    const newFile = new File([blob], `${title}.${fileExtension}`, { type: file.type });
+    const newFile = new File([blob], `${categorie.label}-${title}.${fileExtension}`, { type: file.type });
     formData.append('file', newFile);
+    // formData.set('categorie', this.documentForm.get('categorie').value);
+
     this.candidatService.upload(formData, this.candidat._id, this.documentForm.value)
       .subscribe(
         (res) => {

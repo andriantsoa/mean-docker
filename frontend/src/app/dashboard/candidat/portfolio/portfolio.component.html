@@ -202,12 +202,23 @@
         </div>
       </div>
       <div class="card-element" *ngIf="candidat.documents">
-        La liste :
-        <div *ngFor="let doc of candidat.documents">
-          <li>{{ CategorieDoc[doc.categorie] }} / {{ doc.url }}</li>
-          <img src="assets/uploads/{{ doc.url }}" [alt]="doc.categorie" />
+        <div class="card-element-photos" *ngFor="let doc of candidat.documents">
+          <div class="card-element-photos-item">
+            <img
+              src="assets/uploads/{{ doc.url }}"
+              [alt]="doc.categorie"
+              title="{{ CategorieDoc[doc.categorie] }} - {{ doc.title }}"
+              width="250"
+            />
+          </div>
         </div>
       </div>
+      <!-- <div class="card-element" *ngFor="let doc of candidat.documents">
+        <p>{{ CategorieDoc[doc.categorie] }}: {{ doc.title }}</p>
+        <p>
+          <img src="assets/uploads/{{ doc.url }}" [alt]="doc.categorie" width="250" />
+        </p>
+      </div> -->
       <div class="card-element" *ngIf="!candidat.documents">Aucun document</div>
     </mat-card>
 

@@ -8,6 +8,7 @@ const candidatService = require('../services/candidat.service');
 const candidatModel = require('../models/candidat.model');
 const documentModel = require('../models/document.model');
 const mailService = require('../services/private/mail.service');
+const catDoc = require('../models/constants/cat-doc');
 
 // Handle index actions
 
@@ -71,8 +72,14 @@ const saveFile = (finalImg, res) => {
 };
 
 exports.addFileOK = async (req, res) => {
+  console.log('files-----------', req.files);
+  console.log('body---------', req.body);
+  console.log('data-----', req.files.file.data);
   const folderPath = `E:/CRH/mean-docker-app/frontend/src/assets/uploads`;
-  const url = `${req.params.candidat_id}/${req.files.file.name}`;
+  const splitedName = req.files.file.name.split('-')
+  const categorie = splitedName[0] || 'CV';
+  const filename = splitedName[1];
+  const url = `${req.params.candidat_id}/${filename}`;
   const filePath = `${folderPath}/${url}`;
   await fs.outputFile(filePath, req.files.file.data)
     .then(() => fs.readFile(filePath, 'utf8'))
@@ -81,9 +88,9 @@ exports.addFileOK = async (req, res) => {
       const fileParam = {
         mimetype: req.files.mimetype,
         image: new Buffer.from(encode_image),
-        categorie: req.body.categorie,
+        categorie: catDoc[categorie] || 1,
         url: url,
-        title: req.body.title
+        title: filename
       };
       saveFile(fileParam, res);
     })
