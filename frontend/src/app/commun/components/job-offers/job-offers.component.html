@@ -4,11 +4,13 @@
       <div mat-card-avatar>
         <mat-icon class="job-offers-card-header-icon">star</mat-icon>
       </div>
-      <mat-card-title>{{ item.titreOffre }}</mat-card-title>
+      <mat-card-title>
+        {{ item.titreOffre }} <span *ngIf="item.zoom && item.status"> - {{ StatutValue[item.status] }}</span>
+      </mat-card-title>
       <mat-card-subtitle>{{ item.entreprise?.nomPublic }} {{ item.city }}</mat-card-subtitle>
       <mat-card-subtitle *ngIf="item.zoom">
-        <span *ngFor="let avantage of item.avantages">{{ avantage }} </span>
-        - {{ item.salaire }} Ar Annuel
+        <span *ngFor="let avantage of item.avantages">+{{ avantage }} </span>
+        / {{ item.salaire }} Ar Annuel
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="job-offers-card-content">

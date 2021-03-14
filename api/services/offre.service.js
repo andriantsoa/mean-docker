@@ -31,7 +31,11 @@ exports.getOffreEntrepriseById = async (entreprise_id, offre_id) => {
 
 exports.getPublicJobOffers = async (filters) => {
   // uitilisation des filter , limit, offset, ...
-  const publicOffers = await OffreModel.find(filters) || [];
+  const publicOffers = await OffreModel.find(filters)
+    .populate({
+      path: 'entreprise',
+      select: ['nomPublic', 'status', 'presentation', 'mission', 'dateFondation']
+    }) || [];
   return { data: publicOffers, message: 'Liste des offres public' }
 };
 

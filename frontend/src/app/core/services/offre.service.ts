@@ -41,17 +41,16 @@ export class OffreService {
         return list.data.map(offre => {
           const jobOffer = {
             titreOffre: offre.titreOffre,
-            entreprise: { nomPublic: 'ANDRIAN&CO' } as IEntreprise, // ?? a faire dans le populate back 
+            entreprise: offre.entreprise,
             date: offre.createdAt,
-            domaine: 'informatique', // ??
+            domaine: offre?.entreprise?.mission || 'Sans Domaine', // ??
             city: offre.city,
             avantages: offre.avantages,
             description: offre.description,
             competences: offre.competences,
             formations: offre.formations,
-            // prerequis: '3 ans dexperience sur le stack, diplome ingenieur informatique ou master equivqlent',
             salaire: offre.salaire,
-            // conditions: {},
+            status: offre.status,
             contact: {
               label: 'Sale Manager',
               email: 'test.test@test.test'
