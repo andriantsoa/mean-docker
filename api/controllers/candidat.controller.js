@@ -86,7 +86,8 @@ exports.addFileOK = async (req, res) => {
     .then(data => {
       const encode_image = data.toString('base64');
       const fileParam = {
-        mimetype: req.files.mimetype,
+        size: req.files.file.size,
+        mimetype: req.files.file.mimetype,
         image: new Buffer.from(encode_image),
         categorie: catDoc[categorie] || 1,
         url: url,
