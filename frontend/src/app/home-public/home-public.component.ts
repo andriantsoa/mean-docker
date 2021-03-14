@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IJobOffer } from '../commun/interfaces/job-offer.interface';
-import { ICompetence, IEntreprise, IFormation } from '../core/interfaces';
 import { OffreService } from '../core/services';
 
 @Component({
@@ -9,19 +8,16 @@ import { OffreService } from '../core/services';
   styleUrls: ['./home-public.component.scss']
 })
 export class HomePublicComponent implements OnInit {
-
-  public items = [
-    { title: 'Slide 1' },
-    { title: 'Slide 2' },
-    { title: 'Slide 3' },
-  ];
   public boostedJobOffers: IJobOffer[];
 
   constructor(private offreService: OffreService) { }
 
   ngOnInit(): void {
     this.offreService.getPublicOffers({}).subscribe(list => this.boostedJobOffers = list);
-    // this.jobOffers = [
+  }
+}
+
+// this.boostedJobOffers = [
     //   {
     //     titreOffre: 'developpeur full stack',
     //     date: 1604663216955,
@@ -119,12 +115,3 @@ export class HomePublicComponent implements OnInit {
     //     online: true
     //   }
     // ];
-  }
-
-  public addSlide(): void {
-    this.items.push({
-      title: `Slide 4`
-    });
-  }
-
-}
