@@ -32,9 +32,7 @@ exports.getCandidatById = async (id) => {
   if (!candidat || !candidat._id) {
     return { status: 400, message: 'Candidat introuvable' };
   }
-  const list = await DocumentModel.find({});
-  console.log(list);
-  candidat.documents = list;
+  candidat.documents = await DocumentModel.find({ candidat: id });;
   return { data: candidat, message: 'Details sur le candidat' };
 };
 
