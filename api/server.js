@@ -36,28 +36,6 @@ mongoose.connection.on('connected', () => {
   logger.info('Connecté sur la base de données ' + environment.mongodb.uri);
 });
 
-// addtional configuration when serving Angular SPA (static reource and Anugalr routing)
-const allowedExt = [
-  '.js',
-  '.ico',
-  '.css',
-  '.png',
-  '.jpg',
-  '.woff2',
-  '.woff',
-  '.ttf',
-  '.svg',
-  '.webmanifest'
-];
-// app.get('*', (req, res) => {
-//   if (allowedExt.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
-//     res.sendFile(path.resolve(`public/${req.url}`));
-//   } else {
-//     res.sendFile(path.resolve('public/index.html'));
-//   }
-//
-// });
-
 // Import routes
 let apiRoutes = require('./api-routes');
 
@@ -82,6 +60,13 @@ app.use(
 
 // Use Api routes in the App
 app.use('/api', apiRoutes);
+
+// error handler
+// app.use((error, req, res) => {
+//   if(! (error instanceof Error)) {
+//     return;
+//   }
+// });
 
 // config mail
 // const mailConfig = require('./config/mail.config');

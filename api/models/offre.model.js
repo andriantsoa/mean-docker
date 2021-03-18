@@ -72,6 +72,6 @@ const offreSchema = new Schema({
 // Export Profil model
 const Offre = (module.exports = mongoose.model('offre', offreSchema));
 
-module.exports.get = function (callback, limit) {
+module.exports.get = (callback, limit) => {
   Offre.find(callback).limit(limit);
 };

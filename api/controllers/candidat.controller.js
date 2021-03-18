@@ -69,7 +69,7 @@ const saveFile = (finalImg, res) => {
   });
 };
 
-exports.addFileOK = async (req, res) => {
+exports.addFileOK = async (req, res, next) => {
   try {
     const resultFile = await documentService.addDocumentOK(req, res);
     if (resultFile && resultFile.data) {
@@ -109,78 +109,3 @@ exports.addFileOK = async (req, res) => {
   //     });
   //   });
 };
-
-// exports.addDocument = (req, res, next) => {
-//   if (!req.file) {
-//     return res.status(500).send({ message: 'Upload fail' });
-//   } else {
-//     req.body.imageUrl = 'http://127.0.0.1:3000/images/' + req.file.filename;
-//     documentModel.create(req.body, function (err, document) {
-//       if (err) {
-//         console.log(err);
-//         return next(err);
-//       }
-//       res.json(document);
-//     });
-//   }
-// };
-
-// exports.addCandidatFile = (req, res, next) => {
-//   console.log('request', req);
-//   if (!req.file) {
-//     return res.status(500).send({ message: 'Upload fail' });
-//   } else {
-//     console.log(req.files); // list of the files
-//     console.log(req.body); // request body, like email
-
-//     let file = req.files.image;
-
-//     file.mv(file.name, function (err, success) {
-//       return res.json({ success: true });
-//     });
-
-//     documentModel.create(req.body, function (err, document) {
-//       if (err) {
-//         console.log(err);
-//         return next(err);
-//       }
-//       res.json(document);
-//     });
-//   }
-// };
-
-// https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
-// exports.myUploadFunction = (req, res) => {
-//   const multer = require('multer');
-
-//   const path = require('path');
-//   const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//       cb(null, process.env.UPLOAD_FOLDER);
-//     },
-//     filename: function (req, file, cb) {
-//       cb(null, path.extname(file.originalname));
-//     }
-//   });
-
-//   // Treat posted file
-//   const upload = multer({ storage: storage }).fields([
-//     { name: 'myImage', maxCount: 1 },
-//   ]);
-
-//   upload(req, res, function (err) {
-//     if (err) {
-//       console.log(err);
-//     }
-
-//     // Get posted data:
-//     const obj = {
-//       title: req.body.title,
-//       categorie: req.body.categorie
-//     };
-
-//     // ...
-//   });
-// };
-
-

@@ -1,6 +1,139 @@
 const OffreModel = require('../models/offre.model');
 const EntrepriseModel = require('../models/entreprise.model');
+const { query } = require('./private/logger.service');
 // Handle index actions
+
+
+const buildFilter = () => {
+  const search = 'A';
+  const salaire = 1000;
+  const competences = [search]
+  const status = [search]
+
+  const filters = {
+    param: {
+      $and: [
+        {
+          $or: [
+            { city: { $regex: search, $options: 'i' } },
+            { titre: { $regex: search, $options: 'i' } },
+            { status: { $in: status } }
+          ]
+        },
+        {
+          online: { $exists: true },
+          boosted: { $exists: true },
+          validated: { $exists: true }
+        },
+        {
+          $or: [
+            { salaire: { $lt: salaire } },
+            { status: { $in: status } },
+            {
+              'competences.titre': { $in: competences },
+            }
+          ]
+        }
+      ]
+    },
+    limit: 5
+  };
+};
+
+const getOffres = async (filters) => {
+  let { param, projection, limit, offset } = filters;
+  console.log('param', param);
+  return await OffreModel.find(param, projection).limit(limit)
+    .populate({
+      path: 'entreprise',
+      select: ['nomPublic', 'status', 'presentation', 'mission', 'dateFondation']
+    }).lean() || [];
+};
+
+exports.getPublicJobOffers = async (req) => {
+  // uitilisation des filter , limit, offset, ...
+  const search = 'A';
+  const salaire = 1000;
+  const competences = []
+  const filters = {
+    param: {
+      $and: [
+        {
+          $or: [
+            { city: { $regex: search, $options: 'i' } },
+            { titre: { $regex: search, $options: 'i' } }
+          ]
+        },
+        {
+          online: { $exists: true },
+          validated: { $exists: true }
+        }
+      ]
+    },
+    limit: 5
+  };
+
+  const publicOffers = await getOffres(filters);
+  console.log(publicOffers);
+  return { data: publicOffers, message: 'Liste des offres public' }
+};
+
+exports.getPremiumJobOffers = async (req) => {
+  const search = 'A';
+  const salaire = 1000;
+  const competences = []
+  const status = []
+
+  const filters = {
+    param: {
+      $and: [
+        {
+          $or: [
+            { city: { $regex: search, $options: 'i' } },
+            { titre: { $regex: search, $options: 'i' } },
+            { status: { $in: status } }
+          ]
+        },
+        {
+          online: { $exists: true },
+          boosted: { $exists: true },
+          validated: { $exists: true }
+        }
+      ]
+    },
+    limit: 5
+  };
+
+  const publicOffers = await getOffres(filters);
+  console.log(publicOffers);
+  return { data: publicOffers, message: 'Liste des offres public' }
+};
+
+exports.getToValidateJobOffers = async (req) => {
+  const search = 'A';
+  const salaire = 1000;
+  const competences = []
+  const filters = {
+    param: {
+      $and: [
+        {
+          $or: [
+            { city: { $regex: search, $options: 'i' } },
+            { titre: { $regex: search, $options: 'i' } }
+          ]
+        },
+        {
+          validated: { $exists: false }
+        }
+      ]
+    },
+    limit: 5
+  };
+
+  const publicOffers = await getOffres(filters);
+  console.log(publicOffers);
+  return { data: publicOffers, message: 'Liste des offres public' }
+};
 
 exports.createOffreForEntreprise = async (offre, entreprise) => {
   offre.entreprise = entreprise._id;
@@ -27,16 +160,6 @@ exports.getOffreEntrepriseById = async (entreprise_id, offre_id) => {
   } else {
     return { status: 403, message: 'Offre non accessible' };
   }
-};
-
-exports.getPublicJobOffers = async (filters) => {
-  // uitilisation des filter , limit, offset, ...
-  const publicOffers = await OffreModel.find(filters)
-    .populate({
-      path: 'entreprise',
-      select: ['nomPublic', 'status', 'presentation', 'mission', 'dateFondation']
-    }) || [];
-  return { data: publicOffers, message: 'Liste des offres public' }
 };
 
 exports.getOffreById = async (offre_id) => {

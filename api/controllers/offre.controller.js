@@ -15,8 +15,38 @@ exports.index = async (req, res) => {
 };
 
 exports.publicJobOffers = async (req, res) => {
-  const filters = {};
-  const result = await offreService.getPublicJobOffers(filters);
+  // const filters = {};
+  const result = await offreService.getPublicJobOffers(req);
+  if (result && result.data) {
+    responseHandler.handleDataAndMessage(res, result.data, result.message);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
+};
+
+exports.premiumJobOffers = async (req, res) => {
+  // const filters = {};
+  const result = await offreService.getPublicJobOffers(req);
+  if (result && result.data) {
+    responseHandler.handleDataAndMessage(res, result.data, result.message);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
+};
+
+exports.toValidateJobOffers = async (req, res) => {
+  // const filters = {};
+  const result = await offreService.getPublicJobOffers(req);
+  if (result && result.data) {
+    responseHandler.handleDataAndMessage(res, result.data, result.message);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
+};
+
+exports.publicJobOffers = async (req, res) => {
+  // const filters = {};
+  const result = await offreService.getPublicJobOffers(req);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
   } else {

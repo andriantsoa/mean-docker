@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
-import { IEntreprise, IOffre } from '../interfaces';
 import { Observable } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
+import { IOffre } from '../interfaces';
 import { IJobOffer } from 'src/app/commun/interfaces/job-offer.interface';
 
 @Injectable()

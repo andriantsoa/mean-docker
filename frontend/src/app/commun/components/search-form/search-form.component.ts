@@ -46,6 +46,14 @@ export class SearchFormComponent {
     }
   ];
 
+  constructor() {
+    this.filteredMetiers = this.form.controls.keyword.valueChanges
+      .pipe(
+        startWith(''),
+        map(metier => metier ? this.filterListMetiers(metier) : this.metiers.slice())
+      );
+  }
+
   public get f(): any {
     return this.form.controls;
   }
@@ -53,7 +61,7 @@ export class SearchFormComponent {
   public submit(): void {
     alert(this.form.status);
     if (this.form.status === 'VALID') {
-      alert(this.form.value);
+      alert(JSON.stringify(this.form.value));
     }
   }
 
@@ -67,14 +75,6 @@ export class SearchFormComponent {
 
   public resetForm(): void {
     this.form.reset({ keyword: '', city: '', advanced: '' });
-  }
-
-  constructor() {
-    this.filteredMetiers = this.form.controls.keyword.valueChanges
-      .pipe(
-        startWith(''),
-        map(metier => metier ? this.filterListMetiers(metier) : this.metiers.slice())
-      );
   }
 
   private filterListMetiers(value: string): Metier[] {
