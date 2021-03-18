@@ -11,6 +11,12 @@ exports.addRoute = (router) => {
     .route('/offres/public')
     .get(offreController.publicJobOffers)
   router
+    .route('/offres/premium')
+    .get(offreController.premiumJobOffers)
+  router
+    .route('/offres/admin/validate')
+    .get(offreController.premiumJobOffers)
+  router
     .route('/offre/:offre_id')
     .get(offreController.view)
   router

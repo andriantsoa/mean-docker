@@ -15,7 +15,6 @@ exports.index = async (req, res) => {
 };
 
 exports.publicJobOffers = async (req, res) => {
-  // const filters = {};
   const result = await offreService.getPublicJobOffers(req);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
@@ -25,8 +24,7 @@ exports.publicJobOffers = async (req, res) => {
 };
 
 exports.premiumJobOffers = async (req, res) => {
-  // const filters = {};
-  const result = await offreService.getPublicJobOffers(req);
+  const result = await offreService.getPremiumJobOffers(req);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
   } else {
@@ -35,8 +33,7 @@ exports.premiumJobOffers = async (req, res) => {
 };
 
 exports.toValidateJobOffers = async (req, res) => {
-  // const filters = {};
-  const result = await offreService.getPublicJobOffers(req);
+  const result = await offreService.getToValidateJobOffers(req);
   if (result && result.data) {
     responseHandler.handleDataAndMessage(res, result.data, result.message);
   } else {

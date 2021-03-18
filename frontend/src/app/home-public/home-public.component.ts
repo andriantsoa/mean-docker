@@ -13,7 +13,7 @@ export class HomePublicComponent implements OnInit {
   constructor(private offreService: OffreService) { }
 
   ngOnInit(): void {
-    this.offreService.getPublicOffers({}).subscribe(list => this.boostedJobOffers = list);
+    this.offreService.getPremiumOffers({ limit: 10 }).subscribe(list => this.boostedJobOffers = list);
   }
 }
 

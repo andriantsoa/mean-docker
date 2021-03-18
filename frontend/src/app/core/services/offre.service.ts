@@ -37,7 +37,11 @@ export class OffreService {
   }
 
   public getPublicOffers(filters: any): Observable<IJobOffer[]> {
-    return this.http.get<IOffre[]>(`${environment.apiEndpoint}/offres/public`).pipe(
+    const url = `${environment.apiEndpoint}/offres/public?
+      limit=${filters.limit || 10}
+      &what=${filters.what}
+      &where=${filters.where}`;
+    return this.http.get<IOffre[]>(url).pipe(
       map((list: any) => {
         return list.data.map(offre => {
           const jobOffer = {
@@ -59,29 +63,37 @@ export class OffreService {
             online: offre.online
           } as IJobOffer;
           return jobOffer;
-          // Vrai retour à utiliser pour les offres sinon mettre à jour IJobOffer 
-          // {
-          //   titreOffre: "TESTER",
-          //   avantages: ["tickets restaurent", "transports"],
-          //   city: "Antananarivo",
-          //   codeOffre: "1608573568157",
-          //   competences: [{ titre: "Test qualité", niveau: 2, version: "" }, …],
-          //   createdAt: "2020-12-21T18:26:58.645Z",
-          //   dateDebut: "12/01/2021",
-          //   dateLimit: "12/01/2021",
-          //   description: "Travail de test sur des projets innovants",
-          //   duree: "12 mois",
-          //   formations: [{ filiere: ["informatique"], titre: "Master en informatique", niveau: "Licence", … }],
-          //   listeCandidats: [],
-          //   online: true,
-          //   salaire: 1000000,
-          //   status: 2,
-          //   updatedAt: "2020-12-25T23:08:49.109Z",
-          //   __v: 0,
-          //   _id: "5fe0e8f27352ea43745eb855",
-          // };
         });
-        // return list.data;
+      })
+    );
+  }
+
+  public getPremiumOffers(filters: any): Observable<IJobOffer[]> {
+    const url = `${environment.apiEndpoint}/offres/premium?
+      limit=${filters.limit || 10}`;
+    return this.http.get<IOffre[]>(url).pipe(
+      map((list: any) => {
+        return list.data.map(offre => {
+          const jobOffer = {
+            titreOffre: offre.titreOffre,
+            entreprise: offre.entreprise,
+            date: offre.createdAt,
+            domaine: offre?.entreprise?.mission || 'Sans Domaine', // ??
+            city: offre.city,
+            avantages: offre.avantages,
+            description: offre.description,
+            competences: offre.competences,
+            formations: offre.formations,
+            salaire: offre.salaire,
+            status: offre.status,
+            contact: {
+              label: 'Sale Manager',
+              email: 'test.test@test.test'
+            },
+            online: offre.online
+          } as IJobOffer;
+          return jobOffer;
+        });
       })
     );
   }
