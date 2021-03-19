@@ -9,11 +9,16 @@ import { IJobOffer } from '../../interfaces/job-offer.interface';
 })
 export class JobOffersComponent implements OnInit {
   @Input() jobOffers: IJobOffer[];
+  @Input() zoomAll: boolean = false;
+
   public StatutValue = StatutValue;
 
   constructor() { }
 
   ngOnInit(): void {
+    if (this.zoomAll && this.jobOffers) {
+      this.jobOffers.forEach(this.zoomJobDetails)
+    }
   }
 
   public zoomJobDetails(jobOffer: IJobOffer): void {

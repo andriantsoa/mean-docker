@@ -62,16 +62,13 @@ export class SearchFormComponent {
   }
 
   public submit(): void {
-    alert(this.form.status);
     if (this.form.status === 'VALID') {
-      alert(JSON.stringify(this.form.value));
       const what = this.form.value.keyword;
       const where = this.form.value.city;
       this.offreService.getPublicOffers({ what, where, limit: 10 }).subscribe(offres => {
         this.listOffresPublic = offres;
       });
     }
-
   }
 
   public initForm(): void {
