@@ -15,6 +15,7 @@ import { FooterBarComponent } from './components/footer-bar/footer-bar.component
 import { LoginService } from './components/user-login/login.service';
 import { BandeauModule } from './components/bandeau/bandeau.module';
 import { JobOffersModule } from './components/job-offers/job-offers.module';
+import { JobOffersPublicModule } from './components/job-offers-public/job-offers-public.module';
 
 const components = [
   UserRegistrationComponent,
@@ -36,6 +37,7 @@ const components = [
     RouterModule,
     BandeauModule,
     JobOffersModule,
+    JobOffersPublicModule,
   ],
   declarations: [
     ...components,

@@ -37,10 +37,13 @@ export class OffreService {
   }
 
   public getPublicOffers(filters: any): Observable<IJobOffer[]> {
-    const url = `${environment.apiEndpoint}/offres/public?
-      limit=${filters.limit || 10}
-      &what=${filters.what}
-      &where=${filters.where}`;
+
+    const queryString = Object.keys(filters)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filters[key])}`)
+      .join('&');
+    console.log('queryString', queryString);
+
+    const url = `${environment.apiEndpoint}/offres/public?${queryString}`;
     return this.http.get<IOffre[]>(url).pipe(
       map((list: any) => {
         return list.data.map(offre => {

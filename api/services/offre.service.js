@@ -53,7 +53,7 @@ const getOffres = async (filters) => {
 exports.getPublicJobOffers = async (req) => {
   // uitilisation des filter , limit, offset, ...
   const query = req.query;
-  const limit = query.limit || 10;
+  const limit = parseInt(query.limit, 10) || 10;
   const what = query.what;
   const where = query.where;
   const salaire = query.salaire || 0;
@@ -76,9 +76,8 @@ exports.getPublicJobOffers = async (req) => {
     limit
   };
 
-  const publicOffers = await getOffres(filters);
-  console.log(publicOffers);
-  return { data: publicOffers, message: 'Liste des offres public' }
+  const offres = await getOffres(filters);
+  return { data: offres, message: 'Liste des offres public' }
 };
 
 exports.getPremiumJobOffers = async (req) => {
@@ -107,9 +106,8 @@ exports.getPremiumJobOffers = async (req) => {
     limit: 5
   };
 
-  const publicOffers = await getOffres(filters);
-  console.log(publicOffers);
-  return { data: publicOffers, message: 'Liste des offres premium' }
+  const offres = await getOffres(filters);
+  return { data: offres, message: 'Liste des offres premium' }
 };
 
 exports.getToValidateJobOffers = async (req) => {
@@ -133,9 +131,8 @@ exports.getToValidateJobOffers = async (req) => {
     limit: 5
   };
 
-  const publicOffers = await getOffres(filters);
-  console.log(publicOffers);
-  return { data: publicOffers, message: 'Liste des offres a valider' }
+  const offres = await getOffres(filters);
+  return { data: offres, message: 'Liste des offres a valider' }
 };
 
 exports.createOffreForEntreprise = async (offre, entreprise) => {
