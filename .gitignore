@@ -2,3 +2,4 @@ data
 mongo/db
 .env
 logs
+/node_modules
