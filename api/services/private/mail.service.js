@@ -28,6 +28,9 @@ exports.sendMail = (params) => {
   if (attachments) {
     mailData.attachments = attachments;
   }
+
+
+  console.log('Email sent (commenté): ' + info.response);
   sendMail(mailData);
 };
 

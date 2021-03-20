@@ -1,4 +1,5 @@
 import { IEntreprise } from './entreprise.interface';
+import { IOffre } from './offre.interface';
 
 export interface ICandidat {
   _id?: string;
@@ -15,6 +16,7 @@ export interface ICandidat {
   offres?: [IOffre];
   createdAt?: string;
   updatedAt?: string;
+  documents?: [IDocument];
 }
 
 export interface IExperience {
@@ -25,24 +27,34 @@ export interface IExperience {
   duree?: number;
   debut?: string;
   fin?: string;
-  details: string;
-  secteur: [string];
+  details?: string;
+  secteur?: [string];
 }
 
 export interface IFormation {
   titre: string;
-  filiere: [string];
-  niveau: string;
-  etablissement: string;
-  debut: string;
-  fin: string;
-  details: string;
+  filiere?: [string];
+  niveau?: string;
+  etablissement?: string;
+  debut?: string;
+  fin?: string;
+  details?: string;
 }
 
 export interface ICompetence {
   titre: string;
-  niveau: number;
-  version: string;
+  niveau?: number;
+  version?: string;
+}
+
+export interface IDocument {
+  _id: string,
+  categorie?: number,
+  url?: string,
+  title?: string,
+  desc?: string,
+  createdAt?: string,
+  updatedAt?: string
 }
 
 export interface IDemande {
@@ -53,23 +65,6 @@ export interface IDemande {
   listeEntreprise: [IEntreprise];
   dateDisponibilte: string;
   secteur: [string];
-  salaire: number;
-  publish: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-export interface IOffre {
-  numOffre: number;
-  description: string;
-  titreOffre: string;
-  status: string;
-  entreprise: IEntreprise;
-  listeCandidats: [ICandidat];
-  dateLimit: string;
-  competencesRequises: [ICompetence];
-  formationsRequises: [IFormation];
-  avantages: [string];
   salaire: number;
   publish: boolean;
   createdAt?: string;

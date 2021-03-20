@@ -32,6 +32,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatBadgeModule } from '@angular/material/badge';
 
 const modules = [
   MatNativeDateModule,
@@ -67,7 +68,8 @@ const modules = [
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
-  MatMomentDateModule
+  MatMomentDateModule,
+  MatBadgeModule
 ];
 
 @NgModule({

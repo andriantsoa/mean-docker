@@ -1,6 +1,6 @@
 .job-offers {
   display: flex;
-  flex:1;
+  flex: 1;
   flex-wrap: wrap;
   justify-content: center;
 
@@ -30,7 +30,10 @@
     }
 
     &-text-sm {
-      font-size: 8px;justify-items: center;color: grey;margin: 0px 2px;
+      font-size: 8px;
+      justify-items: center;
+      color: grey;
+      margin: 0px 2px;
     }
   }
 
@@ -47,7 +50,7 @@
 }
 
 .zoomed {
-  order: -1;
+  // order: -1;
   width: 564px;
   flex-direction: column;
 }
@@ -55,7 +58,7 @@
 @media (max-width: 380px) and (min-width: 296px) {
   .job-offers {
     display: flex;
-  
+
     &-card {
       display: flex;
       flex-wrap: wrap;
@@ -66,26 +69,29 @@
     &-card-header {
       height: unset;
       overflow-y: unset;
-  
+
       &-icon {
         font-size: 3rem;
       }
     }
-  
+
     &-card-content {
       justify-content: flex-end;
       height: unset;
       overflow-y: hidden;
-  
+
       &-text {
         margin-top: 2px;
       }
-  
+
       &-text-sm {
-        font-size: 8px;justify-items: center;color: grey;margin: 0px 2px;
+        font-size: 8px;
+        justify-items: center;
+        color: grey;
+        margin: 0px 2px;
       }
     }
-  
+
     &-card-actions {
       height: unset;
       width: 100%;

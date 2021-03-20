@@ -37,7 +37,7 @@ export class UserValidationComponent implements OnInit {
 
   public validate(): void {
     if (this.validationForm.valid) {
-      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.validationForm.value, null, 4));
+      // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.validationForm.value, null, 4));
       this.userService.validate({
         validationKey: this.validationForm.controls.token.value,
         username: this.validationForm.controls.username.value

@@ -11,6 +11,9 @@
           <button mat-flat-button color="accent">Contact</button>
           <button mat-stroked-button color="primary" (click)="openCandidatForm()">Modifier</button>
         </div>
+        <div class="card-element-photos-item">
+          <button mat-stroked-button color="primary" (click)="addDocument()">upload document</button>
+        </div>
       </div>
 
       <div class="card-element">
@@ -190,6 +193,42 @@
         <li>offre 1</li>
         <li>offre 1</li>
       </div>
+    </mat-card>
+
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Vos documents</div>
+        </div>
+      </div>
+      <div class="card-element" *ngIf="candidat.documents">
+        <div class="card-element-photos" *ngFor="let doc of candidat.documents">
+          <div class="card-element-photos-item">
+            <img
+              src="assets/uploads/{{ doc.url }}"
+              [alt]="doc.categorie"
+              title="{{ CategorieDoc[doc.categorie] }} - {{ doc.title }}"
+              width="25%"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- <div class="card-element" *ngFor="let doc of candidat.documents">
+        <p>{{ CategorieDoc[doc.categorie] }}: {{ doc.title }}</p>
+        <p>
+          <img src="assets/uploads/{{ doc.url }}" [alt]="doc.categorie" width="250" />
+        </p>
+      </div> -->
+      <div class="card-element" *ngIf="!candidat.documents">Aucun document</div>
+    </mat-card>
+
+    <mat-card class="section-card">
+      <div class="card-element">
+        <div class="card-element-header">
+          <div class="card-title">Documents</div>
+        </div>
+      </div>
+      <app-document-form [candidat]="candidat"></app-document-form>
     </mat-card>
   </div>
 

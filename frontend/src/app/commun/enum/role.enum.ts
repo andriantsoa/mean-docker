@@ -21,6 +21,23 @@ export enum Statut {
   AUTRE = 13
 }
 
+export const StatutValue = [
+  'ETUDIANT',
+  'STAGIAIRE',
+  'SALARIE CDD',
+  'ALTERNANT',
+  'SALARIE CDI',
+  'CHERCHEUR',
+  'INDEPENDANT',
+  'ONG',
+  'STARTUP',
+  'PME_PMI',
+  'SARL',
+  'GE',
+  'PUBLIC',
+  'AUTRE'
+];
+
 export enum Filiere {
   ADMIN = 'administration',
   AERONAUTIQUE = 'aéronautique',

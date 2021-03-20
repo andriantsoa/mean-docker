@@ -1,0 +1,32 @@
+@import "../../../../styling/variables";
+
+.snackbar {
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  flex-basis: 100%;
+  justify-content: space-between;
+  margin: 0px;
+}
+
+.success {
+  @extend .snackbar;
+  background-color: rgb(94, 194, 102, 0.95);
+}
+
+.error {
+  @extend .snackbar;
+  background-color: rgb(192, 43, 68, 0.95);
+}
+
+.type {
+  font-size: 20px;
+}
+
+.message {
+  font-size: 16px;
+}
+
+.mat-snack-bar-container {
+  padding: 0px;
+}

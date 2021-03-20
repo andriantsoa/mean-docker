@@ -6,7 +6,7 @@
     <mat-card class="section-card">
       <div class="card-element">
         <div class="card-element-header">
-          <div class="card-title">Présentation</div>
+          <div class="card-title">Présentation <mat-icon (click)="openUpdateForm()">edit</mat-icon></div>
           <div class="card-subtitle">{{ entreprise.presentation }}</div>
         </div>
       </div>
@@ -29,7 +29,8 @@
             <div class="card-element-text">{{ entreprise.nbSalaries }}</div>
           </div>
           <div class="card-element-list-item">
-            <button mat-flat-button color="accent" (click)="openUpdateForm()">Modifier</button>
+            <!-- <button mat-flat-button color="accent" (click)="openUpdateForm()">Modifier</button> -->
+            <button mat-flat-button color="warn" (click)="open_dialog_modal()">Publier une offre</button>
           </div>
         </div>
       </div>
@@ -67,7 +68,10 @@
           <div class="card-title">Les offres d'emplois</div>
         </div>
       </div>
-      <div class="card-element">Liste des offres de l'entreprise</div>
+    </mat-card>
+
+    <mat-card class="section-card" *ngFor="let offre of entreprise.offres">
+      <app-offre [offre]="offre" [entrepriseId]="entreprise._id"></app-offre>
     </mat-card>
 
     <mat-card class="section-card">

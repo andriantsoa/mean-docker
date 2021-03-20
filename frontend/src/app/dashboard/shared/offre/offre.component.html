@@ -1,0 +1,38 @@
+<div class="offre">
+  <div class="offre-header">
+    <div class="offre-title">
+      <div class="offre-title-element">
+        <mat-icon *ngIf="offre.online">star</mat-icon><mat-icon *ngIf="!offre.online">public_off</mat-icon> {{ offre?.titreOffre }}
+        <mat-icon *ngIf="offre.boosted">publish</mat-icon>
+      </div>
+      <div class="offre-title-notif">
+        <mat-icon matBadge="15" matBadgePosition="before" matBadgeColor="warn">favorite</mat-icon>
+        <mat-icon matBadge="15" matBadgePosition="before" matBadgeColor="accent">supervisor_account</mat-icon>
+        <mat-icon matBadge="15" matBadgePosition="before" matBadgeColor="primary">sms</mat-icon>
+      </div>
+    </div>
+    <div class="offre-subtitle">
+      <h3>{{ offre?.entreprise?.nomPublic }} {{ offre?.city }}</h3>
+      <h3>
+        <span *ngFor="let avantage of offre?.avantages"> - {{ avantage }} </span>
+        - {{ offre?.salaire }} Ar Annuel
+      </h3>
+    </div>
+  </div>
+  <div class="offre-content">
+    <p class="offre-content-text-sm">Publiée le {{ offre?.createdAt | date: "dd/MM/yyyy" }}</p>
+    <p class="offre-content-text">
+      {{ offre?.description }}
+    </p>
+    <p class="offre-content-text">
+      <span *ngFor="let formation of offre?.formations"> {{ formation?.titre }} - </span>
+      <span *ngFor="let competence of offre?.competences"> {{ competence?.titre }} - </span>
+    </p>
+    <p class="offre-content-text-sm" *ngIf="offre?.dateLimit">Date Limite: {{ offre.dateLimit }}</p>
+  </div>
+  <div class="offre-actions">
+    <button mat-raised-button color="primary" (click)="open_dialog_modal('offre')">Modifier</button>
+    <button mat-button>Booster</button>
+    <button mat-button>Supprimer</button>
+  </div>
+</div>

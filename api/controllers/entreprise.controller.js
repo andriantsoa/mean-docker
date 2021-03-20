@@ -49,3 +49,17 @@ exports.delete = async (req, res) => {
     responseHandler.handleError(res, result.error, result.status, result.message);
   }
 };
+
+exports.offer = async (req, res) => {
+  const offre = req.body
+  const result = await entrepriseService.makeOffre(req.params.entreprise_id, offre);
+  if (result && result.data) {
+    responseHandler.handleDataAndMessage(res, result.data, result.message);
+    const email = 'andryrandriadev@gmail.com';
+    const subject = '[APP] Une offre a été créée pour votre entreprise';
+    const text = 'Bonjour, Votre offre a été créée avec succès pour votre entreprise, Bien cordialement, ARTI PROJECT';
+    mailService.sendMailSimple(email, subject, text);
+  } else {
+    responseHandler.handleError(res, result.error, result.status, result.message);
+  }
+};

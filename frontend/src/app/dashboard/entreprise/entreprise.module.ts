@@ -8,6 +8,8 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { EntrepriseFormComponent } from './entreprise-form/entreprise-form.component';
 import { BandeauModule } from 'src/app/commun/components/bandeau/bandeau.module';
 import { EntreprisePortfolioComponent } from './entreprise-portfolio/entreprise-portfolio.component';
+import { OffreModule } from '../shared/offre/offre.module';
+import { MainModalModule } from 'src/app/core/components/main-modal/main-modal.module';
 
 @NgModule({
   declarations: [EntrepriseComponent, EntrepriseFormComponent, EntreprisePortfolioComponent],
@@ -17,7 +19,9 @@ import { EntreprisePortfolioComponent } from './entreprise-portfolio/entreprise-
     ReactiveFormsModule,
     MaterialModule,
     EntrepriseRoutingModule,
-    BandeauModule
+    BandeauModule,
+    OffreModule,
+    MainModalModule
   ]
 })
 export class EntrepriseModule { }

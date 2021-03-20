@@ -14,6 +14,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
+app.use(express.static(path.resolve(__dirname, 'public')));
+
 // Connect to Mongoose and set connection variable
 // MongoDB connection
 mongoose.connect(environment.mongodb.uri, {
@@ -31,28 +35,6 @@ mongoose.connection.on('error', (error) => {
 mongoose.connection.on('connected', () => {
   logger.info('Connecté sur la base de données ' + environment.mongodb.uri);
 });
-
-// addtional configuration when serving Angular SPA (static reource and Anugalr routing)
-const allowedExt = [
-  '.js',
-  '.ico',
-  '.css',
-  '.png',
-  '.jpg',
-  '.woff2',
-  '.woff',
-  '.ttf',
-  '.svg',
-  '.webmanifest'
-];
-// app.get('*', (req, res) => {
-//   if (allowedExt.filter((ext) => req.url.indexOf(ext) > 0).length > 0) {
-//     res.sendFile(path.resolve(`public/${req.url}`));
-//   } else {
-//     res.sendFile(path.resolve('public/index.html'));
-//   }
-//
-// });
 
 // Import routes
 let apiRoutes = require('./api-routes');
@@ -78,6 +60,21 @@ app.use(
 
 // Use Api routes in the App
 app.use('/api', apiRoutes);
+
+// error handler
+// app.use((error, req, res) => {
+//   if(! (error instanceof Error)) {
+//     return;
+//   }
+// });
+
+// config mail
+// const mailConfig = require('./config/mail.config');
+// const transporter = mailConfig.transporter;
+
+// app.configure(function() {
+//   app.set('transporter', transporter);
+// });
 
 const HOST = '127.0.0.1';
 // start server

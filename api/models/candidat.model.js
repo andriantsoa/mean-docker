@@ -60,6 +60,10 @@ const candidatSchema = new Schema({
   competences: [competence],
   aspirations: [String],
   formations: [formation],
+  documents: [{
+    type: ObjectId,
+    ref: 'document'
+  }],
   demandes: [{
     type: ObjectId,
     ref: 'demande'

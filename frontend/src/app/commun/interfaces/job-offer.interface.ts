@@ -1,18 +1,31 @@
+import { ICandidat, ICompetence, IEntreprise, IFormation } from 'src/app/core/interfaces';
 import { IContact } from './contact.interface';
 
 export interface IJobOffer {
-  title: string;
-  enterprise: string;
   domaine: string;
-  lieu: string;
   date: number;
-  advantages?: string;
-  description: string;
   resume?: string;
-  prerequis?: string;
-  salaire?: number;
-  conditions?: any;
   contact?: IContact;
   zoom?: boolean;
   focused?: boolean;
+
+  // news
+  titreOffre: string;
+  online: boolean;
+  _id?: string;
+  codeOffre?: number;
+  description?: string;
+  status?: number;
+  entreprise?: IEntreprise;
+  dateLimit?: string;
+  city?: string;
+  dateDebut?: string;
+  duree?: string;
+  salaire?: number;
+  listeCandidats?: ICandidat[];
+  competences?: ICompetence[];
+  formations?: IFormation[];
+  avantages?: string[];
+  createdAt?: string;
+  updatedAt?: string;
 }

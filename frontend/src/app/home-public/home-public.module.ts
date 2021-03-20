@@ -5,6 +5,7 @@ import { HomePublicRoutingModule } from './home-public-routing.module';
 import { CoreModule } from '../core/core.module';
 import { RegisterInvitationComponent } from './register-invitation/register-invitation.component';
 import { MaterialModule } from '../material/material.module';
+import { JobOffersModule } from '../commun/components/job-offers/job-offers.module';
 
 const components = [
   HomePublicComponent,
@@ -16,7 +17,8 @@ const components = [
     CommunModule,
     HomePublicRoutingModule,
     CoreModule.forRoot(),
-    MaterialModule
+    MaterialModule,
+    JobOffersModule
   ],
   declarations: [
     ...components,

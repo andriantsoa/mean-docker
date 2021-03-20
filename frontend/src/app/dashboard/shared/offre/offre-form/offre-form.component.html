@@ -1,0 +1,84 @@
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-step [stepControl]="form1">
+    <form [formGroup]="form1">
+      <ng-template matStepLabel>Details sur l'offre</ng-template>
+      <mat-card>
+        <mat-checkbox formControlName="online"> Publiée </mat-checkbox>
+        <mat-form-field appearance="outline" disabled>
+          <mat-label>codeOffre</mat-label>
+          <input matInput placeholder="codeOffre" formControlName="codeOffre" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>titre Offre</mat-label>
+          <input matInput placeholder="titreOffre" formControlName="titreOffre" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date limite</mat-label>
+          <input matInput placeholder="dateLimit" formControlName="dateLimit" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Date début</mat-label>
+          <input matInput placeholder="dateDebut" formControlName="dateDebut" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Le statut</mat-label>
+          <mat-select formControlName="status">
+            <mat-option [value]="role.value" *ngFor="let role of status">{{ role.label }} </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Ville</mat-label>
+          <input matInput placeholder="city" formControlName="city" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>durée</mat-label>
+          <input matInput placeholder="duree" formControlName="duree" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>salaire</mat-label>
+          <input matInput placeholder="salaire" formControlName="salaire" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>description</mat-label>
+          <textarea matInput placeholder="presedescriptionntation" formControlName="description"></textarea>
+        </mat-form-field>
+      </mat-card>
+      <div>
+        <button mat-button (click)="sendOffre()">Enregistrer</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form2">
+    <form [formGroup]="form2">
+      <ng-template matStepLabel>COMPETENCES REQUISES</ng-template>
+      <app-competence [parentForm]="form2"></app-competence>
+      <div>
+        <button mat-button (click)="sendOffre()">Enregistrer</button>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form3">
+    <form [formGroup]="form3">
+      <ng-template matStepLabel>FORMATIONS REQUISES</ng-template>
+      <app-formation [parentForm]="form3"></app-formation>
+      <div>
+        <button mat-button (click)="sendOffre()">Enregistrer</button>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Enregistrement</ng-template>
+    <p>Merci vous avez tous rempli. Appuyez sur terminer pour quitter</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button (click)="sendOffre()">Enregistrer</button>
+      <button mat-button (click)="finish()">Terminer</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

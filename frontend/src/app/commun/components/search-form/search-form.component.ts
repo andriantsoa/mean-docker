@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { OffreService } from 'src/app/core/services';
 import { Metier } from '../../interfaces/metier.interface';
+import { IJobOffer } from '../../interfaces/job-offer.interface';
 
 @Component({
   selector: 'app-search-form',
@@ -17,7 +19,8 @@ export class SearchFormComponent {
     advanced: new FormControl({} as any)
   });
 
-  filteredMetiers: Observable<Metier[]>;
+  public filteredMetiers: Observable<Metier[]>;
+  public listOffresPublic: IJobOffer[];
 
   metiers: Metier[] = [
     {
@@ -46,14 +49,25 @@ export class SearchFormComponent {
     }
   ];
 
+  constructor(private offreService: OffreService) {
+    this.filteredMetiers = this.form.controls.keyword.valueChanges
+      .pipe(
+        startWith(''),
+        map(metier => metier ? this.filterListMetiers(metier) : this.metiers.slice())
+      );
+  }
+
   public get f(): any {
     return this.form.controls;
   }
 
   public submit(): void {
-    alert(this.form.status);
     if (this.form.status === 'VALID') {
-      alert(this.form.value);
+      const what = this.form.value.keyword;
+      const where = this.form.value.city;
+      this.offreService.getPublicOffers({ what, where, limit: 10 }).subscribe(offres => {
+        this.listOffresPublic = offres;
+      });
     }
   }
 
@@ -67,14 +81,6 @@ export class SearchFormComponent {
 
   public resetForm(): void {
     this.form.reset({ keyword: '', city: '', advanced: '' });
-  }
-
-  constructor() {
-    this.filteredMetiers = this.form.controls.keyword.valueChanges
-      .pipe(
-        startWith(''),
-        map(metier => metier ? this.filterListMetiers(metier) : this.metiers.slice())
-      );
   }
 
   private filterListMetiers(value: string): Metier[] {

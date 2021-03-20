@@ -1,16 +1,15 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <div class="form-container">
-
     <mat-form-field appearance="outline" class="form-container-section">
       <mat-label>Metier ou mot-clés</mat-label>
-      <input matInput formControlName="keyword" [matAutocomplete]="auto">
+      <input matInput formControlName="keyword" [matAutocomplete]="auto" />
       <mat-icon matSuffix>search</mat-icon>
       <mat-hint>Quoi ?</mat-hint>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let state of filteredMetiers | async" [value]="state.name">
-          <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
-          <span>{{state.name}}</span> |
-          <small> {{state.population}}</small>
+          <img class="example-option-img" aria-hidden [src]="state.flag" height="25" />
+          <span>{{ state.name }}</span> |
+          <small> {{ state.population }}</small>
         </mat-option>
       </mat-autocomplete>
       <div *ngIf="f.keyword.touched && f.keyword.invalid" class="alert alert-danger">
@@ -21,7 +20,7 @@
 
     <mat-form-field appearance="outline" class="form-container-section">
       <mat-label>Ville ou code postale</mat-label>
-      <input matInput formControlName="city" id="city" type="text" class="example-right-align">
+      <input matInput formControlName="city" id="city" type="text" class="example-right-align" />
       <mat-icon matSuffix>location_on</mat-icon>
       <mat-hint>Ou ?</mat-hint>
 
@@ -32,9 +31,7 @@
     </mat-form-field>
 
     <div class="form-actions form-container-section">
-      <button mat-raised-button color="primary" type="submit">
-        Rechercher
-      </button>
+      <button mat-raised-button color="primary" type="submit">Rechercher</button>
       <!-- <button mat-stroked-button color="accent" (click)="resetForm()" *ngIf="f.city || f.keyword">
         <mat-icon matSuffix>refresh</mat-icon>
       </button>
@@ -44,3 +41,5 @@
     </div>
   </div>
 </form>
+
+<app-job-offers-public *ngIf="listOffresPublic" [publicJobOffers]="listOffresPublic"></app-job-offers-public>

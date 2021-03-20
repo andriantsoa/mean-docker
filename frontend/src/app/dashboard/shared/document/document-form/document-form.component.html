@@ -1,0 +1,61 @@
+<form [formGroup]="documentForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Nom du document</mat-label>
+    <input matInput placeholder="Poste" formControlName="title" />
+  </mat-form-field>
+  <!-- <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput placeholder="imageDesc" formControlName="imageDesc"></textarea>
+  </mat-form-field> -->
+  <mat-form-field appearance="outline">
+    <mat-label>Categorie de document</mat-label>
+    <mat-select formControlName="categorie">
+      <mat-option [value]="categorie.value" *ngFor="let categorie of categories">{{ categorie.label }} </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- <mat-form-field appearance="outline"> -->
+  <!-- <mat-label>Pièce jointe</mat-label> -->
+  <input type="file" name="file" (change)="onChangeFile($event)" #fileInput />
+  <!-- <app-upload-file formControlName="file" [progress]="progress"></app-upload-file> -->
+  <!-- <input matInput formControlName="file" />
+    <input type="file" (Change)="onChangeFile($event)" /> -->
+  <!-- <mat-form-field> -->
+  <!--input inside the form-field-->
+  <!-- </mat-form-field> -->
+  <!-- <mat-toolbar>
+      <input matInput formControlName="fileAttr" readonly name="name" />
+      <input formControlName="file" id="file" type="file" (change)="onFileChange($event)" />
+      <button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+      <input hidden (change)="onFileSelected()" #fileInput type="file" id="file" />
+    </mat-toolbar> -->
+  <!-- 
+      <input
+        type="file"
+        #fileInput
+        id="uploadFile"
+        (change)="uploadFileEvt($event)"
+        name="uploadFile"
+        multiple="multiple"
+        accept="image/*"
+      /> -->
+  <!-- </mat-form-field> -->
+  <div>
+    <!-- <div *ngIf="error">
+      {{ error?.message }}
+    </div>
+    <div *ngIf="uploadResponse?.status === 'error'">
+      {{ uploadResponse.message }}
+    </div>
+    <div *ngIf="uploadResponse?.status === 'progress'">
+      <div role="progressbar" [style.width.%]="uploadResponse?.message" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+        {{ uploadResponse?.message }}%
+      </div>
+    </div> -->
+  </div>
+  <div>
+    <button mat-flat-button color="accent" (click)="onSubmit()">Charger</button>
+  </div>
+</form>
+
+https://netbasal.com/how-to-implement-file-uploading-in-angular-reactive-forms-89a3fffa1a03

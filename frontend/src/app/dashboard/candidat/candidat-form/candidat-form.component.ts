@@ -4,6 +4,7 @@ import { Statut } from 'src/app/commun/enum/role.enum';
 import { defaultCompetence, defaultExperience, defaultFormation, defaultInfosCandidat, ICandidat, ICandidatInfos } from 'src/app/core/interfaces';
 import { CandidatService } from 'src/app/core/services';
 import { toArray } from '../../shared/outils/array-utils';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-candidat-form',
@@ -16,13 +17,14 @@ export class CandidatFormComponent implements OnInit {
   public candidatForm2: FormGroup;
   public candidatForm3: FormGroup;
   public candidatForm4: FormGroup;
+  public status: any[];
   @Output() update: EventEmitter<boolean> = new EventEmitter();
   @Input() candidat: ICandidat;
-  public status: any[];
 
   constructor(
     private formBuilder: FormBuilder,
     private candidatService: CandidatService,
+    public dialog: MatDialog,
   ) {
     this.status = toArray(Statut);
   }
@@ -81,8 +83,9 @@ export class CandidatFormComponent implements OnInit {
       ...this.candidatForm1.value,
       ...this.candidatForm2.value,
       ...this.candidatForm3.value,
-      ...this.candidatForm4.value,
+      ...this.candidatForm4.value
     } as ICandidat;
+
     this.updateCandidat(param);
     this.finish();
   }
